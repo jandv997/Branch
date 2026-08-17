@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Live Trades </title>
+
+    <style>
+        body {
+            background: #0d1b2a;
+            color: #fff;
+            font-family: Arial;
+        }
+
+        .container {
+            width: 95%;
+            margin: 20px auto;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        select,
+        input,
+        button {
+            padding: 8px;
+            background: #1b263b;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #1b263b;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #2a3f5f;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .buy {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff9d;
+        }
+
+        .sell {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff6b6b;
+        }
+
+        .dex {
+            background: #ff007a;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .network {
+            background: #3a5cff;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        a {
+            color: #4da6ff;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="controls">
+        <select id="network">
+            <option value="eth">Ethereum</option>
+            <option value="bsc">BSC</option>
+            <option value="arbitrum">Arbitrum</option>
+        </select>
+
+        <select id="dex">
+            <option value="all">All DEXs</option>
+            <option value="uniswap">Uniswap</option>
+            <option value="pancakeswap">PancakeSwap</option>
+        </select>
+
+        <input type="number" id="minVolume" placeholder="Min USD (e.g 1000)">
+        <input type="number" id="limit" value="20">
+
+        <button onclick="fetchTrades()">Refresh</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Network</th>
+                <th>DEX</th>
+                <th>Pair</th>
+                <th>Side</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Volume (USD)</th>
+                <th>TX</th>
+            </tr>
+        </thead>
+        <tbody id="tradeTable"></tbody>
+    </table>
+
+</div>
+
+<style>
+body { font-family: Arial; background:#0d1117; color:#fff; }
+.container { width:95%; margin:auto; }
+.controls { margin:15px 0; }
+select, input, button { padding:6px; margin-right:5px; }
+
+table { width:100%; border-collapse:collapse; }
+th, td { padding:10px; text-align:center; border-bottom:1px solid #222; }
+
+tr:hover { background:#161b22; }
+
+.buy { color:#00ff9c; font-weight:bold; }
+.sell { color:#ff4d4d; font-weight:bold; }
+
+a { color:#58a6ff; text-decoration:none; }
+</style>
+
+<script>
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjE0YzE3NDQ5LWQyNGItNGI3ZS1hNWM5LTMyNjYxMTBkYjE1NiIsIm9yZ0lkIjoiNTExNTU0IiwidXNlcklkIjoiNTI2MzQ3IiwidHlwZUlkIjoiMDBmY2I5NzMtYjI2Yy00MzMxLWExMDItZThlNjcyNmRiNzMwIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE3NzY3NDg5NzksImV4cCI6NDkzMjUwODk3OX0.1b_6R4ngALYUAoRv3SkQXIW5BJ58X7qSryvgchfqOZM";
+
+const tokens = {
+    eth: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    bsc: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
+    arbitrum: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1"
+};
+
+async function fetchTrades() {
+
+    const chain = document.getElementById("network").value;
+    const dexFilter = document.getElementById("dex").value.toLowerCase();
+    const minVolume = parseFloat(document.getElementById("minVolume").value || 0);
+    const limit = parseInt(document.getElementById("limit").value || 20);
+
+    try {
+
+        const url = `https://deep-index.moralis.io/api/v2.2/erc20/${tokens[chain]}/swaps?chain=${chain}&limit=50`;
+
+        const res = await fetch(url, {
+            headers: { "X-API-Key": API_KEY }
+        });
+
+        const data = await res.json();
+        const trades = Object.values(data.result || []);
+
+        const table = document.getElementById("tradeTable");
+        table.innerHTML = "";
+
+        let count = 0;
+
+        trades.forEach(t => {
+
+            if (!t.bought || !t.sold) return;
+
+            const dexName = (t.exchangeName || "Unknown").toLowerCase();
+
+            // FILTER DEX
+            if (dexFilter !== "all" && !dexName.includes(dexFilter)) return;
+
+            const usdValue = Math.abs(parseFloat(t.totalValueUsd || 0));
+
+            // FILTER VOLUME
+            if (usdValue < minVolume) return;
+
+            if (count >= limit) return;
+
+            const type = t.transactionType === "buy" ? "BUY" : "SELL";
+
+            const pair = t.pairLabel || `${t.bought.symbol}/${t.sold.symbol}`;
+
+            const amount = Math.abs(parseFloat(t.bought.amount || 0));
+
+            const price = parseFloat(t.bought.usdPrice || 0);
+
+            const time = new Date(t.blockTimestamp).toLocaleTimeString();
+
+            // TX link per network
+            let txLink = "#";
+            if (chain === "eth") txLink = `https://etherscan.io/tx/${t.transactionHash}`;
+            if (chain === "bsc") txLink = `https://bscscan.com/tx/${t.transactionHash}`;
+            if (chain === "arbitrum") txLink = `https://arbiscan.io/tx/${t.transactionHash}`;
+
+            const row = `
+                <tr>
+                    <td>${time}</td>
+                    <td>${chain.toUpperCase()}</td>
+                    <td>${t.exchangeName || "Unknown"}</td>
+                    <td>${pair}</td>
+                    <td class="${type === 'BUY' ? 'buy' : 'sell'}">${type}</td>
+                    <td>$${price.toFixed(6)}</td>
+                    <td>${amount.toFixed(4)} ${t.bought.symbol}</td>
+                    <td>$${usdValue.toFixed(2)}</td>
+                    <td><a href="${txLink}" target="_blank">View</a></td>
+                </tr>
+            `;
+
+            table.innerHTML += row;
+            count++;
+
+        });
+
+    } catch (err) {
+        console.error("Error fetching trades:", err);
+    }
+}
+
+// Events
+document.getElementById("network").onchange = fetchTrades;
+document.getElementById("dex").onchange = fetchTrades;
+
+// Initial load
+fetchTrades();
+</script>
+
+</body>
+</html>

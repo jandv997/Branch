@@ -1,0 +1,165 @@
+[16-May-2026 21:10:21 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:12:39 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:13:09 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:15:33 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:19:46 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:25:58 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:26:12 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:26:56 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:29:59 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:31:31 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:44:52 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:46:45 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 21:48:08 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[16-May-2026 21:51:10 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[16-May-2026 22:48:50 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 22:50:51 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[16-May-2026 22:54:54 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[16-May-2026 22:56:35 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 14:26:08 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 14:26:35 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-May-2026 14:27:47 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-May-2026 14:39:33 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 14:53:05 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 14:54:05 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-May-2026 15:08:29 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 15:08:59 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-May-2026 23:57:02 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 23:58:30 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-May-2026 23:59:19 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-May-2026 23:59:26 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[18-May-2026 00:00:35 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[18-May-2026 00:01:42 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[18-May-2026 16:05:39 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[18-May-2026 21:06:05 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[19-May-2026 16:55:28 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[19-May-2026 16:55:28 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[19-May-2026 16:55:28 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[19-May-2026 16:55:28 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[19-May-2026 17:35:53 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[19-May-2026 17:36:05 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[20-May-2026 15:17:04 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[20-May-2026 15:17:05 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[20-May-2026 15:17:05 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[20-May-2026 15:17:05 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[20-May-2026 15:17:05 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[20-May-2026 15:17:16 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[20-May-2026 15:17:29 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[22-May-2026 13:26:45 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[03-Jun-2026 21:47:47 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[03-Jun-2026 21:48:58 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[03-Jun-2026 21:48:59 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[03-Jun-2026 21:49:37 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[04-Jun-2026 22:09:21 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[04-Jun-2026 22:09:36 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[05-Jun-2026 21:46:05 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[05-Jun-2026 22:17:52 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[05-Jun-2026 22:53:22 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[06-Jun-2026 17:53:15 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[06-Jun-2026 18:03:44 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[06-Jun-2026 18:04:29 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[08-Jun-2026 19:43:10 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[10-Jun-2026 21:59:20 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[21-Jun-2026 12:17:52 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[21-Jun-2026 12:18:34 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[22-Jun-2026 15:25:42 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[22-Jun-2026 15:25:46 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[22-Jun-2026 15:25:46 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[22-Jun-2026 15:25:46 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[22-Jun-2026 15:25:46 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[22-Jun-2026 15:25:51 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[22-Jun-2026 15:25:51 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[22-Jun-2026 15:25:51 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[22-Jun-2026 15:25:51 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[22-Jun-2026 16:18:19 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[22-Jun-2026 16:18:32 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[11-Jul-2026 11:21:07 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[11-Jul-2026 11:22:13 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[13-Jul-2026 22:08:40 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[14-Jul-2026 14:47:51 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[14-Jul-2026 15:03:55 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[14-Jul-2026 18:00:54 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/view-portfolio.php on line 15
+[14-Jul-2026 18:00:54 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[14-Jul-2026 18:00:54 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[14-Jul-2026 18:05:55 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[14-Jul-2026 18:08:06 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[15-Jul-2026 11:28:19 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[15-Jul-2026 11:28:19 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[15-Jul-2026 11:28:19 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[15-Jul-2026 11:28:19 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[15-Jul-2026 11:48:44 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[15-Jul-2026 11:49:54 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-Jul-2026 06:36:05 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/terminal.php on line 15
+[17-Jul-2026 11:10:34 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[17-Jul-2026 11:10:58 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[17-Jul-2026 11:41:03 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[19-Jul-2026 15:21:07 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[19-Jul-2026 15:21:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[19-Jul-2026 15:21:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[19-Jul-2026 15:21:07 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[22-Jul-2026 18:25:01 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[24-Jul-2026 14:10:27 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[24-Jul-2026 14:11:16 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[29-Jul-2026 12:53:13 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[29-Jul-2026 12:53:13 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[29-Jul-2026 12:53:13 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[29-Jul-2026 12:53:13 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[29-Jul-2026 13:10:15 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[29-Jul-2026 13:10:42 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[29-Jul-2026 13:12:46 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[29-Jul-2026 13:13:11 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[29-Jul-2026 16:19:12 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[29-Jul-2026 16:19:12 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[29-Jul-2026 16:19:12 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[29-Jul-2026 16:19:12 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[29-Jul-2026 16:35:38 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[29-Jul-2026 16:36:05 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[03-Aug-2026 19:15:29 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[03-Aug-2026 19:15:51 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[06-Aug-2026 18:06:01 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[06-Aug-2026 18:06:01 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[06-Aug-2026 18:06:01 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[06-Aug-2026 18:06:01 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[06-Aug-2026 18:06:24 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[06-Aug-2026 18:06:49 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[08-Aug-2026 17:04:35 UTC] PHP Warning:  Undefined array key "adminid" in /home/quanlidj/public_html/account/management/dashboard.php on line 15
+[08-Aug-2026 17:04:35 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 122
+[08-Aug-2026 17:04:35 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/quanlidj/public_html/account/management/header.php on line 123
+[08-Aug-2026 17:04:35 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[08-Aug-2026 17:06:00 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[08-Aug-2026 17:06:13 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[08-Aug-2026 17:06:15 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[08-Aug-2026 17:06:39 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105
+[11-Aug-2026 19:05:23 UTC] PHP Warning:  Undefined variable $totalLicense in /home/quanlidj/public_html/account/management/dashboard.php on line 325
+[11-Aug-2026 19:05:52 UTC] PHP Warning:  file_get_contents(https://api.coingecko.com/api/v3/simple/price?ids=solana,cardano,polkadot,chainlink,ripple,dogecoin,litecoin,bitcoin-cash,avalanche-2,tron,stellar&amp;vs_currencies=usd): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in /home/quanlidj/public_html/account/management/api.php on line 105

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Arbitrage Table</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        background: #0b1220;
+        font-family: Arial, sans-serif;
+        color: #fff;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 22px;
+        margin-bottom: 10px;
+        color: #ccc;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #0f172a;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: linear-gradient(90deg, #5b4ce6, #b8892c);
+        color: #1a1a1a;
+        font-weight: bold;
+    }
+
+    th, td {
+        padding: 14px;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid #1e293b;
+    }
+
+    tbody tr:hover {
+        background: #1e293b;
+    }
+
+    th {
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="title">Arbitrage API</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Coins</th>
+                <th>Purchased From</th>
+                <th>Sold To</th>
+                <th>Value Bought</th>
+                <th>Value Sold</th>
+                <th>Spread (USDT)</th>
+                <th>Purchase Volume</th>
+                <th>Profit(USDT)</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+</div>
+
+<script>
+const coins = [
+    { id: "solana", symbol: "SOL" },
+    { id: "cardano", symbol: "ADA" },
+    { id: "polkadot", symbol: "DOT" },
+    { id: "chainlink", symbol: "LINK" },
+    { id: "ripple", symbol: "XRP" },
+    { id: "dogecoin", symbol: "DOGE" },
+    { id: "litecoin", symbol: "LTC" },
+    { id: "bitcoin-cash", symbol: "BCH" },
+    { id: "avalanche-2", symbol: "AVAX" },
+    { id: "tron", symbol: "TRX" },
+    { id: "stellar", symbol: "XLM" }
+];
+
+const exchanges = ["BINANCE", "KRAKEN", "KUCOIN", "OKX", "HUOBI", "BITMEX", "BITFINEX"];
+
+function randomExchange() {
+    return exchanges[Math.floor(Math.random() * exchanges.length)];
+}
+
+async function fetchPrices() {
+    const ids = coins.map(c => c.id).join(",");
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const tbody = document.getElementById("table-body");
+    tbody.innerHTML = "";
+
+    coins.forEach(coin => {
+        const basePrice = data[coin.id]?.usd || 0;
+
+        // Simulate arbitrage prices
+        const buyPrice = basePrice * (1 - Math.random() * 0.01);
+        const sellPrice = basePrice * (1 + Math.random() * 0.01);
+        const spread = sellPrice - buyPrice;
+
+        const volume = (Math.random() * 1000).toFixed(2);
+        const interest = (spread * volume).toFixed(4);
+
+        const row = `
+            <tr>
+                <td>${coin.symbol}</td>
+                <td>${randomExchange()}</td>
+                <td>${randomExchange()}</td>
+                <td>${buyPrice.toFixed(6)}</td>
+                <td>${sellPrice.toFixed(6)}</td>
+                <td>${spread.toFixed(4)}</td>
+                <td>${volume}</td>
+                <td>${interest}</td>
+            </tr>
+        `;
+
+        tbody.innerHTML += row;
+    });
+}
+
+// Load initially
+fetchPrices();
+
+// Refresh every 10 seconds
+setInterval(fetchPrices, 10000);
+</script>
+
+</body>
+</html>

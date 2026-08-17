@@ -1,0 +1,39 @@
+.morris-hover {
+    position: absolute;
+    z-index: 1000;
+  
+    &.morris-default-style {
+      border-radius: 0px;
+      padding: 6px;
+      color: #334151;
+      background: #fff;
+      border: solid 1px #e1e6f1;
+      font-family: sans-serif;
+      font-size: 12px;
+      text-align: center;
+  
+      .morris-hover-row-label {
+        font-weight: bold;
+        margin: 0.25em 0;
+      }
+  
+      .morris-hover-point {
+        white-space: nowrap;
+        margin: 0.1em 0;
+      }
+    }
+}
+  
+#revenuemorrischart, #donutexample, #morrisDonut2 {
+    height: 210px;
+}
+  
+#revenuemorrischart tspan, #donutexample tspan, #morrisDonut2 tspan {
+    font-weight: 500;
+}
+
+#revenuemorrischart text, #donutexample text, #morrisDonut2 text {
+    font-size: 11px  !important;
+    font-weight: 700 !important;
+    fill: #53545e;
+}
