@@ -414,7 +414,16 @@ $data =$response->data;
 
 						<?php
 
-                                                                                                                    
+							include('inc/verse-history-data.php');
+							$qsActivities = array();
+							$qsUid = mysqli_real_escape_string($mysqli, $rows['id']);
+							$qsActRes = mysqli_query($mysqli, "SELECT * FROM activity WHERE userid='$qsUid'");
+							if ($qsActRes) {
+								while ($qsActRow = mysqli_fetch_assoc($qsActRes)) {
+									$qsActivities[] = $qsActRow;
+								}
+							}
+
 							$getinvest = mysqli_query($mysqli, "SELECT * FROM investment WHERE userid='".$rows['id']."'");
 							$i=0;
 
@@ -452,6 +461,7 @@ $qsId = 'A' . str_pad((string) $row['id'], 7, '0', STR_PAD_LEFT);
 $qsMax = isset($invest['max_amount']) ? $invest['max_amount'] : '';
 $qsPercent = isset($invest['percent']) ? $invest['percent'] : '';
 $qsCompound = isset($invest['compound_percent']) ? $invest['compound_percent'] : '';
+$qsHist = qs_build_portfolio_history($row, $qsActivities);
 ?>
 
 <div class="qs-verse-slot">
@@ -508,7 +518,11 @@ $qsCompound = isset($invest['compound_percent']) ? $invest['compound_percent'] :
                     data-payout="<?php echo htmlspecialchars($row['payout']); ?>"
                     data-max="<?php echo htmlspecialchars($qsMax); ?>">+ Top Up</button>
             <?php endif; ?>
-            <a class="qs-active-history" href="transactions"><i class="fe fe-clock"></i> History</a>
+            <button type="button" class="qs-active-history" data-qs-history
+                data-payouts="<?php echo qs_history_attr($qsHist['payouts']); ?>"
+                data-topups="<?php echo qs_history_attr($qsHist['topups']); ?>">
+                <i class="fe fe-clock"></i> History
+            </button>
             <?php if($row['status'] == 0): ?>
                 <button data-bs-target="#restart<?php echo $row['id']; ?>"
                         data-bs-toggle="modal"
@@ -726,6 +740,8 @@ $qsCompound = isset($invest['compound_percent']) ? $invest['compound_percent'] :
 		<script src="assets/js/custom.js"></script>
 		<?php include('inc/verse-topup-modal.php'); ?>
 		<script src="assets/js/qs-verse-topup.js"></script>
+		<?php include('inc/verse-history-modal.php'); ?>
+		<script src="assets/js/qs-verse-history.js"></script>
 
 	</body>
 

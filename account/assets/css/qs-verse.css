@@ -728,13 +728,141 @@ button.qs-verse-select {
   align-items: center;
   justify-content: center;
   gap: 8px;
+  width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
   color: #fff !important;
   background: transparent;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none !important;
+  cursor: pointer;
+}
+.qs-active-history:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff !important;
+}
+
+.qs-history-modal {
+  width: min(480px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.qs-history-modal .qs-buy-head {
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+.qs-history-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin: 0 0 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+.qs-history-tab {
+  position: relative;
+  padding: 0 2px 12px;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.qs-history-tab:hover {
+  color: #e2e8f0;
+}
+.qs-history-tab.is-active {
+  color: #f8fafc;
+}
+.qs-history-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #2dd4bf;
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 12px rgba(45, 212, 191, 0.55);
+}
+.qs-history-panel {
+  display: none;
+  min-height: 0;
+}
+.qs-history-panel.is-active {
+  display: block;
+}
+.qs-history-list {
+  max-height: min(360px, 52vh);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.qs-history-list::-webkit-scrollbar {
+  width: 6px;
+}
+.qs-history-list::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+}
+.qs-history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 2px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.qs-history-row:last-child {
+  border-bottom: 0;
+}
+.qs-history-day {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+.qs-history-ms {
+  color: #94a3b8;
+  font-size: 14px;
+  white-space: nowrap;
+}
+.qs-history-topups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: min(360px, 52vh);
+  overflow-y: auto;
+}
+.qs-history-topup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #0d1117;
+}
+.qs-history-topup-when {
+  color: #e2e8f0;
+  font-size: 14px;
+}
+.qs-history-topup-amt {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.qs-history-empty {
+  margin: 0;
+  padding: 28px 8px;
+  color: #64748b;
+  font-size: 14px;
+  text-align: center;
 }
 
 .qs-toast-error {
