@@ -409,7 +409,7 @@ $data =$response->data;
 					?>
 
 						<!-- Row -->
-						<div class="qs-verse-grid">
+						<div class="qs-verse-grid qs-verse-grid--active">
 
 
 						<?php
@@ -431,73 +431,94 @@ $data =$response->data;
 
 						?>
 
-
-
-							
-
+<?php
+$qsPayout = (int) $row['payout'];
+$qsPayoutLabel = $qsPayout === 2 ? 'Staking' : ($qsPayout === 3 ? 'Hybrid' : 'Daily');
+$qsAllocLabel = $qsPayout === 2 ? '100% Staking' : ($qsPayout === 3 ? '25% Main / 75% Staking' : '100% Main');
+$qsPnl = isset($row['added_roi']) ? (float) $row['added_roi'] : 0;
+$qsStart = !empty($row['created_at']) ? strtotime($row['created_at']) : false;
+if (!$qsStart) {
+	$qsStart = strtotime(preg_replace('/\s*,.*$/', '', $row['date']));
+}
+if (!$qsStart) {
+	$qsStart = time();
+}
+$qsDur = max(1, (int) $row['duration']);
+$qsDay = max(1, min($qsDur, (int) floor((time() - $qsStart) / 86400) + 1));
+$qsRemain = max(0, $qsDur - $qsDay);
+$qsPct = min(100, ($qsDay / $qsDur) * 100);
+$qsEnd = $qsStart + ($qsDur * 86400);
+$qsId = 'A' . str_pad((string) $row['id'], 7, '0', STR_PAD_LEFT);
+$qsMax = isset($invest['max_amount']) ? $invest['max_amount'] : '';
+$qsPercent = isset($invest['percent']) ? $invest['percent'] : '';
+$qsCompound = isset($invest['compound_percent']) ? $invest['compound_percent'] : '';
+?>
 
 <div class="qs-verse-slot">
-<article class="qs-verse-card">
-        <div class="qs-verse-owned__top">
+<article class="qs-verse-card qs-active-card">
+        <div class="qs-active-head">
             <div>
-                <div class="qs-verse-card__icon"><?php echo qs_verse_planet(); ?></div>
-                <h3 class="qs-verse-card__name"><?php echo htmlspecialchars($row['name']); ?></h3>
-                <div class="qs-verse-owned__date"><?php echo htmlspecialchars($row['date']); ?></div>
+                <h3><?php echo htmlspecialchars($row['name']); ?></h3>
+                <div class="qs-active-id"><?php echo htmlspecialchars($qsId); ?></div>
+            </div>
+            <span class="qs-active-badge"><?php echo $row['status'] == 1 ? 'ACTIVE' : 'INACTIVE'; ?></span>
+        </div>
+        <div class="qs-active-grid">
+            <div>
+                <small>Current value</small>
+                <b>$<?php echo number_format((float) $row['amount'], 2); ?></b>
+            </div>
+            <div>
+                <small>Total P&amp;L</small>
+                <b class="<?php echo $qsPnl < 0 ? 'qs-neg' : ''; ?>"><?php echo ($qsPnl < 0 ? '-' : '') . '$' . number_format(abs($qsPnl), 2); ?></b>
+            </div>
+            <div>
+                <small>Payout</small>
+                <b><?php echo htmlspecialchars($qsPayoutLabel); ?></b>
+            </div>
+            <div>
+                <small>Allocation</small>
+                <b><?php echo htmlspecialchars($qsAllocLabel); ?></b>
+            </div>
+            <div>
+                <small>Max daily (cap)</small>
+                <b class="qs-cap">$<?php echo number_format((float) $row['daily_roi'], 2); ?></b>
+            </div>
+            <div>
+                <small>Days remaining</small>
+                <b><?php echo (int) $qsRemain; ?></b>
             </div>
         </div>
-        <div class="qs-verse-owned__amount">$<?php echo number_format($row['amount'], 2); ?></div>
-        <div class="qs-verse-owned__stats">
-            <div class="qs-verse-owned__stat">
-                <small>Expected Daily ROI</small>
-                <b>$<?php echo number_format($row['daily_roi'], 2); ?></b>
-            </div>
-            <div class="qs-verse-owned__stat">
-                <small>Duration</small>
-                <b><?php echo htmlspecialchars($row['duration']); ?> Days</b>
-            </div>
-            <div class="qs-verse-owned__stat">
-                <small>Total Return</small>
-                <b>$<?php echo number_format($row['added_roi'], 2); ?></b>
-            </div>
-            <div class="qs-verse-owned__stat">
-                <small>Status</small>
-                <b class="<?php echo $row['status'] == 1 ? 'qs-verse-status-on' : 'qs-verse-status-off'; ?>">
-                    <?php echo $row['status'] == 1 ? 'Active' : 'Inactive'; ?>
-                </b>
+        <div class="qs-active-progress">
+            <div class="qs-active-bar"><span style="width: <?php echo htmlspecialchars((string) $qsPct); ?>%"></span></div>
+            <div class="qs-active-progress-meta">
+                <span>Day <?php echo (int) $qsDay; ?> / <?php echo (int) $qsDur; ?></span>
+                <span><?php echo date('M j, Y', $qsStart); ?> → <?php echo date('M j, Y', $qsEnd); ?></span>
             </div>
         </div>
-        <div class="qs-verse-owned__timeline">
-            <div class="qs-verse-owned__timeline-row">
-                <span>Progress Timeline</span>
-                <span><?php echo $row['status'] == 1 ? '100%' : '0%'; ?></span>
-            </div>
-            <div class="qs-verse-owned__bar">
-                <span style="width: <?php echo $row['status'] == 1 ? '100%' : '0%'; ?>"></span>
-            </div>
-            <div class="qs-verse-owned__dates">
-                <span>Started: <?php echo date('M d, Y', strtotime($row['created_at'])); ?></span>
-                <span>Ends: <?php echo date('M d, Y', strtotime($row['created_at'] . ' + ' . $row['duration'] . ' days')); ?></span>
-            </div>
-        </div>
-        <div class="qs-verse-actions">
+        <div class="qs-active-actions">
             <?php if($row['status'] == 1): ?>
-                <button data-bs-target="#invest<?php echo $row['id']; ?>"
-                        data-bs-toggle="modal"
-                        class="btn-action btn-topup">
-                    <i class="fe fe-plus-circle"></i> Top Up
-                </button>
+                <button type="button" class="qs-verse-select" data-qs-topup
+                    data-id="<?php echo htmlspecialchars($row['id']); ?>"
+                    data-name="<?php echo htmlspecialchars($row['name']); ?>"
+                    data-old-amount="<?php echo htmlspecialchars($row['amount']); ?>"
+                    data-added-roi="<?php echo htmlspecialchars(isset($row['added_roi']) ? $row['added_roi'] : 0); ?>"
+                    data-percent="<?php echo htmlspecialchars($qsPercent); ?>"
+                    data-compound="<?php echo htmlspecialchars($qsCompound); ?>"
+                    data-payout="<?php echo htmlspecialchars($row['payout']); ?>"
+                    data-max="<?php echo htmlspecialchars($qsMax); ?>">+ Top Up</button>
             <?php endif; ?>
-
+            <a class="qs-active-history" href="transactions"><i class="fe fe-clock"></i> History</a>
             <?php if($row['status'] == 0): ?>
                 <button data-bs-target="#restart<?php echo $row['id']; ?>"
                         data-bs-toggle="modal"
                         class="btn-action btn-restart">
-                    <i class="fe fe-refresh-cw"></i> Re-Initiate
+                    Re-Initiate
                 </button>
                 <button data-bs-target="#withdraw<?php echo $row['id']; ?>"
                         data-bs-toggle="modal"
                         class="btn-action btn-withdraw">
-                    <i class="fe fe-arrow-down"></i> Withdraw
+                    Withdraw
                 </button>
             <?php endif; ?>
         </div>
@@ -508,142 +529,6 @@ $data =$response->data;
 
 
 
-
-
-
-
-
-
-    <div class="modal fade" id="invest<?php echo $row['id'] ?>" tabindex="-1" role="dialog"
-        aria-labelledby="with<?php echo $row['id'].$i; ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="with<?php echo $row['id'].$i; ?>">Top into
-                        <?php echo $row['name']; ?></h5>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-
-
-                    <form method="POST" id="re-invest-<?php echo $row['id']; ?>">
-
-
-                        <input type="hidden" value="<?php echo $row['id']; ?>" name="id"
-                            id="id<?php echo $row['id']; ?>" />
-                        <input type="hidden" value="<?php echo $row['added_roi']; ?>" name="added_roi"
-                            id="id<?php echo $row['id']; ?>" />
-                        <input type="hidden" value="<?php echo $row['amount']; ?>" name="old_amount"
-                            id="old-amount<?php echo $row['id']; ?>" />
-
-                        <input type="hidden" value="<?php echo $invest['compound_percent']; ?>" name="compound_percent"
-                            id="compound_percent<?php echo $row['id']; ?>" />
-
-                        <input type="hidden" value="<?php echo $invest['percent']; ?>" name="percent"
-                            id="percent-<?php echo $row['id']; ?>" />
-
-                        <input type="hidden" name="payout" value="<?php echo $row['payout']; ?>" />
-
-
-
-                        <div class="form-group mt-3" id="packname<?php echo $row['id']; ?>">
-
-                            <label for="phone">Investment Portfolio</label>
-                            <input value="<?php echo $row['name']; ?>" class="form-control" name="name" readonly
-                                type="text">
-
-                        </div>
-
-                        <div class="form-group mt-3" id="past<?php echo $row['id']; ?>">
-                            <label for="phone">Amount Invested</label>
-                            <input name="amount" id="exampleInputName" placeholder="Enter amount" class="form-control"
-                                value="<?php echo $row['amount']; ?>" readonly required type="number">
-
-                        </div>
-
-                        <div class="form-group mt-3" id="current<?php echo $row['id']; ?>">
-                            <label for="phone">Added Amount</label>
-                            <input name="new_amount" id="amount" min="50" max="<?php echo $invest['max_amount']; ?>" placeholder="Add more funds to this portfolio"
-                                required type="number" class="form-control">
-
-                        </div>
-
-
-
-                        <div class="form-group mt-3 platform" id="platform<?php echo $row['id']; ?>">
-                            <label>Select Payment Platform</label>
-                            <select name="platform" class="form-control" id="platform">
-                                <option value="1">Direct Deposit</option>
-                                <option value="2">Main Wallet (<?php echo number_format($rows['wallet'], 2); ?>)</option>
-                                <option value="3">Staking Wallet (<?php echo number_format($rows['compound_profit'], 2); ?>)</option>
-                              
-
-
-                            </select>
-
-                        </div>
-
-
-
-                        <div class="form-group mt-3 currency" id="cur<?php echo $row['id']; ?>">
-                            <label>Select Currency</label>
-                            <select name="currency" class="form-control" id="currency">
-
-                            <?php 
-                                                                
-
-                                for($i=0; $i<count($data); $i++){
-                                                                                        
-                                    if(isset($_GET['currency']) and $_GET['currency']==$data[$i]->currency){ $pick = 'selected'; } 
-                                                                    
-                                        echo"<option ".$pick." value=".$data[$i]->currency.">".strtoupper($data[$i]->name)."</option>";
-                                                         
-                                                                
-                                }
-                                                                
-
-
-                                                        ?>
-
-                
-
-
-                            </select>
-
-                        </div>
-
-
-
-
-
-
-
-
-
-                        <div class="row mt-3" id="btn<?php echo $row['id']; ?>">
-                            <div class="input-field col s12">
-                                <button type="submit" class="btn btn-primary waves-effect "
-                                    name="update-info-update">Update</button>
-                            </div>
-                        </div>
-
-
-
-                    </form>
-
-
-
-
-
-
-                </div>
-                <div class="modal-footer">
-
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -839,6 +724,8 @@ $data =$response->data;
 		<script src="swal/sweetalert2.min.js"></script>
 
 		<script src="assets/js/custom.js"></script>
+		<?php include('inc/verse-topup-modal.php'); ?>
+		<script src="assets/js/qs-verse-topup.js"></script>
 
 	</body>
 
@@ -862,7 +749,7 @@ if(isset($_POST['update-info-update'])){
     $userid = $rows['id'];
     $date= date("d")." ".date("F")." ".date("Y")." , ".date("h")." : ".date("i").date("a");
     $daily_roi =0;
-    $current = $_POST['currency'];
+    $current = isset($_POST['currency']) ? $_POST['currency'] : '';
     $platform =$_POST['platform'];
     $orderr = "QS-".uniqid();// "";
 
@@ -1347,11 +1234,14 @@ if(is_numeric($new_amount) and  is_numeric($old_amount) and $new_amount >= 10 an
          
         ?>
     <script>
+    if (window.qsShowError) { qsShowError('Insufficient main wallet balance'); }
+    else {
     Swal.fire({
         icon: 'warning',
         title: 'insufficient Wallet!',
         text: 'You don\'t have enough wallet balance to invest with this amount.'
-    })
+    });
+    }
     </script>
 
     <?php
@@ -1542,11 +1432,14 @@ if(is_numeric($new_amount) and  is_numeric($old_amount) and $new_amount >= 10 an
          
         ?>
     <script>
+    if (window.qsShowError) { qsShowError('Insufficient staking wallet balance'); }
+    else {
     Swal.fire({
         icon: 'warning',
         title: 'insufficient Wallet!',
         text: 'You don\'t have enough wallet balance to invest with this amount.'
-    })
+    });
+    }
     </script>
 
     <?php
@@ -1733,11 +1626,14 @@ if(is_numeric($new_amount) and  is_numeric($old_amount) and $new_amount >= 10 an
                 
                ?>
     <script>
+    if (window.qsShowError) { qsShowError('Insufficient wallet balance'); }
+    else {
     Swal.fire({
         icon: 'warning',
         title: 'Insuffienct Wallet!',
         text: 'You don\'t have enuogh wallet balance to invest with this amount.'
-    })
+    });
+    }
     </script>
 
     <?php
@@ -1750,8 +1646,41 @@ if(is_numeric($new_amount) and  is_numeric($old_amount) and $new_amount >= 10 an
 
 
 
+    }elseif($platform == 5){
 
+     if( $rows['ref_wallet'] >=  $new_amount){
 
+     $updateinvestment = mysqli_query($mysqli,"UPDATE `investment` SET amount='$real_amount', daily_roi='$daily_roi', payout='$payout' WHERE id='$id' ");
+
+     $date= date("d")." ".date("F")." ".date("Y")." , ".date("h")." : ".date("i").date("a");
+    $action = "Reinvestment into ".$name;
+    $describe ="Reinvestment of $".$new_amount." has been initialised for ".$rows['firstname']."  ";
+    $add = mysqli_query($mysqli,"INSERT INTO `activity`(`userid`, `action`, `describe`, `date`, `amount`,`status`) VALUES('$userid', '$action', '$describe', '$date','$new_amount', 'Credited') ");
+
+     if($updateinvestment){
+        $newwallet = $rows['ref_wallet']-$new_amount;
+        $update = mysqli_query($mysqli,"UPDATE users SET ref_wallet='$newwallet' WHERE id='$userid' ");
+    ?>
+    <script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Successfull!',
+        text: 'You have Upgrade your Investment successfuly.'
+    })
+    setTimeout(() => {
+        location = location;
+    }, 3000);
+    </script>
+    <?php
+     }
+
+     }else{
+        ?>
+    <script>
+    if (window.qsShowError) { qsShowError('Insufficient referral wallet balance'); }
+    </script>
+    <?php
+     }
 
 
     }
