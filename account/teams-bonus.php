@@ -2,6 +2,8 @@
 session_start();
 
 include('connection.php');
+include_once('inc/member-status.php');
+include_once('inc/flex.php');
 
 if (!isset($_SESSION['id'])) {
 	header("location:index");
@@ -17,6 +19,10 @@ if (isset($_SESSION['2fa'])) {
 	}
 }
 
+qs_flex_ensure_points_column($mysqli);
+$get_user = mysqli_query($mysqli, "SELECT * FROM users WHERE id='" . $_SESSION['id'] . "' ");
+$rows = mysqli_fetch_assoc($get_user);
+
 if (isset($_POST['lupa-flex'])) {
 	$userid = $rows['id'];
 	mysqli_query($mysqli, "UPDATE `users` SET `lupa_flex`='1', lupa_flex_date=now()  WHERE id='$userid'");
@@ -24,7 +30,36 @@ if (isset($_POST['lupa-flex'])) {
 	exit;
 }
 
-$get_users = mysqli_query($mysqli, "SELECT * FROM users WHERE referred='" . $rows['referal_link'] . "' ORDER BY id DESC");
+$ranks = qs_flex_ranks();
+$pointRewards = qs_flex_point_rewards();
+$teamVolume = qs_flex_team_volume($mysqli, $rows['referal_link'], 7);
+$orgLevels = qs_flex_org_levels($mysqli, $rows['referal_link'], 7);
+$pointsEarned = (int) floor($teamVolume);
+$pointsRedeemed = isset($rows['quantum_points_redeemed']) ? (int) $rows['quantum_points_redeemed'] : 0;
+$pointsAvailable = max(0, $pointsEarned - $pointsRedeemed);
+
+if (isset($_POST['redeem-points'])) {
+	$key = isset($_POST['reward']) ? $_POST['reward'] : '';
+	if (!isset($pointRewards[$key])) {
+		header("location: teams-bonus");
+		exit;
+	}
+	$reward = $pointRewards[$key];
+	if ($pointsAvailable < $reward['cost']) {
+		header("location: teams-bonus?points=short");
+		exit;
+	}
+	$userid = (int) $rows['id'];
+	$cost = (int) $reward['cost'];
+	$credit = (float) $reward['credit'];
+	mysqli_query($mysqli, "UPDATE users SET quantum_points_redeemed = quantum_points_redeemed + $cost" . ($credit > 0 ? ", wallet = wallet + $credit" : "") . " WHERE id='$userid'");
+	$date = date('Y-m-d H:i:s');
+	$action = 'Quantum Points Redeemed';
+	$describe = mysqli_real_escape_string($mysqli, $reward['title'] . ' for ' . $cost . ' points');
+	mysqli_query($mysqli, "INSERT INTO activity(userid, action, `describe`, date, amount, status) VALUES('$userid', '$action', '$describe', '$date', '$credit', 'Credited')");
+	header("location: teams-bonus?points=ok");
+	exit;
+}
 
 $progressSummary = null;
 $progressQuery = mysqli_query($mysqli, "SELECT * FROM user_progress_summary WHERE user_id='" . $rows['id'] . "'");
@@ -32,49 +67,46 @@ if ($progressQuery && mysqli_num_rows($progressQuery) > 0) {
 	$progressSummary = mysqli_fetch_assoc($progressQuery);
 }
 
-$commission = 0;
-function calculateCommission($mysqli, $referralLink, $level, $maxLevels, &$commission) {
-	if ($level > $maxLevels) {
-		return;
-	}
-	$getRefer = mysqli_query($mysqli, "SELECT * FROM users WHERE referred='$referralLink'");
-	while ($refer = mysqli_fetch_assoc($getRefer)) {
-		$getInvestment = mysqli_query($mysqli, "SELECT * FROM investment WHERE userid='{$refer['id']}' AND bonus='0' ORDER BY id DESC");
-		while ($in = mysqli_fetch_assoc($getInvestment)) {
-			$commission += $in['amount'];
-		}
-		calculateCommission($mysqli, $refer['referal_link'], $level + 1, $maxLevels, $commission);
-	}
-}
-$maxLevels = 5;
-calculateCommission($mysqli, $rows['referal_link'], 1, $maxLevels, $commission);
-
-$bars = [
-	["amount" => 3500, "level1" => 1000, "bonus" => 200, "name" => "Beginner", "desc" => "1000 being from level 1 <br/>One time payment of 200"],
-	["amount" => 8000, "level1" => 2500, "bonus" => 500, "name" => "Promoter", "desc" => "2,500 being from level 1 <br/>One time payment of 500"],
-	["amount" => 15000, "level1" => 4500, "bonus" => 800, "name" => "Elite", "desc" => "4,500 being from level 1 <br/> One time payment of 800"],
-	["amount" => 35000, "level1" => 10000, "bonus" => 1750, "name" => "Leader", "desc" => "10,000 being from level 1 <br/>One time payment of 1,750 <br/>lifetime weekly payment 70"],
-	["amount" => 70000, "level1" => 20000, "bonus" => 3500, "name" => "Mentor", "desc" => "20,000 being from level 1 <br/>One time payment of 3,500 <br/>lifetime weekly payment 150"],
-	["amount" => 150000, "level1" => 50000, "bonus" => 7500, "name" => "Director", "desc" => "50,000 being from level 1 <br/>One time payment of 7,500 <br/>lifetime weekly payment 350"],
-	["amount" => 250000, "level1" => 100000, "bonus" => 15000, "name" => "Ambassador", "desc" => "100,000 being from level 1 <br/>One time payment of 15,000 <br/>lifetime weekly payment 550"],
-	["amount" => 500000, "level1" => 200000, "bonus" => 25000, "name" => "Master", "desc" => "200,000 being from level 1 <br/>One time payment of 25,000 <br/>lifetime weekly payment 1000"],
-	["amount" => 1000000, "level1" => 300000, "bonus" => 50000, "name" => "Executive", "desc" => "300,000 being from level 1 <br/>One time payment of 50,000 <br/>lifetime weekly payment 1750"],
-	["amount" => 2000000, "level1" => 500000, "bonus" => 150000, "name" => "Visionary", "desc" => "500,000 being from level 1 <br/>One time payment 150,000 <br/>Lifetime daily payment 3,000"],
-	["amount" => 5000000, "level1" => 750000, "bonus" => 300000, "name" => "Legend", "desc" => "750,000 being from level 1 <br/>One time payment 300,000 <br/>Lifetime daily payment 6,000"],
-	["amount" => 12000000, "level1" => 1000000, "bonus" => 700000, "name" => "Director X", "desc" => "1,000,000 being from level 1 <br/>One time payment 700,000 <br/>Lifetime daily payment 10,000"],
-];
-
 $currentLevelIndex = $progressSummary ? intval($progressSummary['current_level']) : 0;
 if ($currentLevelIndex < 0) {
 	$currentLevelIndex = 0;
 }
-if ($currentLevelIndex > count($bars) - 1) {
-	$currentLevelIndex = count($bars) - 1;
+if ($currentLevelIndex > count($ranks) - 1) {
+	$currentLevelIndex = count($ranks) - 1;
 }
-$currentLevelHuman = $progressSummary ? intval($progressSummary['current_level_human']) : 1;
-$currentRankName = isset($bars[$currentLevelIndex]['name']) ? $bars[$currentLevelIndex]['name'] : ($progressSummary ? $progressSummary['current_level_human'] : 'Beginner');
+
+$currentRank = $ranks[$currentLevelIndex];
+$nextIndex = $currentLevelIndex + 1;
+$hasNext = $nextIndex < count($ranks);
+$nextRank = $hasNext ? $ranks[$nextIndex] : null;
 $progressPct = $progressSummary ? (float) $progressSummary['progress_percentage'] : 0;
-$nextLevelLabel = ($progressSummary && !empty($progressSummary['next_level_name'])) ? $progressSummary['next_level_name'] : 'Max rank';
+$teamToGo = $hasNext ? max(0, $nextRank['amount'] - $teamVolume) : 0;
+$personalSales = $progressSummary ? (float) $progressSummary['level1_total_contribution'] : 0;
+$personalToGo = $hasNext ? max(0, $nextRank['level1'] - $personalSales) : 0;
+if ($hasNext && $nextRank['amount'] > 0) {
+	$progressPct = min(100, ($teamVolume / $nextRank['amount']) * 100);
+}
+$rankBonuses = (float) $rows['fast_start'] + (float) $rows['team_bonus'] + (float) $rows['direct_growth'];
+$commissionsEarned = (float) $rows['ref_wallet'];
+$pointsNotice = '';
+if (isset($_GET['points']) && $_GET['points'] === 'ok') {
+	$pointsNotice = 'Reward redeemed.';
+} elseif (isset($_GET['points']) && $_GET['points'] === 'short') {
+	$pointsNotice = 'Not enough Quantum Points for that reward.';
+}
+
+function qs_flex_icon_lock() {
+	return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+}
+function qs_flex_icon_user() {
+	return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.2-3.2 3.8-5 7-5s5.8 1.8 7 5"/></svg>';
+}
+function qs_flex_icon_check() {
+	return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>';
+}
+function qs_flex_icon_chevron() {
+	return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,125 +136,223 @@ $nextLevelLabel = ($progressSummary && !empty($progressSummary['next_level_name'
 		<div class="main-content app-content">
 			<div class="main-container container-fluid">
 				<div class="qs-flex">
-					<div class="qs-flex-stats">
-						<div class="qs-flex-stat">
-							<span>Fast Start Bonus</span>
-							<strong>$<?php echo number_format((float) $rows['fast_start'], 2); ?></strong>
-							<em><?php echo (int) mysqli_num_rows($get_users); ?> active referrals</em>
-						</div>
-						<div class="qs-flex-stat">
-							<span>Team Bonus</span>
-							<strong>$<?php echo number_format((float) $rows['team_bonus'], 2); ?></strong>
-							<em>Downline volume $<?php echo number_format($commission, 2); ?></em>
-						</div>
-						<div class="qs-flex-stat">
-							<span>Direct Growth Bonus</span>
-							<strong>$<?php echo number_format((float) $rows['direct_growth'], 2); ?></strong>
-							<em>Current rank <?php echo htmlspecialchars((string) $currentRankName); ?></em>
-						</div>
-						<div class="qs-flex-stat">
-							<span>Progress to next rank</span>
-							<strong><?php echo number_format($progressPct, 0); ?>%</strong>
-							<em><?php echo htmlspecialchars((string) $nextLevelLabel); ?><?php if ($progressSummary) { ?> · $<?php echo number_format((float) $progressSummary['amount_needed_for_next_level']); ?> needed<?php } ?></em>
-						</div>
-					</div>
+					<?php if ($pointsNotice !== ''): ?>
+						<div class="qs-flex-banner"><?php echo htmlspecialchars($pointsNotice); ?></div>
+					<?php endif; ?>
 
-					<div class="qs-flex-head">
-						<h2>12 Ranks</h2>
-						<p>Expand any rank for qualification requirements, rewards and benefits.</p>
-					</div>
+					<section class="qs-flex-section">
+						<h2 class="qs-flex-title">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 4h8l1 4H7l1-4z"/><path d="M7 8h10v2a5 5 0 0 1-10 0V8z"/><path d="M12 15v5M8 20h8"/></svg>
+							Quantum Flex — Leadership
+						</h2>
+						<div class="qs-flex-kpis">
+							<div class="qs-flex-kpi"><span>Current Rank</span><strong><?php echo htmlspecialchars($currentRank['name']); ?></strong></div>
+							<div class="qs-flex-kpi"><span>Team Sales Volume</span><strong>$<?php echo number_format($teamVolume, 2); ?></strong></div>
+							<div class="qs-flex-kpi"><span>Commissions Earned</span><strong>$<?php echo number_format($commissionsEarned, 2); ?></strong></div>
+							<div class="qs-flex-kpi"><span>Rank Bonuses</span><strong>$<?php echo number_format($rankBonuses, 2); ?></strong></div>
+						</div>
+						<div class="qs-flex-lead-progress">
+							<em><span><?php echo $hasNext ? htmlspecialchars($nextRank['name']) : 'Max rank'; ?></span><b><?php echo number_format($progressPct, 0); ?>%</b></em>
+							<div class="qs-flex-bar"><i style="width: <?php echo max(0, min(100, $progressPct)); ?>%"></i></div>
+						</div>
+						<p class="qs-flex-reqline">
+							<?php if ($hasNext): ?>
+								Requires team sales $<?php echo number_format($nextRank['amount'], 2); ?> — personal sales $<?php echo number_format($nextRank['level1'], 2); ?>
+							<?php else: ?>
+								All 12 ranks unlocked.
+							<?php endif; ?>
+						</p>
+						<div class="qs-flex-note">
+							<strong>Driven by product &amp; license sales</strong>
+							Rank advancement and commissions are calculated from verifiable product and license sales volume across your organization — not from simulated trading results.
+						</div>
+					</section>
 
-					<div class="qs-flex-ranks">
-						<?php
-						for ($i = 0; $i < count($bars); $i++):
-							$humanLevel = $i + 1;
-							$isAchieved = ($i < $currentLevelIndex);
-							$isCurrent = ($i === $currentLevelIndex);
-							$isLocked = ($i > $currentLevelIndex);
-							$levelProgress = 0;
-							$levelAmount = $bars[$i]['amount'];
-							if ($isAchieved) {
-								$levelProgress = 100;
-							} elseif ($isCurrent && $progressSummary && $levelAmount > 0) {
-								$levelProgress = min(100, ((float) $progressSummary['current_level_commission'] / $levelAmount) * 100);
-							} elseif ($isCurrent) {
-								$levelProgress = min(100, $progressPct);
-							}
-							$descLines = explode('<br/>', $bars[$i]['desc']);
-							$cardClass = 'qs-flex-rank';
-							if ($isCurrent) {
-								$cardClass .= ' is-current is-open';
-							} elseif ($isAchieved) {
-								$cardClass .= ' is-achieved';
-							}
-						?>
-						<article class="<?php echo $cardClass; ?>" data-qs-flex-rank>
-							<button type="button" class="qs-flex-rank__toggle" data-qs-flex-toggle>
-								<span class="qs-flex-rank__icon" aria-hidden="true">
-									<?php if ($isLocked): ?>
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-									<?php else: ?>
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.2-3.2 3.8-5 7-5s5.8 1.8 7 5"/></svg>
-									<?php endif; ?>
+					<section class="qs-flex-section">
+						<h2 class="qs-flex-title">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l3.2 6.4L22 10l-5 4.8L18.4 22 12 18.6 5.6 22 7 14.8 2 10l6.8-.6L12 3z"/></svg>
+							Rank Ladder
+						</h2>
+						<div class="qs-flex-next">
+							<span>Next rank: <?php echo $hasNext ? htmlspecialchars($nextRank['name']) . ' +$' . number_format($nextRank['bonus'], 2) . ' bonus' : 'Max rank'; ?></span>
+							<b><?php echo number_format($progressPct, 0); ?>% qualified</b>
+						</div>
+						<div class="qs-flex-togo">
+							<div><span>Team sales to go</span><strong>$<?php echo number_format($teamToGo, 2); ?></strong></div>
+							<div><span>Personal sales to go</span><strong>$<?php echo number_format($personalToGo, 2); ?></strong></div>
+						</div>
+						<div class="qs-flex-ladder">
+							<?php for ($i = count($ranks) - 1; $i >= 0; $i--):
+								$isCurrent = ($i === $currentLevelIndex);
+								$isAchieved = ($i < $currentLevelIndex);
+							?>
+							<div class="qs-flex-step<?php echo $isCurrent ? ' is-here' : ($isAchieved ? ' is-done' : ''); ?>">
+								<span class="qs-flex-step__icon"><?php echo ($isCurrent || $isAchieved) ? qs_flex_icon_user() : qs_flex_icon_lock(); ?></span>
+								<span class="qs-flex-step__main">
+									<span class="qs-flex-step__name"><?php echo htmlspecialchars($ranks[$i]['name']); ?></span>
+									<span class="qs-flex-step__meta">Rank <?php echo $i + 1; ?> — team $<?php echo number_format($ranks[$i]['amount'], 2); ?> — personal $<?php echo number_format($ranks[$i]['level1'], 2); ?></span>
 								</span>
-								<span class="qs-flex-rank__meta">
-									<span class="qs-flex-rank__kicker">Rank <?php echo $humanLevel; ?></span>
-									<span class="qs-flex-rank__name"><?php echo htmlspecialchars($bars[$i]['name']); ?></span>
-								</span>
-								<?php if ($isCurrent): ?>
-									<span class="qs-flex-badge is-current">CURRENT</span>
-								<?php elseif ($isAchieved): ?>
-									<span class="qs-flex-badge is-done">ACHIEVED</span>
-								<?php endif; ?>
-								<span class="qs-flex-chevron" aria-hidden="true">
-									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-								</span>
-							</button>
-							<div class="qs-flex-rank__body">
-								<div class="qs-flex-reqs">
-									<div class="qs-flex-req">
-										<span>Team sales req.</span>
-										<strong>$<?php echo number_format((float) $bars[$i]['amount'], 2); ?></strong>
-										<?php if ($isCurrent && $progressSummary): ?>
-											<small>$<?php echo number_format((float) $progressSummary['current_level_commission'], 2); ?> current</small>
-										<?php endif; ?>
-									</div>
-									<div class="qs-flex-req">
-										<span>Personal sales req.</span>
-										<strong>$<?php echo number_format((float) $bars[$i]['level1'], 2); ?></strong>
-										<?php if ($isCurrent && $progressSummary): ?>
-											<small>$<?php echo number_format((float) $progressSummary['level1_total_contribution'], 2); ?> level 1</small>
-										<?php endif; ?>
-									</div>
-								</div>
-								<div class="qs-flex-rewards">Rewards: One-time $<?php echo number_format((float) $bars[$i]['bonus'], 2); ?></div>
-								<ul class="qs-flex-benefits">
-									<?php foreach ($descLines as $line): if (trim($line) !== ''): ?>
-									<li>
-										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
-										<span><?php echo htmlspecialchars(trim($line)); ?></span>
-									</li>
-									<?php endif; endforeach; ?>
-								</ul>
-								<?php if ($isCurrent && $progressSummary && (int) $progressSummary['blocked_by_level1'] === 1): ?>
-									<div class="qs-flex-warn">Blocked: need $<?php echo number_format((float) $progressSummary['next_level_level1_required']); ?> level 1 contribution (current $<?php echo number_format((float) $progressSummary['level1_total_contribution']); ?>).</div>
-								<?php endif; ?>
-								<div class="qs-flex-progress">
-									<span>
-										Progress to next rank
-										<b><?php echo number_format($levelProgress, 0); ?>%</b>
-									</span>
-									<div class="qs-flex-bar" aria-hidden="true"><i style="width: <?php echo max(0, min(100, $levelProgress)); ?>%"></i></div>
-								</div>
+								<span class="qs-flex-step__bonus"><?php echo $ranks[$i]['bonus'] > 0 ? '+$' . number_format($ranks[$i]['bonus'], 2) : '—'; ?></span>
+								<?php if ($isCurrent): ?><span class="qs-flex-here">YOU ARE HERE</span><?php endif; ?>
 							</div>
-						</article>
-						<?php endfor; ?>
-					</div>
+							<?php endfor; ?>
+						</div>
+					</section>
+
+					<section class="qs-flex-section">
+						<h2 class="qs-flex-title">Leadership Bonuses</h2>
+						<div class="qs-flex-bonus-grid">
+							<div class="qs-flex-bonus-card">
+								<h3>Fast Start Bonus</h3>
+								<p>Rewarded on early qualifying activity from your first-level organization.</p>
+								<strong>$<?php echo number_format((float) $rows['fast_start'], 2); ?></strong>
+							</div>
+							<div class="qs-flex-bonus-card">
+								<h3>Team Volume Bonus</h3>
+								<p>Scales with total verifiable volume across your downline.</p>
+								<strong>$<?php echo number_format((float) $rows['team_bonus'], 2); ?></strong>
+							</div>
+							<div class="qs-flex-bonus-card">
+								<h3>Direct Growth Bonus</h3>
+								<p>Recognizes first-level expansion and personal sales contribution.</p>
+								<strong>$<?php echo number_format((float) $rows['direct_growth'], 2); ?></strong>
+							</div>
+							<div class="qs-flex-bonus-card">
+								<h3>Global Quantum Points</h3>
+								<p>Points accrue from team production and can be redeemed below.</p>
+								<strong><?php echo number_format($pointsEarned); ?> pts</strong>
+							</div>
+						</div>
+					</section>
+
+					<section class="qs-flex-section">
+						<h2 class="qs-flex-title">Quantum Points</h2>
+						<div class="qs-flex-points-stats">
+							<div class="qs-flex-kpi"><span>Available</span><strong><?php echo number_format($pointsAvailable); ?></strong></div>
+							<div class="qs-flex-kpi"><span>Earned</span><strong><?php echo number_format($pointsEarned); ?></strong></div>
+							<div class="qs-flex-kpi"><span>Redeemed</span><strong><?php echo number_format($pointsRedeemed); ?></strong></div>
+						</div>
+						<div class="qs-flex-rewards">
+							<?php foreach ($pointRewards as $key => $reward):
+								$pct = $reward['cost'] > 0 ? min(100, ($pointsAvailable / $reward['cost']) * 100) : 0;
+								$canRedeem = $pointsAvailable >= $reward['cost'];
+							?>
+							<div class="qs-flex-reward">
+								<h3><?php echo htmlspecialchars($reward['title']); ?></h3>
+								<p><?php echo number_format($reward['cost']); ?> pts</p>
+								<div class="qs-flex-bar"><i style="width: <?php echo $pct; ?>%"></i></div>
+								<form method="POST">
+									<input type="hidden" name="reward" value="<?php echo htmlspecialchars($key); ?>">
+									<button class="qs-flex-redeem" type="submit" name="redeem-points" <?php echo $canRedeem ? '' : 'disabled'; ?>>Redeem</button>
+								</form>
+							</div>
+							<?php endforeach; ?>
+						</div>
+					</section>
+
+					<section class="qs-flex-section">
+						<h2 class="qs-flex-title">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/><circle cx="12" cy="12" r="9"/></svg>
+							Seven-Level Organization
+						</h2>
+						<div class="qs-flex-org">
+							<?php for ($lvl = 1; $lvl <= 7; $lvl++):
+								$stat = $orgLevels[$lvl];
+								$open = ($lvl === 1) ? ' is-open' : '';
+							?>
+							<article class="qs-flex-lvl<?php echo $open; ?>" data-qs-flex-level>
+								<button type="button" class="qs-flex-lvl__toggle" data-qs-flex-level-toggle>
+									Level <?php echo $lvl; ?>
+									<span><?php echo (int) $stat['members']; ?> members <?php echo qs_flex_icon_chevron(); ?></span>
+								</button>
+								<div class="qs-flex-lvl__body">
+									<div class="qs-flex-lvl__stats">
+										<div><span>Members</span><strong><?php echo (int) $stat['members']; ?></strong></div>
+										<div><span>Active</span><strong><?php echo (int) $stat['active']; ?></strong></div>
+										<div><span>Sales Vol</span><strong>$<?php echo number_format($stat['sales'], 2); ?></strong></div>
+									</div>
+									<?php if ((int) $stat['members'] === 0): ?>
+										<p class="qs-flex-lvl__empty">No members at this level yet.</p>
+									<?php endif; ?>
+								</div>
+							</article>
+							<?php endfor; ?>
+						</div>
+					</section>
+
+					<section class="qs-flex-section">
+						<div class="qs-flex-head">
+							<h2>12 Ranks</h2>
+							<p>Expand any rank for qualification requirements, rewards and benefits.</p>
+						</div>
+						<div class="qs-flex-ranks">
+							<?php
+							for ($i = 0; $i < count($ranks); $i++):
+								$isAchieved = ($i < $currentLevelIndex);
+								$isCurrent = ($i === $currentLevelIndex);
+								$isLocked = ($i > $currentLevelIndex);
+								$levelProgress = 0;
+								if ($isAchieved) {
+									$levelProgress = 100;
+								} elseif ($isCurrent) {
+									$levelProgress = $progressPct;
+								}
+								$cardClass = 'qs-flex-rank';
+								if ($isCurrent) {
+									$cardClass .= ' is-current is-open';
+								} elseif ($isAchieved) {
+									$cardClass .= ' is-achieved';
+								}
+							?>
+							<article class="<?php echo $cardClass; ?>" data-qs-flex-rank>
+								<button type="button" class="qs-flex-rank__toggle" data-qs-flex-toggle>
+									<span class="qs-flex-rank__icon"><?php echo $isLocked ? qs_flex_icon_lock() : qs_flex_icon_user(); ?></span>
+									<span class="qs-flex-rank__meta">
+										<span class="qs-flex-rank__kicker">Rank <?php echo $i + 1; ?></span>
+										<span class="qs-flex-rank__name"><?php echo htmlspecialchars($ranks[$i]['name']); ?></span>
+									</span>
+									<?php if ($isCurrent): ?>
+										<span class="qs-flex-badge is-current">CURRENT</span>
+									<?php elseif ($isAchieved): ?>
+										<span class="qs-flex-badge is-done">ACHIEVED</span>
+									<?php endif; ?>
+									<span class="qs-flex-chevron"><?php echo qs_flex_icon_chevron(); ?></span>
+								</button>
+								<div class="qs-flex-rank__body">
+									<div class="qs-flex-reqs">
+										<div class="qs-flex-req">
+											<span>Team sales req.</span>
+											<strong>$<?php echo number_format($ranks[$i]['amount'], 2); ?></strong>
+										</div>
+										<div class="qs-flex-req">
+											<span>Personal sales req.</span>
+											<strong>$<?php echo number_format($ranks[$i]['level1'], 2); ?></strong>
+										</div>
+									</div>
+									<div class="qs-flex-award">Rewards: <?php echo htmlspecialchars($ranks[$i]['rewards']); ?></div>
+									<ul class="qs-flex-benefits">
+										<?php foreach ($ranks[$i]['benefits'] as $line): ?>
+										<li><?php echo qs_flex_icon_check(); ?><span><?php echo htmlspecialchars($line); ?></span></li>
+										<?php endforeach; ?>
+									</ul>
+									<?php if ($isCurrent && $progressSummary && (int) $progressSummary['blocked_by_level1'] === 1): ?>
+										<div class="qs-flex-warn">Blocked: need $<?php echo number_format((float) $progressSummary['next_level_level1_required']); ?> level 1 contribution (current $<?php echo number_format((float) $progressSummary['level1_total_contribution']); ?>).</div>
+									<?php endif; ?>
+									<div class="qs-flex-progress">
+										<span>Progress to next rank <b><?php echo number_format($levelProgress, 0); ?>%</b></span>
+										<div class="qs-flex-bar"><i style="width: <?php echo max(0, min(100, $levelProgress)); ?>%"></i></div>
+									</div>
+								</div>
+							</article>
+							<?php endfor; ?>
+						</div>
+						<p class="qs-flex-foot">Rank qualification is calculated from verifiable product and license sales volume. Demo figures are not live trading results.</p>
+					</section>
 				</div>
 			</div>
 		</div>
 
-		<div class="modal fade qs-flex-modal" id="welcome" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="with" aria-hidden="true">
+		<div class="modal fade qs-flex-modal" id="welcome" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -248,10 +378,8 @@ $nextLevelLabel = ($progressSummary && !empty($progressSummary['next_level_name'
 	<a href="#top" id="back-to-top"><i class="las la-arrow-up"></i></a>
 	<script src="assets/plugins/bootstrap/js/popper.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="assets/plugins/moment/moment.js"></script>
 	<script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script src="assets/plugins/perfect-scrollbar/p-scroll.js"></script>
-	<script src="assets/plugins/select2/js/select2.full.min.js"></script>
 	<script src="assets/plugins/side-menu/sidemenu.js"></script>
 	<script src="assets/js/sticky.js"></script>
 	<script src="assets/plugins/sidebar/sidebar.js"></script>
@@ -263,14 +391,15 @@ $nextLevelLabel = ($progressSummary && !empty($progressSummary['next_level_name'
 		document.querySelectorAll('[data-qs-flex-rank]').forEach(function (card) {
 			var toggle = card.querySelector('[data-qs-flex-toggle]');
 			if (!toggle) return;
-			toggle.addEventListener('click', function () {
-				card.classList.toggle('is-open');
-			});
+			toggle.addEventListener('click', function () { card.classList.toggle('is-open'); });
+		});
+		document.querySelectorAll('[data-qs-flex-level]').forEach(function (card) {
+			var toggle = card.querySelector('[data-qs-flex-level-toggle]');
+			if (!toggle) return;
+			toggle.addEventListener('click', function () { card.classList.toggle('is-open'); });
 		});
 		<?php if ($rows['lupa_flex'] == 0) { ?>
-		$(document).ready(function () {
-			$("#welcome").modal('show');
-		});
+		$(document).ready(function () { $("#welcome").modal('show'); });
 		<?php } ?>
 	</script>
 </body>
