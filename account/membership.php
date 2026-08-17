@@ -2,6 +2,8 @@
 session_start();
 
 include('connection.php');
+include_once('inc/payment-wallets.php');
+qs_ensure_payment_wallets_table($mysqli);
 
 
 //check if session id is set if it is redirect to login
@@ -92,34 +94,23 @@ if (isset($_POST['buy_membership'])) {
 
 
 
-	$curl = curl_init();
+	$payWallet = qs_payment_wallet_by_id($mysqli, $current);
+	if (!$payWallet) {
+		?>
+		<script>
+			alert('Select a payment wallet to complete membership payment.');
+			location = 'membership';
+		</script>
+		<?php
+		exit;
+	}
 
-	curl_setopt_array($curl, array(
-		CURLOPT_URL => 'https://plisio.net/api/v1/invoices/new?source_currency=USD&source_amount=' . $amount . '&order_number=' . $orderId . '&currency=' . $current . '&email=' . $rows['email'] . '&order_name=' . urlencode($name) . '&callback_url=https://quantumscalp.io/account/payment&api_key=VspBqpgF-tmQhKUQEHffoaqLTmLhLQLnydkT2R_CC9D45O15UGsmDBYrVpYTWnTd',
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-	));
-
-	$response = curl_exec($curl);
-
-	curl_close($curl);
-	//echo $response;
-	$response = json_decode($response);
-
-	//var_dump($response);
-
-
-	$wallet = $response->data->wallet_hash;
-
-	$crypto = $response->data->amount;
-
-	$qrcode = $response->data->qr_code;
-
+	$wallet = $payWallet['wallet_address'];
+	$crypto = $amount;
+	$qrcode = qs_wallet_qr_data_uri($wallet);
+	$current = $payWallet['name'];
+	$daily_roi = 0;
+	$payout = 0;
 	$rates = "";
 
 
@@ -142,8 +133,20 @@ if (isset($_POST['buy_membership'])) {
 
 
 
-	//insert into pending table 
-	$addinvestment = mysqli_query($mysqli, "INSERT INTO `pending`(userid, chargeid, wallet, investmentid, name, amount, daily_roi, payout, qrcode, crypto, currency, date) VALUES('$userid', '$orderId', '$wallet', '$investmentid', '$name', '$amount', '$daily_roi', '$payout', '$qrcode', '$crypto', '$current', '$date') ");
+	$addinvestment = qs_insert_pending_payment($mysqli, array(
+		'userid' => $userid,
+		'chargeid' => $orderId,
+		'wallet' => $wallet,
+		'investmentid' => $investmentid,
+		'name' => $name,
+		'amount' => $amount,
+		'daily_roi' => $daily_roi,
+		'payout' => $payout,
+		'qrcode' => $qrcode,
+		'crypto' => $crypto,
+		'currency' => $current,
+		'date' => $date,
+	));
 
 
 
@@ -212,7 +215,7 @@ if (isset($_POST['buy_membership'])) {
 
 		?>
 		<script>
-			location = "fund?currency=<?php echo $current; ?>&orderid=<?php echo $orderId; ?>&name=<?php echo $name; ?>"
+			location = "fund?currency=<?php echo urlencode($current); ?>&orderid=<?php echo urlencode($orderId); ?>&name=<?php echo urlencode($name); ?>"
 		</script>
 
 		<?php
@@ -234,29 +237,7 @@ if (isset($_POST['buy_membership'])) {
 
 
 
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-	CURLOPT_URL => 'https://plisio.net/api/v1/currencies?api_key=VspBqpgF-tmQhKUQEHffoaqLTmLhLQLnydkT2R_CC9D45O15UGsmDBYrVpYTWnTd',
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_ENCODING => '',
-	CURLOPT_MAXREDIRS => 10,
-	CURLOPT_TIMEOUT => 0,
-	CURLOPT_FOLLOWLOCATION => true,
-	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	CURLOPT_CUSTOMREQUEST => 'GET',
-));
-
-$response = curl_exec($curl);
-
-curl_close($curl);
-
-$response = json_decode($response);
-
-$data = $response->data;
-if (!is_array($data)) {
-	$data = array();
-}
+$qsWalletOptions = qs_payment_wallet_options($mysqli, isset($_GET['currency']) ? $_GET['currency'] : '');
 
 $qsReceipts = array();
 $qsUid = isset($rows['id']) ? (int) $rows['id'] : 0;
@@ -354,31 +335,7 @@ if ($qsUid > 0) {
 								<li>Quantum Verse access</li>
 								<li>Quantum Flex access</li>
 							</ul>
-							<form method="POST" id="membershipForm">
-								<div class="form-group">
-									<label>Select currency</label>
-									<select name="currency" id="currency" class="currency-select" required>
-										<option value="">— Choose currency —</option>
-										<?php
-										for ($i = 0; $i < count($data); $i++) {
-											$pick = '';
-											if (isset($_GET['currency']) and $_GET['currency'] == $data[$i]->currency) {
-												$pick = 'selected';
-											}
-
-											//if($data[$i]->currency !='USDC' && $data[$i]->currency != "USDC_BSC" && $data[$i]->currency != "USDC_BASE"){
-
-											echo "<option " . $pick . " value=" . $data[$i]->currency . ">" . strtoupper($data[$i]->name) . "</option>";
-												//}
-										}
-										?>
-									</select>
-								</div>
-								<button class="qs-mem-btn" name="buy_membership" type="submit">
-									<?php echo $isActive ? "Renew Membership" : "Become a Member"; ?>
-								</button>
-								<p class="qs-mem-note">Secure payment · instant access</p>
-							</form>
+							<button class="qs-mem-btn" type="button" data-qs-mem-buy><?php echo $isActive ? "Renew Membership" : "Become a Member"; ?></button>
 						</article>
 
 						<article class="qs-mem-plan">
@@ -390,7 +347,7 @@ if ($qsUid > 0) {
 								<li>Early access to new tools</li>
 								<li>Exclusive member resources</li>
 							</ul>
-							<button class="qs-mem-btn" type="button" onclick="var f=document.getElementById('membershipForm'); if(f){ f.scrollIntoView({behavior:'smooth',block:'center'}); var c=document.getElementById('currency'); if(c) c.focus(); }">Become a Member</button>
+							<button class="qs-mem-btn" type="button" data-qs-mem-buy>Become a Member</button>
 						</article>
 
 						<article class="qs-mem-plan">
@@ -433,6 +390,29 @@ if ($qsUid > 0) {
 					</section>
 
 					<p class="qs-mem-disclaimer">License fees provide access to software and services and do not represent an investment or guaranteed return.</p>
+				</div>
+
+				<div class="qs-mem-overlay" id="qs-mem-overlay">
+					<div class="qs-mem-modal" role="dialog" aria-modal="true" aria-labelledby="qs-mem-pay-title">
+						<form method="POST" id="membershipForm">
+							<div class="qs-mem-modal__head">
+								<h3 id="qs-mem-pay-title">Membership Plan</h3>
+								<button type="button" class="qs-mem-modal__close" data-qs-mem-close aria-label="Close">&times;</button>
+							</div>
+							<div class="qs-mem-price">$50 <span>/ 3 Months</span></div>
+							<div class="form-group">
+								<label for="currency">Payment Wallet</label>
+								<select name="currency" id="currency" class="currency-select" required>
+									<option value="">Select wallet</option>
+									<?php echo $qsWalletOptions; ?>
+								</select>
+							</div>
+							<button class="qs-mem-btn" name="buy_membership" type="submit">
+								<?php echo $isActive ? "Renew Membership" : "Buy Membership"; ?>
+							</button>
+							<p class="qs-mem-note">Secure payment · instant access</p>
+						</form>
+					</div>
 				</div>
 
 				<div class="toast-modern" id="toast">
@@ -486,6 +466,28 @@ if ($qsUid > 0) {
 					}
 
 					window.showToast = showToast;
+
+					(function () {
+						var overlay = document.getElementById('qs-mem-overlay');
+						if (!overlay) return;
+						function openPay() {
+							overlay.classList.add('is-open');
+							var sel = document.getElementById('currency');
+							if (sel) sel.focus();
+						}
+						function closePay() {
+							overlay.classList.remove('is-open');
+						}
+						document.querySelectorAll('[data-qs-mem-buy]').forEach(function (btn) {
+							btn.addEventListener('click', openPay);
+						});
+						overlay.addEventListener('click', function (e) {
+							if (e.target === overlay || e.target.closest('[data-qs-mem-close]')) closePay();
+						});
+						document.addEventListener('keydown', function (e) {
+							if (e.key === 'Escape') closePay();
+						});
+					})();
 				</script>
 			</div>
 		</div>

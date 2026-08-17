@@ -385,4 +385,59 @@ body.light-theme .qs-mem-row {
   border-top-color: rgba(15, 23, 42, 0.08);
 }
 
-body.light-theme .qs-page-title { color: #0f172a; }
+.qs-mem-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: rgba(3, 3, 5, 0.72);
+  backdrop-filter: blur(6px);
+}
+.qs-mem-overlay.is-open { display: flex; }
+
+.qs-mem-modal {
+  width: min(440px, 100%);
+  background: #161b22;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 22px 22px 20px;
+}
+
+.qs-mem-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.qs-mem-modal__head h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.qs-mem-modal__close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.qs-mem-modal .qs-mem-price { margin-bottom: 16px; }
+
+body.light-theme .qs-mem-modal {
+  background: #fff;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .qs-mem-modal__head h3 {
+  color: #0f172a;
+}
