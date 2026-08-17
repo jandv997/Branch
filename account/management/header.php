@@ -284,11 +284,14 @@ include_once __DIR__ . '/../inc/qs-theme-boot.php';
 
                     <li class="nav-header"><span class="nav-label">More</span></li>
 
-
-
-                   
-
-              
+                    <li class="nav-item">
+                        <a class="nav-link" href="resources">
+                            <div class="sidemenu-icon menu-icon">
+                                <i class="fe fe-download"></i>
+                            </div>
+                            <span class="sidemenu-label">Resources</span>
+                        </a>
+                    </li>
 
                     <li  class="nav-item"><a class="nav-link " href="logout" > <div class="sidemenu-icon menu-icon">
                                 <i class=" fe fe-log-out"></i>
