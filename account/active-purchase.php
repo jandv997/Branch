@@ -64,7 +64,7 @@ $data =$response->data;
 	
 
 		<!-- Title -->
-		<title>Active Purchase | Quantum Scalp </title>
+		<title>Quantum Verse | Quantum Scalp </title>
 
 		<!-- Favicon -->
 		<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
@@ -87,6 +87,7 @@ $data =$response->data;
 
 		<!--- Animations css-->
 		<link href="assets/css/animate.css" rel="stylesheet">
+		<link href="assets/css/qs-verse.css" rel="stylesheet">
 <style>
     /* empty / loading state */
 		.empty-state {
@@ -401,22 +402,14 @@ $data =$response->data;
 				<!-- container -->
 				<div class="main-container container-fluid">
 
-					<!-- breadcrumb -->
-					<div class="breadcrumb-header justify-content-between">
-						<div class="left-content">
-						  <span class="main-content-title mg-b-0 mg-b-lg-1">Active Purchase </span>
-						</div>
-						<div class="justify-content-center mt-2">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Quantum</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Active Purchase  </li>
-							</ol>
-						</div>
-					</div>
-					<!-- /breadcrumb -->
+					<div class="qs-verse">
+					<?php
+					$verseTab = 'active';
+					include('inc/verse-tabs.php');
+					?>
 
 						<!-- Row -->
-						<div class="row row-sm">
+						<div class="qs-verse-grid">
 
 
 						<?php
@@ -443,132 +436,72 @@ $data =$response->data;
 							
 
 
-<!-- Active Portfolio Card - Redesigned -->
-<div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-    <div class="portfolio-card">
-        <!-- Card Header -->
-        <div class="portfolio-header d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <div class="portfolio-icon">
-                    <i class="fe fe-briefcase"></i>
-                </div>
-                <div>
-                    <h6 class="portfolio-name mb-0"><?php echo $row['name']; ?></h6>
-                    <small class="text-muted"><?php echo $row['date']; ?></small>
-                </div>
-            </div>
-            <!-- <span class="status-badge <?php echo $row['status'] == 1 ? 'status-active' : 'status-inactive'; ?>">
-                <?php if($row['payout'] == 1){ ?>
-                    <i class="fe fe-check-circle"></i> Daily Payout
-                <?php }elseif($row['payout'] == 2){ ?>
-                    <i class="fe fe-check-circle"></i> Staking Payout
-                <?php }elseif($row['payout'] == 3){ ?>
-                    <i class="fe fe-check-circle"></i> Hybrid Payout
-                <?php } ?>
-            </span> -->
-        </div>
-
-        <!-- Card Body -->
-        <div class="portfolio-body">
-            <!-- Amount Section -->
-            <div class="amount-section">
-                <span class="amount-label">Portfolio Amount</span>
-                <h2 class="amount-value">$<?php echo number_format($row['amount'], 2); ?></h2>
-                <div class="progress portfolio-progress">
-                    <div class="progress-bar" style="width: <?php echo $row['status'] == 1 ? '100%' : '0%'; ?>"></div>
-                </div>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <!-- ROI -->
-                <div class="stat-item">
-                    <div class="stat-icon text-primary">
-                        <i class="fe fe-trending-up"></i>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-label">Expected Daily ROI</span>
-                        <span class="stat-value">$<?php echo number_format($row['daily_roi'], 2); ?></span>
-                    </div>
-                </div>
-
-                <!-- Duration -->
-                <div class="stat-item">
-                    <div class="stat-icon text-warning">
-                        <i class="fe fe-clock"></i>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-label">Duration</span>
-                        <span class="stat-value"><?php echo $row['duration']; ?> Days</span>
-                    </div>
-                </div>
-
-                <!-- Total Return -->
-                <div class="stat-item">
-                    <div class="stat-icon text-success">
-                        <i class="fe fe-dollar-sign"></i>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-label">Total Return</span>
-                        <span class="stat-value">$<?php echo number_format($row['added_roi'], 2); ?></span>
-                    </div>
-                </div>
-
-                <!-- Status -->
-                <div class="stat-item">
-                    <div class="stat-icon <?php echo $row['status'] == 1 ? 'text-success' : 'text-danger'; ?>">
-                        <i class="fe fe-<?php echo $row['status'] == 1 ? 'check-circle' : 'x-circle'; ?>"></i>
-                    </div>
-                    <div class="stat-info">
-                        <span class="stat-label">Status</span>
-                        <span class="stat-value <?php echo $row['status'] == 1 ? 'text-success' : 'text-danger'; ?>">
-                            <?php echo $row['status'] == 1 ? 'Active' : 'Inactive'; ?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Progress Timeline -->
-            <div class="timeline-section">
-                <div class="timeline-header">
-                    <span class="timeline-label">Progress Timeline</span>
-                    <span class="timeline-percentage"><?php echo $row['status'] == 1 ? '100%' : '0%'; ?></span>
-                </div>
-                <div class="progress" style="height: 6px;">
-                    <div class="progress-bar bg-success" style="width: <?php echo $row['status'] == 1 ? '100%' : '0%'; ?>"></div>
-                </div>
-                <div class="timeline-dates">
-                    <span class="start-date">Started: <?php echo date('M d, Y', strtotime($row['created_at'])); ?></span>
-                    <span class="end-date">Ends: <?php echo date('M d, Y', strtotime($row['created_at'] . ' + ' . $row['duration'] . ' days')); ?></span>
-                </div>
+<div class="qs-verse-slot">
+<article class="qs-verse-card">
+        <div class="qs-verse-owned__top">
+            <div>
+                <div class="qs-verse-card__icon"><?php echo qs_verse_planet(); ?></div>
+                <h3 class="qs-verse-card__name"><?php echo htmlspecialchars($row['name']); ?></h3>
+                <div class="qs-verse-owned__date"><?php echo htmlspecialchars($row['date']); ?></div>
             </div>
         </div>
-
-        <!-- Card Footer Actions -->
-        <div class="portfolio-footer">
+        <div class="qs-verse-owned__amount">$<?php echo number_format($row['amount'], 2); ?></div>
+        <div class="qs-verse-owned__stats">
+            <div class="qs-verse-owned__stat">
+                <small>Expected Daily ROI</small>
+                <b>$<?php echo number_format($row['daily_roi'], 2); ?></b>
+            </div>
+            <div class="qs-verse-owned__stat">
+                <small>Duration</small>
+                <b><?php echo htmlspecialchars($row['duration']); ?> Days</b>
+            </div>
+            <div class="qs-verse-owned__stat">
+                <small>Total Return</small>
+                <b>$<?php echo number_format($row['added_roi'], 2); ?></b>
+            </div>
+            <div class="qs-verse-owned__stat">
+                <small>Status</small>
+                <b class="<?php echo $row['status'] == 1 ? 'qs-verse-status-on' : 'qs-verse-status-off'; ?>">
+                    <?php echo $row['status'] == 1 ? 'Active' : 'Inactive'; ?>
+                </b>
+            </div>
+        </div>
+        <div class="qs-verse-owned__timeline">
+            <div class="qs-verse-owned__timeline-row">
+                <span>Progress Timeline</span>
+                <span><?php echo $row['status'] == 1 ? '100%' : '0%'; ?></span>
+            </div>
+            <div class="qs-verse-owned__bar">
+                <span style="width: <?php echo $row['status'] == 1 ? '100%' : '0%'; ?>"></span>
+            </div>
+            <div class="qs-verse-owned__dates">
+                <span>Started: <?php echo date('M d, Y', strtotime($row['created_at'])); ?></span>
+                <span>Ends: <?php echo date('M d, Y', strtotime($row['created_at'] . ' + ' . $row['duration'] . ' days')); ?></span>
+            </div>
+        </div>
+        <div class="qs-verse-actions">
             <?php if($row['status'] == 1): ?>
-                <button data-bs-target="#invest<?php echo $row['id']; ?>" 
-                        data-bs-toggle="modal" 
+                <button data-bs-target="#invest<?php echo $row['id']; ?>"
+                        data-bs-toggle="modal"
                         class="btn-action btn-topup">
                     <i class="fe fe-plus-circle"></i> Top Up
                 </button>
             <?php endif; ?>
 
             <?php if($row['status'] == 0): ?>
-                <button data-bs-target="#restart<?php echo $row['id']; ?>" 
-                        data-bs-toggle="modal" 
+                <button data-bs-target="#restart<?php echo $row['id']; ?>"
+                        data-bs-toggle="modal"
                         class="btn-action btn-restart">
                     <i class="fe fe-refresh-cw"></i> Re-Initiate
                 </button>
-                <button data-bs-target="#withdraw<?php echo $row['id']; ?>" 
-                        data-bs-toggle="modal" 
+                <button data-bs-target="#withdraw<?php echo $row['id']; ?>"
+                        data-bs-toggle="modal"
                         class="btn-action btn-withdraw">
                     <i class="fe fe-arrow-down"></i> Withdraw
                 </button>
             <?php endif; ?>
         </div>
-    </div>
-</div>
+</article>
 
 
 
@@ -809,11 +742,7 @@ $data =$response->data;
         </div>
     </div>
 
-
-
-
-
-
+						</div>
 						<?php } ?>
 
 
@@ -822,7 +751,7 @@ $data =$response->data;
 
 
 <?php if(mysqli_num_rows($getinvest) == 0) { ?>
-                        	<div class="empty-state">
+                        	<div class="qs-verse-empty">
 								<i class="fas fa-satellite-dish"></i>
 								<h5>No Active Purchase</h5>
 								<p>Waiting for you to make purchase ...</p>
@@ -831,6 +760,7 @@ $data =$response->data;
 
 
 						<!-- End Row -->
+					</div>
 				</div>
 				<!-- Container closed -->
 			</div>

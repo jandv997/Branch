@@ -146,6 +146,14 @@ body.main-body #global-loader { background: #030305; }
   color: #64748b;
 }
 
+.qs-page-title {
+  margin-left: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
 .main-body .breadcrumb-header .main-content-title,
 .main-body .main-content-title {
   color: #fff !important;

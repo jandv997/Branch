@@ -38,7 +38,7 @@ $rows = mysqli_fetch_assoc($get_user);
 	
 
 		<!-- Title -->
-		<title>Expired Purchase | Quantum Scalp </title>
+		<title>Quantum Verse | Quantum Scalp </title>
 
 		<!-- Favicon -->
 		<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
@@ -59,6 +59,7 @@ $rows = mysqli_fetch_assoc($get_user);
 
 		<!--- Animations css-->
 		<link href="assets/css/animate.css" rel="stylesheet">
+		<link href="assets/css/qs-verse.css" rel="stylesheet">
 <style>
     /* empty / loading state */
 		.empty-state {
@@ -101,22 +102,14 @@ $rows = mysqli_fetch_assoc($get_user);
 				<!-- container -->
 				<div class="main-container container-fluid">
 
-					<!-- breadcrumb -->
-					<div class="breadcrumb-header justify-content-between">
-						<div class="left-content">
-						  <span class="main-content-title mg-b-0 mg-b-lg-1">Expired Purchase </span>
-						</div>
-						<div class="justify-content-center mt-2">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Quantum</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Expire Purchase  </li>
-							</ol>
-						</div>
-					</div>
-					<!-- /breadcrumb -->
+					<div class="qs-verse">
+					<?php
+					$verseTab = 'expired';
+					include('inc/verse-tabs.php');
+					?>
 
 						<!-- Row -->
-						<div class="row row-sm">
+						<div class="qs-verse-grid">
 
 
 						<?php
@@ -142,69 +135,22 @@ $invest = mysqli_fetch_assoc($getp);
 
 
 
-							<div class="col-lg-4">
-
-
-							<div class="card">
-								<div class="card-body">
-									<div class="plan-card text-center">
-										<i class="fe fe-eye plan-icon text-primary"></i>
-										<h6 class="text-drak text-uppercase mt-2"><?php echo $row['name']; ?></h6>
-										<h2 class="mb-2">$<?php echo $row['amount']; ?></h2>
-										<span class="badge badge-danger">   </span>
-										<span class="text-muted"><?php echo $row['date']; ?></span>
+							<article class="qs-verse-card">
+								<div class="qs-verse-card__icon"><?php echo qs_verse_planet(); ?></div>
+								<h3 class="qs-verse-card__name"><?php echo htmlspecialchars($row['name']); ?></h3>
+								<div class="qs-verse-owned__date"><?php echo htmlspecialchars($row['date']); ?></div>
+								<div class="qs-verse-owned__amount">$<?php echo number_format((float) $row['amount'], 2); ?></div>
+								<div class="qs-verse-owned__stats">
+									<div class="qs-verse-owned__stat">
+										<small>ROI</small>
+										<b>$<?php echo htmlspecialchars($row['daily_roi']); ?></b>
+									</div>
+									<div class="qs-verse-owned__stat">
+										<small>Duration</small>
+										<b><?php echo htmlspecialchars($row['duration']); ?> days</b>
 									</div>
 								</div>
-							</div>
-
-
-							<div class="row">
-
-
-							<div class="col-6 ">
-								<div class=" card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col">
-												<div class=""> ROI</div>
-												<div class="h3 mt-2 mb-2"><b>$<?php echo $row['daily_roi']; ?></b><span class="text-success tx-13 ms-2">(*)</span></div>
-											</div>
-											
-										</div>
-										
-									</div>
-								</div>
-							</div>
-
-
-
-							<div class="col-6 ">
-								<div class="  card">
-									<div class="card-body">
-										<div class="row">
-											<div class="col">
-												<div class=""> Duration</div>
-												<div class="h3 mt-2 mb-2"><b><?php echo $row['duration']; ?></b><span class="text-success tx-13 ms-2">(days)</span></div>
-											</div>
-											
-										</div>
-										
-									</div>
-								</div>
-							</div>
-
-
-
-
-
-
-
-							</div>
-
-
-
-
-						</div>
+							</article>
 
 
 
@@ -216,7 +162,7 @@ $invest = mysqli_fetch_assoc($getp);
 
 
 						<?php if(mysqli_num_rows($getinvest) == 0) { ?>
-                        	<div class="empty-state">
+                        	<div class="qs-verse-empty">
 								<i class="fas fa-satellite-dish"></i>
 								<h5>No Expired Purchase</h5>
 								<p>Waiting for you to make purchase ...</p>
@@ -224,6 +170,7 @@ $invest = mysqli_fetch_assoc($getp);
 						<?php } ?>
 
 						<!-- End Row -->
+					</div>
 				</div>
 				<!-- Container closed -->
 			</div>
