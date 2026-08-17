@@ -15,6 +15,7 @@ $qs_qcore_files = array('overview-core.php', 'live-trade-cex.php', 'live-trade.p
 $qs_verse_files = array('marketplace.php', 'active-purchase.php', 'expire-purchase.php');
 $qs_on_qcore = in_array($currentFile, $qs_qcore_files, true);
 $qs_on_verse = in_array($currentFile, $qs_verse_files, true);
+$qs_on_membership = ($currentFile === 'membership.php');
 
 $qs_theme_default = 'dark';
 $qs_theme_js = 'assets/js/qs-theme.js';
@@ -25,6 +26,9 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 <link href="assets/css/qs-member.css" rel="stylesheet">
 <?php if ($qs_on_qcore) { ?>
 <link href="assets/css/qs-qcore.css" rel="stylesheet">
+<?php } ?>
+<?php if ($qs_on_membership) { ?>
+<link href="assets/css/qs-membership.css" rel="stylesheet">
 <?php } ?>
 
 <!-- Start of LiveChat (www.livechat.com) code -->
@@ -68,6 +72,8 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 								<span class="qs-page-title">Q-Core</span>
 							<?php } elseif ($qs_on_verse) { ?>
 								<span class="qs-page-title">Quantum Verse</span>
+							<?php } elseif ($qs_on_membership) { ?>
+								<span class="qs-page-title">Membership</span>
 							<?php } ?>
 
 							
@@ -80,7 +86,7 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 							<div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
 								<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 									<ul class="nav nav-item header-icons navbar-nav-right ms-auto">
-										<?php if ($qs_on_qcore) { ?>
+										<?php if ($qs_on_qcore || $qs_on_membership) { ?>
 										<li class="nav-item d-none d-xl-flex align-items-center">
 											<span class="qs-demo-badge">DEMO DATA — NOT LIVE TRADING RESULTS</span>
 										</li>
