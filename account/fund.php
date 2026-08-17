@@ -2803,7 +2803,7 @@ $txnHashSaved = isset($row['txn_hash']) ? trim($row['txn_hash']) : '';
       cursor: pointer;
     }
     .qs-pay-marked {
-      margin: 1rem auto 0.5rem;
+      margin: 1rem auto 0.25rem;
       max-width: 440px;
       padding: 10px 12px;
       border-radius: 6px;
@@ -2811,6 +2811,24 @@ $txnHashSaved = isset($row['txn_hash']) ? trim($row['txn_hash']) : '';
       color: #1b5e20;
       font-size: 13px;
       word-break: break-all;
+    }
+    .qs-pay-next {
+      display: block;
+      width: calc(100% - 24px);
+      max-width: 440px;
+      margin: 12px auto 0.5rem;
+      min-height: 44px;
+      line-height: 44px;
+      text-align: center;
+      background: #2e7d32;
+      color: #fff !important;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none !important;
+    }
+    .qs-pay-next:hover {
+      background: #256628;
+      color: #fff !important;
     }
   </style>
 </head>
@@ -2951,6 +2969,7 @@ $txnHashSaved = isset($row['txn_hash']) ? trim($row['txn_hash']) : '';
             </div>
             <?php if ($txnHashSaved !== '') { ?>
             <div class="qs-pay-marked">Payment submitted. Hash: <?php echo htmlspecialchars($txnHashSaved); ?></div>
+            <a class="qs-pay-next" href="active-purchase">Go to Active Purchases</a>
             <?php } else { ?>
             <form method="POST" class="qs-pay-mark">
               <input type="hidden" name="orderid" value="<?php echo htmlspecialchars($orderid); ?>">
