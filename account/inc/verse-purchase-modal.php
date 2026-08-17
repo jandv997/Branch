@@ -1,10 +1,6 @@
 <?php
-$qsBuyCurrencyOptions = '';
-if (isset($data) && $data) {
-	for ($qi = 0; $qi < count($data); $qi++) {
-		$qsBuyCurrencyOptions .= '<option value="' . htmlspecialchars($data[$qi]->currency) . '">' . htmlspecialchars(strtoupper($data[$qi]->name)) . '</option>';
-	}
-}
+include_once dirname(__FILE__) . '/payment-wallets.php';
+$qsBuyCurrencyOptions = qs_payment_wallet_options($mysqli);
 ?>
 <div class="qs-buy-overlay" id="qs-buy-overlay"
 	data-main="<?php echo htmlspecialchars(isset($rows['wallet']) ? $rows['wallet'] : 0); ?>"
@@ -79,9 +75,9 @@ if (isset($data) && $data) {
 				</div>
 
 				<div class="qs-buy-field qs-buy-coin is-visible" id="qs-buy-coin">
-					<label class="qs-buy-label" for="currency">Deposit Coin</label>
+					<label class="qs-buy-label" for="currency">Payment Wallet</label>
 					<select name="currency" id="currency" class="qs-buy-select">
-						<option value="">Select coin</option>
+						<option value="">Select wallet</option>
 						<?php echo $qsBuyCurrencyOptions; ?>
 					</select>
 				</div>
@@ -103,7 +99,7 @@ if (isset($data) && $data) {
 					<div class="qs-buy-row">Start Date <b id="qs-sum-start"></b></div>
 					<div class="qs-buy-row">End Date <b id="qs-sum-end"></b></div>
 					<div class="qs-buy-row">Funding Source <b id="qs-sum-fund"></b></div>
-					<div class="qs-buy-row" id="qs-sum-coin-row">Deposit Coin <b id="qs-sum-coin"></b></div>
+					<div class="qs-buy-row" id="qs-sum-coin-row">Payment Wallet <b id="qs-sum-coin"></b></div>
 					<div class="qs-buy-row" id="qs-sum-wallet-row">Wallet Balance <b id="qs-sum-wallet"></b></div>
 					<div class="qs-buy-row" id="qs-sum-debit-row">Amount Debited <b id="qs-sum-debit"></b></div>
 					<div class="qs-buy-row" id="qs-sum-remain-row">Balance After Purchase <b id="qs-sum-remain"></b></div>

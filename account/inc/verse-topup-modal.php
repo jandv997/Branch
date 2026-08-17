@@ -1,10 +1,6 @@
 <?php
-$qsTopupCoins = '';
-if (isset($data) && $data) {
-	for ($qi = 0; $qi < count($data); $qi++) {
-		$qsTopupCoins .= '<option value="' . htmlspecialchars($data[$qi]->currency) . '">' . htmlspecialchars(strtoupper($data[$qi]->name)) . '</option>';
-	}
-}
+include_once dirname(__FILE__) . '/payment-wallets.php';
+$qsTopupCoins = qs_payment_wallet_options($mysqli);
 ?>
 <div class="qs-toast-error" id="qs-toast-error" role="alert">
 	<span class="qs-toast-error__icon">!</span>
@@ -46,9 +42,9 @@ if (isset($data) && $data) {
 			</div>
 
 			<div class="qs-buy-field qs-buy-coin is-visible" id="qs-topup-coin">
-				<label class="qs-buy-label" for="qs-topup-currency">Deposit Coin</label>
+				<label class="qs-buy-label" for="qs-topup-currency">Payment Wallet</label>
 				<select name="currency" id="qs-topup-currency" class="qs-buy-select">
-					<option value="">Select coin</option>
+					<option value="">Select wallet</option>
 					<?php echo $qsTopupCoins; ?>
 				</select>
 			</div>

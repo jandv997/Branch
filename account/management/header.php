@@ -254,6 +254,9 @@
                           
                          
                             <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="payment-wallets">Payment Wallets</a>
+                            </li>
+                            <li class="nav-sub-item">
                                 <a class="nav-sub-link" href="payment-history">Payment History</a>
                             </li>
                            

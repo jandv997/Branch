@@ -2,6 +2,8 @@
 session_start();
 
 include('connection.php');
+include_once('inc/payment-wallets.php');
+qs_ensure_payment_wallets_table($mysqli);
 
 
 //check if session id is set if it is redirect to login
@@ -26,10 +28,37 @@ $rows = mysqli_fetch_assoc($get_user);
 
 
 
-$orderid = $_GET['orderid'];
+$orderid = isset($_GET['orderid']) ? $_GET['orderid'] : (isset($_POST['orderid']) ? $_POST['orderid'] : '');
+$orderid = mysqli_real_escape_string($mysqli, $orderid);
+
+if (isset($_POST['mark-as-paid']) && $orderid !== '') {
+	$txnHash = trim(mysqli_real_escape_string($mysqli, isset($_POST['txn_hash']) ? $_POST['txn_hash'] : ''));
+	if ($txnHash !== '') {
+		$uid = (int) $rows['id'];
+		mysqli_query($mysqli, "UPDATE pending SET txn_hash='$txnHash' WHERE chargeid='$orderid' AND userid='$uid'");
+	}
+	header('Location: fund?orderid=' . urlencode($orderid));
+	exit;
+}
 
 $getorder = mysqli_query($mysqli,"SELECT * FROM pending WHERE chargeid='$orderid'");
 $row = mysqli_fetch_assoc($getorder);
+if (!$row) {
+	header('location:active-purchase');
+	exit;
+}
+
+$payAmount = (isset($row['crypto']) && $row['crypto'] !== '' && $row['crypto'] !== null) ? $row['crypto'] : $row['amount'];
+$payCurrency = isset($row['currency']) ? $row['currency'] : '';
+$payWallet = isset($row['wallet']) ? $row['wallet'] : '';
+$qrSrc = isset($row['qrcode']) ? $row['qrcode'] : '';
+if ($payWallet !== '') {
+	$generatedQr = qs_wallet_qr_data_uri($payWallet);
+	if ($generatedQr !== '') {
+		$qrSrc = $generatedQr;
+	}
+}
+$txnHashSaved = isset($row['txn_hash']) ? trim($row['txn_hash']) : '';
 
 
 ?>
@@ -2745,6 +2774,44 @@ $row = mysqli_fetch_assoc($getorder);
       background: #ffc107;
       color: #fff
     }
+
+    .qs-pay-mark {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+      margin: 1.25rem auto 0.5rem;
+      max-width: 440px;
+      padding: 0 12px;
+    }
+    .qs-pay-mark input {
+      flex: 1;
+      min-height: 42px;
+      border: 1px solid #d0d5dd;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 14px;
+    }
+    .qs-pay-mark button {
+      background: #2e7d32;
+      color: #fff;
+      border: 0;
+      border-radius: 6px;
+      padding: 0 16px;
+      font-weight: 700;
+      white-space: nowrap;
+      min-height: 42px;
+      cursor: pointer;
+    }
+    .qs-pay-marked {
+      margin: 1rem auto 0.5rem;
+      max-width: 440px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: #e8f5e9;
+      color: #1b5e20;
+      font-size: 13px;
+      word-break: break-all;
+    }
   </style>
 </head>
 
@@ -2790,7 +2857,7 @@ $row = mysqli_fetch_assoc($getorder);
                   <!---->
                 </div>
               </div>
-              <div data-v-04d1a81a="" class="row_sum__amount" id="converted"><?php echo $row['crypto']; ?></div>
+              <div data-v-04d1a81a="" class="row_sum__amount" id="converted"><?php echo htmlspecialchars($payAmount); ?></div>
               <div data-v-a6f121a6="" data-v-04d1a81a="" class="clipboard" style="display: none;">
                 <div data-v-a6f121a6="" class="clipboard__value"></div>
                 <div data-v-a6f121a6="" class="clipboard__btn" data-clipboard-click-handler=""
@@ -2800,7 +2867,7 @@ $row = mysqli_fetch_assoc($getorder);
                   <!---->
                 </div>
               </div>
-              <div data-v-04d1a81a="" class="row_sum__curr"><?php echo $row['currency']; ?></div>
+              <div data-v-04d1a81a="" class="row_sum__curr"><?php echo htmlspecialchars($payCurrency); ?></div>
             </div>
             <div data-v-04d1a81a="" class="row_sum__fiat">
               <div data-v-a6f121a6="" data-v-04d1a81a="" class="clipboard" style="display: none;">
@@ -2830,7 +2897,7 @@ $row = mysqli_fetch_assoc($getorder);
           <div data-v-1e9a806c="" class="step step_pay">
             <div data-v-1e9a806c="" class="step_pay__qr">
               <!--?xml version="1.0" encoding="UTF-8"?-->
-             <img  src="<?php echo $row['qrcode']; ?>" />
+             <img  src="<?php echo htmlspecialchars($qrSrc); ?>" alt="Wallet QR code" />
             </div>
             <div data-v-a6f121a6="" data-v-1e9a806c="" class="clipboard" style="display: none;">
               <div data-v-a6f121a6="" class="clipboard__value"></div>
@@ -2871,17 +2938,26 @@ $row = mysqli_fetch_assoc($getorder);
             </div>
             <!---->
             <div data-v-1e9a806c="" class="invoice__hint">To complete your payment, please send <strong
-                id="step_pay__amount_payTo" class="step_pay__amount"><?php echo $row['crypto']; ?></strong>
-              <strong id="step_pay__curr_payTo" class="step_pay__curr"><?php echo $row['currency']; ?></strong>
+                id="step_pay__amount_payTo" class="step_pay__amount"><?php echo htmlspecialchars($payAmount); ?></strong>
+              <strong id="step_pay__curr_payTo" class="step_pay__curr"><?php echo htmlspecialchars($payCurrency); ?></strong>
               to the address below:
             </div>
-            <div data-v-1e9a806c="" class="step_pay__address"><?php echo $row['wallet']; ?></div>
+            <div data-v-1e9a806c="" class="step_pay__address"><?php echo htmlspecialchars($payWallet); ?></div>
             <div data-v-a6f121a6="" class="clipboard__btn" onclick="mylink()">
               <svg data-v-5e0cd238="" width="20" height="20" viewBox="0 0 24 24" id="icon_copy" xmlns="http://www.w3.org/2000/svg"><path data-v-5e0cd238="" d="M6.439 5.927c.408 0 .738.33.738.739v5.078c0 .409.33.738.739.738h5.05c.41 0 .74.33.74.739v9.669c0 .613-.496 1.108-1.109 1.108H1.114l-.12-.007c-.396-.044-.73-.305-.889-.732-.064-.172-.098-.37-.098-.59V6.813c0-.392.494-.887 1.107-.887zM16.696 0c.409 0 .738.33.738.738v4.98c0 .409.33.739.739.739h5.078c.409 0 .738.33.738.738h-.002v9.767c0 .613-.495 1.108-1.108 1.108h-7.707v-7.463c0-.478-.187-.945-.539-1.297L10.323 5c-.01-.013-.022-.023-.032-.033v-3.86c0-.612.495-1.107 1.108-1.107zM9.03 5.927c.09 0 .182.032.258.109l1.002 1.002 3.306 3.308c.076.076.108.17.108.26-.002.19-.148.37-.369.37h-4.31c-.202 0-.37-.165-.367-.37v-4.31c0-.22.182-.369.372-.369zM18.94.372c0-.33.399-.493.63-.261l4.31 4.31c.234.231.07.63-.26.63h-4.31c-.205 0-.37-.165-.37-.37z"></path></svg>
               &nbsp;
               Copy the wallet address
               <!---->
             </div>
+            <?php if ($txnHashSaved !== '') { ?>
+            <div class="qs-pay-marked">Payment submitted. Hash: <?php echo htmlspecialchars($txnHashSaved); ?></div>
+            <?php } else { ?>
+            <form method="POST" class="qs-pay-mark">
+              <input type="hidden" name="orderid" value="<?php echo htmlspecialchars($orderid); ?>">
+              <input type="text" name="txn_hash" placeholder="Enter Transaction Hash" required>
+              <button type="submit" name="mark-as-paid">Mark As Paid</button>
+            </form>
+            <?php } ?>
           </div>
 
           <aside data-v-e6bd7c5e="" class="invoice__help help"><a data-v-e6bd7c5e=""
@@ -2918,7 +2994,7 @@ $row = mysqli_fetch_assoc($getorder);
   <script type="text/javascript" src="./plisio_files/commons_9365e9ba.96a6d9acd7ae2660bef9.js"></script>
   <script src="assets/plugins/jquery/jquery.min.js"></script>
 
-    <input type="text" style="display:none" value="<?php echo $row['wallet']; ?>" id="wallet-address" />
+    <input type="text" style="display:none" value="<?php echo htmlspecialchars($payWallet); ?>" id="wallet-address" />
     <script>
 
 function mylink() {
@@ -2937,62 +3013,6 @@ function mylink() {
         alert('Wallet Address Copied!');
 
     }
-
-
-<?php if($_GET['currency'] == "USDT" || $_GET['currency'] == "USDC" || $_GET['currency'] == "USDT_SOL" || $_GET['currency'] == "USDT_BSC"){ ?>
-
-
-            var amount = <?php echo $row['amount']; ?>;
-           
-
-            $('#converted').text(amount );
-            $('#step_pay__amount_payTo').text(amount);
-
-           
-
-
- <?php }else{ ?>
-
-
-
-
-    $.ajax({
-        url: 'https://api.coinbase.com/v2/prices/<?php echo $_GET['currency']; ?>-USD/buy',
-        type: 'GET',
-        success: function(data) {
-            //***********************************
-
-
-            console.log(data);
-
-            var amount = <?php echo $row['amount']; ?>;
-            var sell = data.data.amount;
-
-            data = parseInt(amount)/parseInt(sell);
-
-            $('#converted').text(data );
-            $('#step_pay__amount_payTo').text(data);
-
-           
-
-           
-
-        },
-        error: function(data) {
-            //hide preloader
-
-
-
-            //also show the yeye error in console
-            console.log(data);
-
-        }
-    });
-
-
-<?php } ?>
-
-
 
     </script>
 </body>

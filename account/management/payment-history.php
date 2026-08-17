@@ -151,6 +151,7 @@ $rows = mysqli_fetch_assoc($get_admin);
                                                             <th>Payout Method </th>
                                                             
                                                             <th>Wallet Address</th>
+                                                            <th>Txn Hash</th>
                                                            
                                                             <th>Type of Payment</th>
                                                             <th>Action</th>
@@ -199,6 +200,7 @@ $rows = mysqli_fetch_assoc($get_admin);
                                                               } ?> </td>
                                               
                                                 <td><?php echo $row['wallet']; ?></td>
+                                                <td><?php echo htmlspecialchars(isset($row['txn_hash']) ? $row['txn_hash'] : ''); ?></td>
                                              
 
                                                 <td><?php if($row['reinvest'] ==0){
