@@ -919,3 +919,27 @@ button.qs-verse-select {
 .qs-verse-grid.qs-verse-grid--active {
   grid-template-columns: minmax(0, 820px);
 }
+
+body.light-theme .qs-verse-tabs {
+  border-bottom-color: rgba(15, 23, 42, 0.1);
+}
+
+body.light-theme .qs-verse-tab {
+  color: #64748b !important;
+}
+
+body.light-theme .qs-verse-tab:hover,
+body.light-theme .qs-verse-tab.is-active {
+  color: #0f172a !important;
+}
+
+body.light-theme .qs-verse-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .qs-verse-card__name {
+  color: #0f172a;
+}
+
+

@@ -2,8 +2,8 @@
 $qs_money = function ($n) {
 	return '$' . number_format((float) $n, 2);
 };
-$qs_go = function ($url) use ($isActiveMember) {
-	return $isActiveMember ? $url : 'javascript:void(0);';
+$qs_go = function ($url) {
+	return $url;
 };
 
 $wallet = isset($rows['wallet']) ? (float) $rows['wallet'] : 0;
@@ -162,7 +162,7 @@ $allocTotal = $wallet + $staking + $referral;
 	<div class="qs-ov-card qs-ov-pulse">
 		<div class="qs-ov-card__head">
 			<h3>Market Pulse</h3>
-			<a class="qs-ov-link" href="<?php echo $qs_go('live-trade-cex'); ?>">Open Live Terminal ↗</a>
+			<a class="qs-ov-link" href="<?php echo $qs_go('overview-core?tab=cex'); ?>">Open Live Terminal ↗</a>
 		</div>
 		<div class="qs-ov-pulse__grid">
 			<div>

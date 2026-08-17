@@ -8,11 +8,24 @@
 	  
 
  
-$isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_expires']) > time());
- ?>
+include_once __DIR__ . '/inc/member-status.php';
+$isActiveMember = qs_is_active_member(isset($rows) ? $rows : array());
+
+$qs_qcore_files = array('overview-core.php', 'live-trade-cex.php', 'live-trade.php', 'future-trade.php', 'quantum-signals.php');
+$qs_verse_files = array('marketplace.php', 'active-purchase.php', 'expire-purchase.php');
+$qs_on_qcore = in_array($currentFile, $qs_qcore_files, true);
+$qs_on_verse = in_array($currentFile, $qs_verse_files, true);
+
+$qs_theme_default = 'dark';
+$qs_theme_js = 'assets/js/qs-theme.js';
+include_once __DIR__ . '/inc/qs-theme-boot.php';
+?>
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
 <link href="assets/css/qs-member.css" rel="stylesheet">
+<?php if ($qs_on_qcore) { ?>
+<link href="assets/css/qs-qcore.css" rel="stylesheet">
+<?php } ?>
 
 <!-- Start of LiveChat (www.livechat.com) code -->
 <script>
@@ -51,7 +64,9 @@ $isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_ex
 							</div>
 							<?php if ($currentFile === 'dashboard.php') { ?>
 								<span class="qs-page-title">Overview</span>
-							<?php } elseif (in_array($currentFile, array('marketplace.php', 'active-purchase.php', 'expire-purchase.php'), true)) { ?>
+							<?php } elseif ($qs_on_qcore) { ?>
+								<span class="qs-page-title">Q-Core</span>
+							<?php } elseif ($qs_on_verse) { ?>
 								<span class="qs-page-title">Quantum Verse</span>
 							<?php } ?>
 
@@ -65,9 +80,13 @@ $isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_ex
 							<div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
 								<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 									<ul class="nav nav-item header-icons navbar-nav-right ms-auto">
-										
+										<?php if ($qs_on_qcore) { ?>
+										<li class="nav-item d-none d-xl-flex align-items-center">
+											<span class="qs-demo-badge">DEMO DATA — NOT LIVE TRADING RESULTS</span>
+										</li>
+										<?php } ?>
 										<li class="dropdown nav-item">
-											<a class="new nav-link theme-layout nav-link-bg layout-setting" >
+											<a class="new nav-link theme-layout nav-link-bg layout-setting" href="javascript:void(0);" title="Toggle light / dark mode">
 												<span class="dark-layout"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" width="24" height="24" viewBox="0 0 24 24"><path d="M20.742 13.045a8.088 8.088 0 0 1-2.077.271c-2.135 0-4.14-.83-5.646-2.336a8.025 8.025 0 0 1-2.064-7.723A1 1 0 0 0 9.73 2.034a10.014 10.014 0 0 0-4.489 2.582c-3.898 3.898-3.898 10.243 0 14.143a9.937 9.937 0 0 0 7.072 2.93 9.93 9.93 0 0 0 7.07-2.929 10.007 10.007 0 0 0 2.583-4.491 1.001 1.001 0 0 0-1.224-1.224zm-2.772 4.301a7.947 7.947 0 0 1-5.656 2.343 7.953 7.953 0 0 1-5.658-2.344c-3.118-3.119-3.118-8.195 0-11.314a7.923 7.923 0 0 1 2.06-1.483 10.027 10.027 0 0 0 2.89 7.848 9.972 9.972 0 0 0 7.848 2.891 8.036 8.036 0 0 1-1.484 2.059z"/></svg></span>
 												<span class="light-layout"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" width="24" height="24" viewBox="0 0 24 24"><path d="M6.993 12c0 2.761 2.246 5.007 5.007 5.007s5.007-2.246 5.007-5.007S14.761 6.993 12 6.993 6.993 9.239 6.993 12zM12 8.993c1.658 0 3.007 1.349 3.007 3.007S13.658 15.007 12 15.007 8.993 13.658 8.993 12 10.342 8.993 12 8.993zM10.998 19h2v3h-2zm0-17h2v3h-2zm-9 9h3v2h-3zm17 0h3v2h-3zM4.219 18.363l2.12-2.122 1.415 1.414-2.12 2.122zM16.24 6.344l2.122-2.122 1.414 1.414-2.122 2.122zM6.342 7.759 4.22 5.637l1.415-1.414 2.12 2.122zm13.434 10.605-1.414 1.414-2.122-2.122 1.414-1.414z"/></svg></span>
 											</a>
@@ -190,198 +209,63 @@ $isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_ex
 						</div>
 						<div class="qs-qcore-status">
 							<div class="qs-qcore-status__row">
-								<span>Q-Core Status</span>
+								<span>Q-CORE STATUS</span>
 								<span class="qs-qcore-status__dot" aria-hidden="true"></span>
 							</div>
 							<p class="qs-qcore-status__state">OPERATIONAL</p>
-							<p class="qs-qcore-status__meta">Market · Execution · Chain</p>
+							<p class="qs-qcore-status__meta">Market • Execution • Chain</p>
 						</div>
 						<div class="main-sidemenu">
 							<div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>
 							<ul class="side-menu">
-								<li class="side-item side-item-category">Main</li>
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="dashboard"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z"/></svg><span class="side-menu__label">Overview</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item<?php echo $currentFile === 'dashboard.php' ? ' active' : ''; ?>" href="dashboard"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z"/></svg><span class="side-menu__label">Overview</span></a>
 								</li>
-
-
-								<li class="side-item side-item-category">Account</li>
-
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-										
-
-										<i class=" fe fe-lock" style="padding-right:11px;"></i>
-									<span class="side-menu__label">Security</span><i class="angle fe fe-chevron-right"></i></a>
-									<ul class="slide-menu">
-										
-										<li><a class="slide-item" href="2fa">2FA</a></li>
-										<li><a class="slide-item" href="change-password">Update Password</a></li>
-										
-									</ul>
+									<a class="side-menu__item<?php echo $qs_on_qcore ? ' active' : ''; ?>" href="overview-core"><i class="fe fe-compass" style="padding-right:11px;"></i><span class="side-menu__label">Quantum Core</span></a>
 								</li>
-
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="profile">
-									<i class=" fe fe-user" style="padding-right:11px;"></i>
-									<span class="side-menu__label">Account Profile</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item<?php echo $qs_on_verse ? ' active' : ''; ?>" href="marketplace"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M22 7.999a1 1 0 0 0-.516-.874l-9.022-5a1.003 1.003 0 0 0-.968 0l-8.978 4.96a1 1 0 0 0-.003 1.748l9.022 5.04a.995.995 0 0 0 .973.001l8.978-5A1 1 0 0 0 22 7.999zm-9.977 3.855L5.06 7.965l6.917-3.822 6.964 3.859-6.918 3.852z"/><path d="M20.515 11.126 12 15.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.97-1.748z"/><path d="M20.515 15.126 12 19.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.97-1.748z"/></svg><span class="side-menu__label">Quantum Verse</span></a>
 								</li>
-
-
-
-
-								<li class="side-item side-item-category">Core Application</li>
-
-								<li class="slide  <?php echo !$isActiveMember ? 'disabled-menu' : ''; ?>">
-									<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-									<i class="fe fe-compass" style="padding-right:11px;"></i>
-									<span class="side-menu__label">Quantum Core</span><i class="angle fe fe-chevron-right"></i></a>
-
-									
-									<ul class="slide-menu">
-										
-										<li><a class="slide-item" href="<?php echo $isActiveMember ? 'overview-core' : 'javascript:void(0);'; ?>">Overview</a></li>
-										<li><a class="slide-item" href="<?php echo $isActiveMember ? 'live-trade-cex' : 'javascript:void(0);'; ?>">CEXs Live Trading</a></li>
-										<li><a class="slide-item" href="<?php echo $isActiveMember ? 'live-trade' : 'javascript:void(0);'; ?>">DEXs Live Trading</a></li>
-										<li><a class="slide-item" href="<?php echo $isActiveMember ? 'future-trade' : 'javascript:void(0);'; ?>">Futures Live Trading</a></li>
-
-										<li><a class="slide-item" href="<?php echo $isActiveMember ? 'quantum-signals' : 'javascript:void(0);'; ?>">Quantum Signals</a></li>
-										
-									</ul>
-									
-								</li>
-
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="membership">
-									<i class="fe fe-award" style="padding-right:11px;"></i>
-										
-										<span class="side-menu__label">Membership</span><i class="angle fe fe-chevron-right"></i></a>
-									
-								</li> 
-
-
-									<!-- <li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="quantum-signals">
-									<i class="fe fe-radio" style="padding-right:11px;"></i>
-										
-										<span class="side-menu__label">Quantum Signals</span><i class="angle fe fe-chevron-right"></i></a>
-									
-								</li>  -->
-
-
+									<a class="side-menu__item<?php echo $currentFile === 'membership.php' ? ' active' : ''; ?>" href="membership"><i class="fe fe-award" style="padding-right:11px;"></i><span class="side-menu__label">Membership</span></a>
+								</li>
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="virtual-card">
-									<i class=" fe fe-credit-card" style="padding-right:11px;"></i>
-									<span class="side-menu__label">Virtual Card</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item<?php echo $currentFile === 'transactions.php' ? ' active' : ''; ?>" href="transactions"><i class="fe fe-list" style="padding-right:11px;"></i><span class="side-menu__label">Activities</span></a>
 								</li>
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="transactions">
-									<i class=" fe fe-list" style="padding-right:11px;"></i>
-									<span class="side-menu__label">Activities</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item<?php echo in_array($currentFile, array('make-withdrawal.php', 'withdrawal-history.php'), true) ? ' active' : ''; ?>" href="make-withdrawal"><i class="fe fe-briefcase" style="padding-right:11px;"></i><span class="side-menu__label">Withdrawals</span></a>
 								</li>
-
-								<li class="slide<?php echo in_array($currentFile, array('marketplace.php', 'active-purchase.php', 'expire-purchase.php'), true) ? ' is-expanded' : ''; ?>">
-									<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"  class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24"><path d="M22 7.999a1 1 0 0 0-.516-.874l-9.022-5a1.003 1.003 0 0 0-.968 0l-8.978 4.96a1 1 0 0 0-.003 1.748l9.022 5.04a.995.995 0 0 0 .973.001l8.978-5A1 1 0 0 0 22 7.999zm-9.977 3.855L5.06 7.965l6.917-3.822 6.964 3.859-6.918 3.852z"/><path d="M20.515 11.126 12 15.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.97-1.748z"/><path d="M20.515 15.126 12 19.856l-8.515-4.73-.971 1.748 9 5a1 1 0 0 0 .971 0l9-5-.97-1.748z"/></svg>
-									<span class="side-menu__label">Quantum Verse</span><i class="angle fe fe-chevron-right"></i></a>
-									<ul class="slide-menu">
-										
-										<li><a class="slide-item<?php echo $currentFile === 'marketplace.php' ? ' active' : ''; ?>" href="<?php echo $isActiveMember ? 'marketplace' : 'javascript:void(0);'; ?>">Make Purchase</a></li>
-										<li><a class="slide-item<?php echo $currentFile === 'active-purchase.php' ? ' active' : ''; ?>" href="<?php echo $isActiveMember ? 'active-purchase' : 'javascript:void(0);'; ?>">Active Purchase</a></li>
-										<li><a class="slide-item<?php echo $currentFile === 'expire-purchase.php' ? ' active' : ''; ?>" href="<?php echo $isActiveMember ? 'expire-purchase' : 'javascript:void(0);'; ?>">Expired Purchase</a></li>
-										<!-- <li><a class="slide-item" href="calculator">Purchase Estimator</a></li> -->
-										
-										
-									</ul>
-								</li>
-
-
-								
-
-
-								<!-- <li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="transfer">
-									<i class="fe fe-send" style="padding-right:11px;"></i>
-										
-										<span class="side-menu__label">Transfer</span><i class="angle fe fe-chevron-right"></i></a>
-									
-								</li> -->
-
-
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-									<i class=" fe fe-briefcase" style="padding-right:11px;"></i>
-									<span class="side-menu__label">Withdrawals</span><i class="angle fe fe-chevron-right"></i></a>
-									<ul class="slide-menu">
-										
-										<li><a class="slide-item" href="make-withdrawal">Initiate Withdrawal</a></li>
-										<li><a class="slide-item" href="withdrawal-history">Withdrawal History</a></li>
-										
-										
-									</ul>
+									<a class="side-menu__item<?php echo in_array($currentFile, array('referrals.php', 'referral-bonus.php'), true) ? ' active' : ''; ?>" href="referrals"><i class="fe fe-users" style="padding-right:11px;"></i><span class="side-menu__label">Referrals</span></a>
 								</li>
-								<li class="side-item side-item-category">Extra</li>
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-									<i class=" fe fe-users" style="padding-right:11px;"></i>
-									
-									<span class="side-menu__label">Referrals</span><i class="angle fe fe-chevron-right"></i></a>
-									<ul class="slide-menu">
-										
-										<li><a class="slide-item" href="referrals">My Referrals</a></li>
-										<li><a class="slide-item" href="referral-bonus">Referral Bonus</a></li>
-
-										<li><a class="slide-item" href="javascript:mylink();">Referral Link</a></li>
-
-										<li><a class="slide-item" href="javascript:mycode();">Referral Code</a></li>
-
-										
-										
-									</ul>
+									<a class="side-menu__item<?php echo $currentFile === 'teams-bonus.php' ? ' active' : ''; ?>" href="teams-bonus"><i class="fe fe-user-plus" style="padding-right:11px;"></i><span class="side-menu__label">Quantum Flex</span></a>
 								</li>
-
-								
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="teams-bonus">
-									<i class="fe fe-user-plus" style="padding-right:11px;"></i>
-										
-										<span class="side-menu__label">Quantum FLEX</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item<?php echo $currentFile === 'virtual-card.php' ? ' active' : ''; ?>" href="virtual-card"><i class="fe fe-credit-card" style="padding-right:11px;"></i><span class="side-menu__label">Virtual Card</span></a>
 								</li>
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="resources">
-									<i class="fe fe-download" style="padding-right:11px;"></i>
-										
-										<span class="side-menu__label">Resources</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item<?php echo $currentFile === 'resources.php' ? ' active' : ''; ?>" href="resources"><i class="fe fe-download" style="padding-right:11px;"></i><span class="side-menu__label">Resources</span></a>
 								</li>
-
-
-
-							
-
 								<li class="slide">
-									<a class="side-menu__item" data-bs-toggle="slide" href="logout">
-									<i class="fe fe-unlock" style="padding-right:11px;"></i>
-										
-										<span class="side-menu__label">Log Out</span><i class="angle fe fe-chevron-right"></i></a>
-									
+									<a class="side-menu__item" href="javascript:void(0);" onclick="if (window.LiveChatWidget) { LiveChatWidget.call('maximize'); }"><i class="fe fe-headphones" style="padding-right:11px;"></i><span class="side-menu__label">Support</span></a>
 								</li>
-
-
-							
-							
-							
+								<li class="slide">
+									<a class="side-menu__item<?php echo in_array($currentFile, array('2fa.php', 'change-password.php'), true) ? ' active' : ''; ?>" href="2fa"><i class="fe fe-lock" style="padding-right:11px;"></i><span class="side-menu__label">Security</span></a>
+								</li>
+								<li class="slide">
+									<a class="side-menu__item<?php echo $currentFile === 'profile.php' ? ' active' : ''; ?>" href="profile"><i class="fe fe-user" style="padding-right:11px;"></i><span class="side-menu__label">Account Profile</span></a>
+								</li>
+								<li class="slide">
+									<a class="side-menu__item" href="../"><i class="fe fe-globe" style="padding-right:11px;"></i><span class="side-menu__label">Public Site</span></a>
+								</li>
+								<li class="slide">
+									<a class="side-menu__item qs-theme-toggle" href="javascript:void(0);"><i class="fe fe-sun" style="padding-right:11px;"></i><span class="side-menu__label qs-theme-label">Light Mode</span></a>
+								</li>
+								<li class="slide">
+									<a class="side-menu__item" href="logout"><i class="fe fe-unlock" style="padding-right:11px;"></i><span class="side-menu__label">Logout</span></a>
+								</li>
 							</ul>
 							<div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
 						</div>
@@ -389,19 +273,9 @@ $isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_ex
 				</div>
 				<!-- main-sidebar -->
 
-
-<?php 
-
-
-if (!$isActiveMember) { ?>
-				<div class="main-content">
-
-
-					<div class="alert alert-warning d-flex align-items-center" role="alert"> <svg class="flex-shrink-0 me-2 svg-warning" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="1.5rem" viewBox="0 0 24 24" width="1.5rem" fill="#000000"><g><rect fill="none" height="24" width="24"></rect></g><g><g><g><path d="M12,5.99L19.53,19H4.47L12,5.99 M12,2L1,21h22L12,2L12,2z"></path><polygon points="13,16 11,16 11,18 13,18"></polygon><polygon points="13,10 11,10 11,15 13,15"></polygon></g></g></g></svg> <div> Limited Access - Purchase a license to gain full access. <a href="membership">Purchase License</a></div> </div>
-
-				</div>
-
-				<?php } ?>
+<?php if (!$isActiveMember) { ?>
+				<div class="qs-license-banner" role="status">Limited access — purchase a license for full Q-Core features. <a href="membership">Purchase License</a></div>
+<?php } ?>
 
 
 

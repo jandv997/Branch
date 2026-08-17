@@ -385,3 +385,191 @@ body.main-body #global-loader { background: #030305; }
 .main-body .circle-icon::before {
   display: none !important;
 }
+
+.qs-license-banner {
+  position: relative;
+  z-index: 6;
+  margin: 78px 24px 0 270px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fde68a;
+  font-size: 13px;
+}
+
+.qs-license-banner a {
+  color: var(--qs-accent);
+  font-weight: 600;
+}
+
+@media (max-width: 991px) {
+  .qs-license-banner {
+    margin: 70px 12px 0;
+  }
+}
+
+body.main-body.app.light-theme,
+body.ltr.main-body.light-theme {
+  --qs-bg: #f3f5f8;
+  --qs-bg-2: #ffffff;
+  --qs-surface: #ffffff;
+  --qs-surface-2: #f8fafc;
+  --qs-text: #0f172a;
+  --qs-muted: #64748b;
+  --qs-muted-2: #94a3b8;
+  --qs-border: rgba(15, 23, 42, 0.1);
+  background: var(--qs-bg) !important;
+  color: var(--qs-text) !important;
+}
+
+body.light-theme #global-loader { background: #f3f5f8; }
+
+body.light-theme .page,
+body.light-theme .main-content.app-content,
+body.light-theme .main-container.container-fluid,
+body.light-theme .main-container {
+  background: var(--qs-bg) !important;
+}
+
+body.light-theme .main-header.side-header,
+body.light-theme .main-header {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-bottom-color: var(--qs-border) !important;
+}
+
+body.light-theme .main-header .header-icon-svgs,
+body.light-theme .main-header .nav-link,
+body.light-theme .header-icon {
+  color: #64748b !important;
+  fill: #64748b;
+}
+
+body.light-theme .main-header .nav-link:hover,
+body.light-theme .main-header .nav-link:hover .header-icon-svgs {
+  color: #0f172a !important;
+  fill: #0f172a;
+}
+
+body.light-theme .app-sidebar,
+body.light-theme .sticky .app-sidebar,
+body.light-theme .main-sidebar-header {
+  background: #ffffff !important;
+  border-color: var(--qs-border) !important;
+}
+
+body.light-theme .side-menu__item,
+body.light-theme .side-menu__label,
+body.light-theme .slide-item,
+body.light-theme .side-menu__item i,
+body.light-theme .side-menu__icon {
+  color: #475569 !important;
+  fill: #475569;
+}
+
+body.light-theme .side-menu__item:hover,
+body.light-theme .side-menu__item.active,
+body.light-theme .slide-item:hover,
+body.light-theme .slide-menu a.active {
+  background: rgba(14, 158, 144, 0.08) !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .side-menu__item:hover .side-menu__label,
+body.light-theme .side-menu__item:hover i,
+body.light-theme .side-menu__item.active .side-menu__label {
+  color: #0f172a !important;
+}
+
+body.light-theme .qs-page-title,
+body.light-theme .breadcrumb-header .main-content-title,
+body.light-theme .main-content-title,
+body.light-theme .card-title,
+body.light-theme .card h1,
+body.light-theme .card h2,
+body.light-theme .card h3,
+body.light-theme .card h4,
+body.light-theme .card h5,
+body.light-theme .card h6,
+body.light-theme .text-dark,
+body.light-theme .tx-20,
+body.light-theme .tx-22,
+body.light-theme .dropdown-item,
+body.light-theme .dropdown-title,
+body.light-theme .notification-label {
+  color: #0f172a !important;
+}
+
+body.light-theme .card,
+body.light-theme .card.sales-card,
+body.light-theme .primary-custom-card1,
+body.light-theme .card-img-top-1,
+body.light-theme .action-card,
+body.light-theme .modal-content,
+body.light-theme .custom-modal {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .card p,
+body.light-theme .text-muted,
+body.light-theme .subtext,
+body.light-theme .tx-12 {
+  color: #64748b !important;
+}
+
+body.light-theme .form-control,
+body.light-theme .form-select,
+body.light-theme select.form-control {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .table,
+body.light-theme .table td,
+body.light-theme .table th {
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light-theme .dropdown-menu {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .dropdown-item:hover {
+  background: #f1f5f9 !important;
+}
+
+body.light-theme .primary-custom-card1 .card-body,
+body.light-theme .action-card {
+  background: #ffffff !important;
+}
+
+body.light-theme .action-btn {
+  background: #f8fafc !important;
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  color: #0f172a !important;
+}
+
+body.light-theme .main-footer,
+body.light-theme footer {
+  background: #f3f5f8 !important;
+  color: #64748b !important;
+  border-top-color: rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .qs-qcore-status {
+  background: rgba(0, 230, 118, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+body.light-theme .btn-outline-light,
+body.light-theme .btn-outline-primary {
+  border-color: rgba(15, 23, 42, 0.16) !important;
+  color: #0f172a !important;
+}
+

@@ -3,500 +3,439 @@ session_start();
 
 include('connection.php');
 
-
-//check if session id is set if it is redirect to login
 if (!isset($_SESSION['id'])) {
-
 	header("location:index");
-} else {
-
-	$get_user = mysqli_query($mysqli, "SELECT * FROM users WHERE id='" . $_SESSION['id'] . "' ");
-	$rows = mysqli_fetch_assoc($get_user);
-	if (isset($_SESSION['2fa'])) {
-
-		if (($_SESSION['2fa'] == "no" or $_SESSION['2fa'] == "pending") and $rows['2fa'] == 1) {
-			header("location:index");
-		}
-
-
-	}
-
-
+	exit;
 }
 
+$get_user = mysqli_query($mysqli, "SELECT * FROM users WHERE id='" . $_SESSION['id'] . "' ");
+$rows = mysqli_fetch_assoc($get_user);
+if (isset($_SESSION['2fa'])) {
+	if (($_SESSION['2fa'] == "no" or $_SESSION['2fa'] == "pending") and $rows['2fa'] == 1) {
+		header("location:index");
+		exit;
+	}
+}
 
+$allowedTabs = array('overview', 'cex', 'dex', 'futures', 'signals');
+$qcoreTab = isset($_GET['tab']) ? strtolower(trim((string) $_GET['tab'])) : 'overview';
+if (!in_array($qcoreTab, $allowedTabs, true)) {
+	$qcoreTab = 'overview';
+}
 
+$signalRows = array();
+if ($qcoreTab === 'signals') {
+	$result = $mysqli->query("
+		SELECT * FROM bot_messages WHERE DATE(created_at) = CURDATE()
+		ORDER BY id DESC
+		LIMIT 100
+	");
+	if ($result) {
+		while ($row = $result->fetch_assoc()) {
+			$signalRows[] = $row;
+		}
+	}
+}
 
+$tabTitles = array(
+	'overview' => 'Q-Core',
+	'cex' => 'Q-Core · CEX Live',
+	'dex' => 'Q-Core · DEX Live',
+	'futures' => 'Q-Core · Futures Live',
+	'signals' => 'Q-Core · Quantum Signals',
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
 	<meta charset="UTF-8">
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
-	<!-- Title -->
-	<title>Quantum Core - Overview | Quantum Group </title>
-
-	<!-- Favicon -->
+	<title><?php echo htmlspecialchars($tabTitles[$qcoreTab]); ?> | Quantum Scalp</title>
 	<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon" />
-
-	<!-- Icons css -->
 	<link href="assets/css/icons.css" rel="stylesheet">
-
-	<!-- bootstrap css-->
 	<link id="style" href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-	<!--- Style css --->
 	<link href="assets/css/style.css" rel="stylesheet">
 	<link href="assets/css/style-dark.css" rel="stylesheet">
 	<link href="assets/css/style-transparent.css" rel="stylesheet">
-
-	<!---Skin modes css-->
 	<link href="assets/css/skin-modes.css" rel="stylesheet" />
-
-	<!--- Animations css-->
 	<link href="assets/css/animate.css" rel="stylesheet">
-
-
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"
-		rel="stylesheet" />
-
-
-	<!-- Jquery js-->
-	<script src="assets/plugins/jquery/jquery.min.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
-
-<style>
-	.hero {
-			position: relative;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 70px 30px;
-			border-radius: 32px;
-			background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.25), transparent 28%),
-				radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.22), transparent 24%),
-				linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.98));
-			overflow: hidden;
-			margin-bottom: 40px;
-		}
-
-		.hero::before,
-		.hero::after {
-			content: "";
-			position: absolute;
-			border-radius: 50%;
-			opacity: 0.35;
-			filter: blur(36px);
-		}
-
-		.hero::before {
-			width: 210px;
-			height: 210px;
-			background: rgba(34, 211, 238, 0.32);
-			top: -40px;
-			left: 10px;
-		}
-
-		.hero::after {
-			width: 220px;
-			height: 220px;
-			background: rgba(168, 85, 247, 0.28);
-			bottom: -60px;
-			right: 20px;
-		}
-
-		.hero:hover .card {
-			transform: translateY(-10px) rotateY(0);
-		}
-
-		.hero-text h1 {
-
-			font-size: 48px;
-
-			line-height: 1.1;
-
-		}
-
-		.hero-text span {
-
-			background: linear-gradient(90deg, #22d3ee, #c084fc, #f472b6);
-
-			-webkit-background-clip: text;
-
-			-webkit-text-fill-color: transparent;
-
-		}
-
-		.hero-text p {
-
-			margin-top: 15px;
-
-			color: #d1d5db;
-
-		}
-
-		.hero-text button {
-			border-radius: 999px;
-			padding: 12px 28px;
-			font-weight: 600;
-			box-shadow: 0 16px 40px rgba(99, 102, 241, 0.24);
-		}
-
-
-</style>
-
+	<link href="assets/css/qs-member.css" rel="stylesheet">
+	<link href="assets/css/qs-qcore.css" rel="stylesheet">
 </head>
 
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app sidebar-mini dark-theme">
 
-	<!-- Loader -->
 	<div id="global-loader">
 		<img src="img/favicon.png" width="50" class="loader-img" alt="Loader">
 	</div>
-	<!-- /Loader -->
 
-	<!-- Page -->
 	<div class="page">
-
 		<div>
 			<?php include('header.php'); ?>
 		</div>
 
-		<!-- main-content -->
 		<div class="main-content app-content">
-
-			<!-- container -->
 			<div class="main-container container-fluid">
+				<div class="qs-qcore">
+					<?php include('inc/qcore-tabs.php'); ?>
 
-				<!-- breadcrumb -->
-				<div class="breadcrumb-header justify-content-between">
-					<div class="left-content">
-						<span class="main-content-title mg-b-0 mg-b-lg-1">Quantum Core </span>
-					</div>
-					<div class="justify-content-center mt-2">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item tx-15"><a href="javascript:void(0);">Quantum</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Overview </li>
-						</ol>
-					</div>
+					<?php if ($qcoreTab === 'overview') { ?>
+						<section class="qs-qcore-engine">
+							<h2>Q-Core Engine</h2>
+							<p>Six parallel arbitrage strategies analyzed simultaneously. Quantum-inspired optimization on classical infrastructure.</p>
+							<div class="qs-qcore-pills">
+								<span class="qs-qcore-pill">Q-Core Engine ONLINE</span>
+								<span class="qs-qcore-pill">Market Data CONNECTED</span>
+								<span class="qs-qcore-pill">Execution CONNECTED</span>
+								<span class="qs-qcore-pill">Blockchain ACTIVE</span>
+							</div>
+						</section>
+
+						<div class="qs-qcore-grid">
+							<article class="qs-qcore-card">
+								<span class="qs-qcore-card__num">01</span>
+								<span class="qs-qcore-card__icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 7H3v4M17 17h4v-4M3 7l6 6M21 17l-6-6"/></svg>
+								</span>
+								<h3>Cross-Exchange Arbitrage</h3>
+								<p>Compares prices for the same digital assets across different centralized exchanges and identifies potential price discrepancies.</p>
+								<div class="qs-qcore-path">Exchange A → Asset → Exchange B</div>
+							</article>
+							<article class="qs-qcore-card">
+								<span class="qs-qcore-card__num">02</span>
+								<span class="qs-qcore-card__icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 4 3.5 19h17L12 4z"/></svg>
+								</span>
+								<h3>Triangular Arbitrage</h3>
+								<p>Analyzes relationships between three trading pairs to identify potential pricing inefficiencies within a single exchange or market environment.</p>
+								<div class="qs-qcore-path">BTC → USDT → ETH → BTC</div>
+							</article>
+							<article class="qs-qcore-card">
+								<span class="qs-qcore-card__num">03</span>
+								<span class="qs-qcore-card__icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16l5-5 4 4 7-8"/><path d="M14 7h6v6"/></svg>
+								</span>
+								<h3>Statistical Arbitrage</h3>
+								<p>Machine-learning models analyze historical relationships and market behavior to identify statistical deviations that may represent potential opportunities.</p>
+								<div class="qs-qcore-path">Historical correlation + AI signal</div>
+							</article>
+							<article class="qs-qcore-card">
+								<span class="qs-qcore-card__num">04</span>
+								<span class="qs-qcore-card__icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8 12h8M16.2 7.6 8.8 11M16.2 16.4 8.8 13"/></svg>
+								</span>
+								<h3>DEX Arbitrage</h3>
+								<p>Monitors decentralized exchanges and automated market makers for pricing differences and liquidity imbalances.</p>
+								<div class="qs-qcore-path">DEX A → Blockchain → DEX B</div>
+							</article>
+							<article class="qs-qcore-card">
+								<span class="qs-qcore-card__num">05</span>
+								<span class="qs-qcore-card__icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 3 4 14h7l-1 7 10-12h-7l0-6z"/></svg>
+								</span>
+								<h3>Flash Loan Arbitrage</h3>
+								<p>Where technically and economically viable, identifies atomic on-chain arbitrage opportunities involving flash-loan infrastructure. Dependent on available liquidity, blockchain conditions, transaction costs, smart-contract conditions, and execution feasibility.</p>
+								<div class="qs-qcore-path">Borrow → Swap → Repay (atomic)</div>
+							</article>
+							<article class="qs-qcore-card">
+								<span class="qs-qcore-card__num">06</span>
+								<span class="qs-qcore-card__icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 19V10M12 19V5M19 19v-7"/></svg>
+								</span>
+								<h3>Futures &amp; Derivatives Arbitrage</h3>
+								<p>Analyzes relationships between spot and derivatives markets, including funding-rate differences, basis spreads, calendar spreads, and other relative-value opportunities.</p>
+								<div class="qs-qcore-path">Spot ↔ Perp / Funding / Basis</div>
+							</article>
+						</div>
+					<?php } ?>
+
+					<?php if ($qcoreTab === 'cex') { ?>
+						<section class="qs-qcore-panel">
+							<div class="qs-qcore-panel__head">
+								<div>
+									<h2 class="qs-qcore-panel__title">CEX · Cross-Exchange Spreads</h2>
+									<p class="qs-qcore-panel__meta" id="qs-cex-meta">Binance · OKX · Kraken · refreshing</p>
+								</div>
+								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+							</div>
+							<div class="table-responsive">
+								<table class="qs-qcore-table">
+									<thead>
+										<tr>
+											<th>Asset</th>
+											<th>Bought From</th>
+											<th>Sold To</th>
+											<th>Buy</th>
+											<th>Sell</th>
+											<th>Spread</th>
+											<th>Route</th>
+										</tr>
+									</thead>
+									<tbody id="qs-cex-body"></tbody>
+								</table>
+							</div>
+							<p class="qs-qcore-note">Live CoinGecko prices with simulated venue spreads. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+						</section>
+					<?php } ?>
+
+					<?php if ($qcoreTab === 'dex') { ?>
+						<section class="qs-qcore-panel">
+							<div class="qs-qcore-panel__head">
+								<div>
+									<h2 class="qs-qcore-panel__title">DEX · CEX ↔ DEX Spreads</h2>
+									<p class="qs-qcore-panel__meta" id="qs-dex-meta">Uniswap v3 · OKX · Ethereum · just now</p>
+								</div>
+								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+							</div>
+							<div class="table-responsive">
+								<table class="qs-qcore-table">
+									<thead>
+										<tr>
+											<th>Asset</th>
+											<th>Uniswap (DEX)</th>
+											<th>OKX (CEX)</th>
+											<th>Spread</th>
+											<th>Route</th>
+										</tr>
+									</thead>
+									<tbody id="qs-dex-body"></tbody>
+								</table>
+							</div>
+							<p class="qs-qcore-note">Real market prices versus a simulated Uniswap v3 / OKX spread. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+						</section>
+					<?php } ?>
+
+					<?php if ($qcoreTab === 'futures') { ?>
+						<section class="qs-qcore-panel">
+							<div class="qs-qcore-panel__head">
+								<div>
+									<h2 class="qs-qcore-panel__title">Futures · Funding &amp; Basis</h2>
+									<p class="qs-qcore-panel__meta" id="qs-fut-meta">Binance · Bybit · OKX · just now</p>
+								</div>
+								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+							</div>
+							<div class="table-responsive">
+								<table class="qs-qcore-table">
+									<thead>
+										<tr>
+											<th>Asset</th>
+											<th>Binance</th>
+											<th>Bybit</th>
+											<th>OKX</th>
+											<th>Spread</th>
+											<th>Route</th>
+										</tr>
+									</thead>
+									<tbody id="qs-fut-body"></tbody>
+								</table>
+							</div>
+							<p class="qs-qcore-note">Live Binance funding rates with simulated venue comparison. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+						</section>
+					<?php } ?>
+
+					<?php if ($qcoreTab === 'signals') { ?>
+						<div class="qs-qcore-pending">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4.5 10.5c0-4.1 3.4-7.5 7.5-7.5s7.5 3.4 7.5 7.5c0 5-7.5 11-7.5 11S4.5 15.5 4.5 10.5z"/><circle cx="12" cy="10.5" r="2.2"/></svg>
+							<div>
+								<strong>LIVE DATA CONNECTION PENDING</strong>
+								<span>Quantum Signals — showing clearly-labeled DEMO DATA until Q-Core APIs are connected.</span>
+							</div>
+						</div>
+						<div class="qs-qcore-signals">
+							<article class="qs-signal-card">
+								<div class="qs-signal-card__top">
+									<span class="qs-signal-card__kind">Cross-Exchange</span>
+									<span class="qs-signal-status is-active">ACTIVE</span>
+								</div>
+								<h3>BTC/USDT</h3>
+								<p>Informational technology output — not financial advice.</p>
+							</article>
+							<article class="qs-signal-card">
+								<div class="qs-signal-card__top">
+									<span class="qs-signal-card__kind">Statistical</span>
+									<span class="qs-signal-status is-watch">MONITORING</span>
+								</div>
+								<h3>ETH/USDT</h3>
+								<p>Informational technology output — not financial advice.</p>
+							</article>
+						</div>
+						<?php if (count($signalRows) > 0) { ?>
+							<div class="qs-qcore-feed">
+								<?php foreach ($signalRows as $signal) { ?>
+									<article class="qs-qcore-feed-item">
+										<p><?php echo htmlspecialchars($signal['message_text']); ?></p>
+										<time><?php echo htmlspecialchars(date('d M Y · g:i A', strtotime($signal['created_at']))); ?></time>
+									</article>
+								<?php } ?>
+							</div>
+						<?php } ?>
+					<?php } ?>
 				</div>
-				<!-- /breadcrumb -->
-
-
-				<div class="row justify-content-center">
-					<div class="col-lg-6">
-						<div class="text-center ">
-							<h3 style="text-transform:uppercase"></h3>
-
-						</div>
-					</div>
-				</div>
-
-				<section class="hero">
-
-					<div class="hero-text fade-in delay-1">
-
-						<h1> <span>Crypto arbitrage</span> </h1>
-						<i class="fas fa-cube"></i>
-							Quantum Core
-							<i class="fas fa-waveform"></i>
-							<div class="glow-line"></div>
-						
-
-					</div>
-
-					<!-- CARD -->
-
-				</section>
-
-
-
-				<div class="row justify-content-center">
-					<div class="col-lg-6">
-						<div class="text-center mb-5">
-
-
-
-						</div>
-					</div>
-				</div>
-
-
-				<div class="row">
-
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>Crypto arbitrage is a trading strategy that profits from temporary price
-									discrepancies for the same (or related) cryptocurrencies across different exchanges,
-									platforms, trading pairs, or market segments. These inefficiencies arise due to the
-									crypto market’s fragmentation, varying liquidity, regional demand differences (e.g.,
-									the famous “Kimchi Premium” in South Korea), technological differences between
-									centralized exchanges (CEXs) and decentralized exchanges (DEXs), regulatory
-									barriers, and delays in price updates.
-								</p>
-								<p>Unlike traditional markets, crypto’s 24/7 nature and global, borderless trading
-									create frequent (though often small and fleeting) opportunities. Traders—often using
-									bots or scanners—buy low in one place and sell high in another, capturing the spread
-									after fees. While marketed as “low-risk,” it carries real risks like execution
-									delays, fees, slippage, and competition from sophisticated players.<br /><br />
-									Here are the main types of crypto arbitrage traded by our proprietary technology:</p>
-
-									<img src="img/bg-core.jpeg" />
-							</div>
-						</div>
-					</div>
-
-
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>1. Spatial (Cross-Exchange / Simple) Arbitrage
-									The most straightforward and common type. You buy a cryptocurrency on one exchange
-									where it’s cheaper and sell it (nearly simultaneously) on another where it’s more
-									expensive.
-									Example: BTC trades at $60,000 on Binance but $60,150 on Coinbase. Buy on Binance,
-									transfer or use pre-funded accounts, and sell on Coinbase for ~$150 profit per BTC
-									(minus fees and any transfer time).
-								</p>
-
-								<img src="img/spatial-1.jpeg" />
-
-							</div>
-						</div>
-
-					</div>
-
-
-
-
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>2. Triangular (Intra-Exchange) Arbitrage
-								Exploits inconsistencies among three trading pairs on the same exchange. You trade in a closed loop (e.g., BTC → ETH → USDT → BTC) and end up with more of the starting asset than you began with. <br/>
-								How it works: If the implied cross-rate doesn't match the direct rate (due to temporary imbalances), profit emerges. These are often automated because they last milliseconds.<br/>
-								Example (simplified from common diagrams): <br/>
-								•  Start with BTC <br/>
-								•  Trade BTC for ETH (at a favorable rate) <br/>
-								•  Trade ETH for USDT <br/>
-								•  Trade USDT back to BTC → net positive BTC <br/>
-								</p>
-
-								<img src="img/triangle-1.jpeg" />
-
-							</div>
-						</div>
-
-					</div>
-
-
-
-
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>3. Statistical Arbitrage (Stat Arb)
-A quantitative, data-driven approach that uses algorithms, historical correlations, mean-reversion models, cointegration, or machine learning to identify and trade pricing anomalies across multiple assets or pairs. Positions may be held longer than pure arbitrage (minutes to hours/days). <br/><br/>
-Example: Two correlated coins (e.g., BTC and ETH) diverge from their historical relationship → short the overperformer and long the underperformer, expecting convergence.
-								</p>
-
-								<img src="img/stats-1.jpeg" />
-
-							</div>
-						</div>
-
-					</div>
-
-
-
-
-
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>4. Decentralized (DEX / CEX-DEX) Arbitrage <br/>
-									Prices on DEXs (which use automated market makers/AMMs like Uniswap or Curve) often differ from CEX order books or other DEXs due to liquidity pool dynamics, impermanent loss, or bridging delays. <br/><br/>
-									Traders buy low on one and sell high on the other, sometimes bridging assets across chains. This has grown with DeFi’s expansion.
-								</p>
-
-								<img src="img/dexs-1.jpeg" />
-
-							</div>
-						</div>
-
-					</div>
-
-
-
-
-
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>5. Flash Loan Arbitrage (DeFi-Specific)
-One of the most innovative types. You borrow a massive amount (millions of dollars) instantly via a flash loan on protocols like Aave or dYdX, execute arbitrage trades in a single atomic blockchain transaction (buy low → sell high), repay the loan + fee, and keep the profit—all within one block. No collateral or upfront capital is required (as long as the transaction succeeds). 
-<br/><br/>
-Example: Borrow $5M USDC via flash loan → buy an underpriced token on DEX A → sell on DEX B at a premium → repay loan + tiny fee → pocket the difference (e.g., $10k–$50k+ per trade in good conditions).
-								</p>
-
-								<img src="img/flash-1.jpeg" />
-
-							</div>
-						</div>
-
-					</div>
-
-
-
-
-
-					
-					<div class="col-md-12">
-
-						<div class="card">
-							<div class="card-body">
-								<p>6. Futures / Derivatives Arbitrage (Cash-and-Carry, Funding Rate, Basis Trading)
-Exploit differences between spot prices and futures/perpetual contract prices, or funding rate payments in perpetual futures.
-•  Cash-and-carry: Buy spot + short futures (or vice versa) when the basis (futures premium/discount) is mispriced; hold to convergence at expiry. <br/><br/>
-•  Funding rate arb: Long or short perpetuals to collect (or pay) the periodic funding fee when rates are extreme.
-								</p>
-
-								<img src="img/future-1.jpeg" />
-
-							</div>
-						</div>
-
-					</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-				</div>
-
-
-
-
-
-
-
-
-				<!-- End Row -->
 			</div>
-			<!-- Container closed -->
 		</div>
-		<!-- main-content closed -->
 
-
-
-
-
-
-
-
-		<!-- Footer opened -->
 		<div class="main-footer">
 			<div class="container-fluid pt-0 ht-100p">
 				Copyright © <?php echo date('Y'); ?> All rights reserved
 			</div>
 		</div>
-		<!-- Footer closed -->
-
 	</div>
-	<!-- End Page -->
 
-	<!-- Back-to-top -->
 	<a href="#top" id="back-to-top"><i class="las la-arrow-up"></i></a>
-
-	<!-- JQuery min js -->
-
-	<!-- Bootstrap js -->
+	<script src="assets/plugins/jquery/jquery.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/popper.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-	<!-- Moment js -->
 	<script src="assets/plugins/moment/moment.js"></script>
-
-	<!-- P-scroll js -->
 	<script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script src="assets/plugins/perfect-scrollbar/p-scroll.js"></script>
-
-
-
-	<!-- INTERNAL Select2 js -->
 	<script src="assets/plugins/select2/js/select2.full.min.js"></script>
-
-	<!-- Sidebar js -->
 	<script src="assets/plugins/side-menu/sidemenu.js"></script>
-
-	<!-- Sticky js -->
 	<script src="assets/js/sticky.js"></script>
-
-	<!-- Right-sidebar js -->
 	<script src="assets/plugins/sidebar/sidebar.js"></script>
 	<script src="assets/plugins/sidebar/sidebar-custom.js"></script>
-
-	<!-- eva-icons js -->
 	<script src="assets/js/eva-icons.min.js"></script>
-
-	<!-- Theme Color js -->
 	<script src="assets/js/themecolor.js"></script>
-
-	<!-- custom js -->
 	<script src="assets/js/custom.js"></script>
 
+	<?php if ($qcoreTab === 'cex') { ?>
 	<script>
-		<?php if ($rows['lupa_flex'] == 0) { ?>
-			$(document).ready(function () {
-
-				$("#welcome").modal('show');
-
-			});
-
-		<?php } ?>
+	(function () {
+		var coins = [
+			{ id: "solana", symbol: "SOL" },
+			{ id: "cardano", symbol: "ADA" },
+			{ id: "polkadot", symbol: "DOT" },
+			{ id: "chainlink", symbol: "LINK" },
+			{ id: "ripple", symbol: "XRP" },
+			{ id: "dogecoin", symbol: "DOGE" },
+			{ id: "litecoin", symbol: "LTC" },
+			{ id: "bitcoin-cash", symbol: "BCH" },
+			{ id: "avalanche-2", symbol: "AVAX" },
+			{ id: "tron", symbol: "TRX" },
+			{ id: "stellar", symbol: "XLM" }
+		];
+		var exchanges = ["BINANCE", "KRAKEN", "KUCOIN", "OKX", "HUOBI", "BITMEX", "BITFINEX"];
+		function pick() { return exchanges[Math.floor(Math.random() * exchanges.length)]; }
+		function fmt(n, d) { return Number(n).toFixed(d); }
+		async function load() {
+			try {
+				var ids = coins.map(function (c) { return c.id; }).join(",");
+				var res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + ids + "&vs_currencies=usd");
+				var data = await res.json();
+				var body = document.getElementById("qs-cex-body");
+				if (!body) return;
+				body.innerHTML = "";
+				coins.forEach(function (coin) {
+					var base = (data[coin.id] && data[coin.id].usd) || 0;
+					var buy = base * (1 - Math.random() * 0.01);
+					var sell = base * (1 + Math.random() * 0.01);
+					var spreadPct = base ? ((sell - buy) / base) * 100 : 0;
+					var from = pick(), to = pick();
+					if (from === to) to = pick();
+					body.innerHTML += "<tr><td>" + coin.symbol + "/USD</td><td>" + from + "</td><td>" + to + "</td><td>" + fmt(buy, 6) + "</td><td>" + fmt(sell, 6) + "</td><td class=\"qs-qcore-spread\">" + fmt(spreadPct, 4) + "%</td><td class=\"qs-qcore-route\">" + from + " → " + to + "</td></tr>";
+				});
+				var meta = document.getElementById("qs-cex-meta");
+				if (meta) meta.textContent = "Binance · OKX · Kraken · 0s ago";
+			} catch (e) {}
+		}
+		load();
+		setInterval(load, 10000);
+	})();
 	</script>
+	<?php } ?>
+
+	<?php if ($qcoreTab === 'dex') { ?>
+	<script>
+	(function () {
+		var assets = [
+			{ id: "uniswap", symbol: "UNI" },
+			{ id: "aave", symbol: "AAVE" },
+			{ id: "bitcoin", symbol: "BTC" },
+			{ id: "ethereum", symbol: "ETH" },
+			{ id: "chainlink", symbol: "LINK" },
+			{ id: "pepe", symbol: "PEPE" }
+		];
+		function fmt(n) {
+			if (n >= 1000) return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+			if (n >= 1) return n.toFixed(4);
+			return n.toFixed(8);
+		}
+		async function load() {
+			try {
+				var ids = assets.map(function (a) { return a.id; }).join(",");
+				var res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + ids + "&vs_currencies=usd");
+				var data = await res.json();
+				var body = document.getElementById("qs-dex-body");
+				if (!body) return;
+				body.innerHTML = "";
+				assets.forEach(function (asset) {
+					var base = (data[asset.id] && data[asset.id].usd) || 0;
+					var delta = (Math.random() * 0.006) - 0.001;
+					var uni = base * (1 + delta);
+					var okx = base;
+					var spread = base ? (Math.abs(uni - okx) / base) * 100 : 0;
+					var route = uni >= okx ? "Uniswap → OKX" : "OKX → Uniswap";
+					body.innerHTML += "<tr><td>" + asset.symbol + "/USD</td><td>" + fmt(uni) + "</td><td>" + fmt(okx) + "</td><td class=\"qs-qcore-spread\">" + spread.toFixed(4) + "%</td><td class=\"qs-qcore-route\">" + route + "</td></tr>";
+				});
+				var meta = document.getElementById("qs-dex-meta");
+				if (meta) meta.textContent = "Uniswap v3 · OKX · Ethereum · 0s ago";
+			} catch (e) {}
+		}
+		load();
+		setInterval(load, 12000);
+	})();
+	</script>
+	<?php } ?>
+
+	<?php if ($qcoreTab === 'futures') { ?>
+	<script>
+	(function () {
+		var coins = ["BTCUSDT", "ETHUSDT", "XRPUSDT", "BNBUSDT", "SOLUSDT", "ADAUSDT"];
+		function rateHtml(rate) {
+			var num = parseFloat(rate) * 100;
+			var cls = num > 0 ? "qs-qcore-spread" : (num < 0 ? "text-danger" : "");
+			return "<span class=\"" + cls + "\">" + num.toFixed(4) + "%</span>";
+		}
+		async function load() {
+			try {
+				var res = await fetch("https://fapi.binance.com/fapi/v1/premiumIndex");
+				var data = await res.json();
+				var rows = data.filter(function (item) { return coins.indexOf(item.symbol) !== -1; });
+				var body = document.getElementById("qs-fut-body");
+				if (!body) return;
+				body.innerHTML = "";
+				rows.forEach(function (item) {
+					var binance = parseFloat(item.lastFundingRate);
+					var bybit = binance * 0.9;
+					var okx = binance * 1.1;
+					var spread = Math.abs(okx - bybit) * 100;
+					var asset = item.symbol.replace("USDT", "");
+					body.innerHTML += "<tr><td>" + asset + "/USDT</td><td>" + rateHtml(binance) + "</td><td>" + rateHtml(bybit) + "</td><td>" + rateHtml(okx) + "</td><td class=\"qs-qcore-spread\">" + spread.toFixed(4) + "%</td><td class=\"qs-qcore-route\">Spot ↔ Perp</td></tr>";
+				});
+				var meta = document.getElementById("qs-fut-meta");
+				if (meta) meta.textContent = "Binance · Bybit · OKX · 0s ago";
+			} catch (e) {}
+		}
+		load();
+		setInterval(load, 8000);
+	})();
+	</script>
+	<?php } ?>
+
+	<?php if ($rows['lupa_flex'] == 0) { ?>
+	<script>
+		$(document).ready(function () { $("#welcome").modal('show'); });
+	</script>
+	<?php } ?>
 </body>
-
 <?php
-
 if (isset($_POST['lupa-flex'])) {
-
 	$userid = $rows['id'];
-
-
-	$updaetUsder = mysqli_query($mysqli, "UPDATE `users` SET `lupa_flex`='1', lupa_flex_date=now()  WHERE id='$userid'");
-
+	mysqli_query($mysqli, "UPDATE `users` SET `lupa_flex`='1', lupa_flex_date=now()  WHERE id='$userid'");
 	?>
-	<script>
-		location = location
-	</script>
+	<script>location = location</script>
 	<?php
-
 }
-
-
-
 ?>
-
 </html>

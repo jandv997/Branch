@@ -5,14 +5,11 @@
      $currentFile = $_SERVER["SCRIPT_NAME"];
      //extract it from forward /
      $parts = Explode('/', $currentFile);
-     $currentFile = $parts[count($parts) - 1]; 
-     
-     
+     $currentFile = $parts[count($parts) - 1];
 
-
-
-
-
+$qs_theme_default = 'light';
+$qs_theme_js = '../assets/js/qs-theme.js';
+include_once __DIR__ . '/../inc/qs-theme-boot.php';
 
 ?>
 
@@ -68,7 +65,7 @@
 
                         <!--search-->
                         <div class="dropdown d-flex main-header-theme">
-                            <a class="nav-link icon layout-setting">
+                            <a class="nav-link icon layout-setting" href="javascript:void(0);" title="Toggle light / dark mode">
                                 <span class="dark-layout">
                                     <svg class="header-icons" xmlns="http://www.w3.org/2000/svg"
                                         enable-background="new 0 0 24 24" viewBox="0 0 24 24">

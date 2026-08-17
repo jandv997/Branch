@@ -350,3 +350,39 @@
   .qs-ov-wallets, .qs-ov-actions, .qs-ov-summary, .qs-ov-arch-row { grid-template-columns: 1fr; }
   .qs-ov-card__value { font-size: 22px; }
 }
+
+body.light-theme .qs-ov-card,
+body.light-theme .qs-ov-action {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+body.light-theme .qs-ov-card__value,
+body.light-theme .qs-ov-mini strong,
+body.light-theme .qs-ov-action:hover {
+  color: #0f172a;
+}
+
+body.light-theme .qs-ov-action {
+  background: #ffffff;
+  color: #334155;
+}
+
+body.light-theme .qs-ov-link:hover { color: #0f172a; }
+
+body.light-theme .qs-ov-table .table {
+  color: #0f172a;
+}
+
+body.light-theme .qs-ov-table .table th,
+body.light-theme .qs-ov-table .table td {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+body.light-theme .qs-ov .panel-title1 a,
+body.light-theme .qs-ov .accordion-toggle {
+  color: #0f172a !important;
+}
+
+body.light-theme .qs-page-title { color: #0f172a; }
+
