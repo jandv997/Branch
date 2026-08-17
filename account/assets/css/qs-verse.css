@@ -504,6 +504,9 @@ button.qs-verse-select {
 
 .qs-buy-months { display: none; }
 .qs-buy-months.is-visible { display: block; }
+.qs-buy-coin { display: none; }
+.qs-buy-coin.is-visible { display: block; }
+.qs-buy-fund-error { color: #f87171 !important; }
 .qs-buy-month-row {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

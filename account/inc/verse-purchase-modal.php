@@ -6,7 +6,10 @@ if (isset($data) && $data) {
 	}
 }
 ?>
-<div class="qs-buy-overlay" id="qs-buy-overlay">
+<div class="qs-buy-overlay" id="qs-buy-overlay"
+	data-main="<?php echo htmlspecialchars(isset($rows['wallet']) ? $rows['wallet'] : 0); ?>"
+	data-staking="<?php echo htmlspecialchars(isset($rows['compound_profit']) ? $rows['compound_profit'] : 0); ?>"
+	data-referral="<?php echo htmlspecialchars(isset($rows['ref_wallet']) ? $rows['ref_wallet'] : 0); ?>">
 	<div class="qs-buy-modal" role="dialog" aria-modal="true" aria-labelledby="qs-buy-title">
 		<form method="POST" action="purchase" id="qs-buy-form">
 
@@ -65,12 +68,21 @@ if (isset($data) && $data) {
 				</div>
 
 				<div class="qs-buy-field">
-					<label class="qs-buy-label" for="currency">Funding Source</label>
-					<select name="currency" id="currency" class="qs-buy-select" required>
-						<option value="">Direct Deposit</option>
-						<optgroup label="Direct Deposit">
+					<label class="qs-buy-label" for="qs-buy-platform">Funding Source</label>
+					<select name="platform" id="qs-buy-platform" class="qs-buy-select" required>
+						<option value="1">Direct Deposit</option>
+						<option value="2">Main Wallet ($<?php echo number_format(isset($rows['wallet']) ? $rows['wallet'] : 0, 2); ?>)</option>
+						<option value="3">Staking Wallet ($<?php echo number_format(isset($rows['compound_profit']) ? $rows['compound_profit'] : 0, 2); ?>)</option>
+						<option value="4">Referral Wallet ($<?php echo number_format(isset($rows['ref_wallet']) ? $rows['ref_wallet'] : 0, 2); ?>)</option>
+					</select>
+					<p class="qs-buy-hint" id="qs-buy-fund-hint"></p>
+				</div>
+
+				<div class="qs-buy-field qs-buy-coin is-visible" id="qs-buy-coin">
+					<label class="qs-buy-label" for="currency">Deposit Coin</label>
+					<select name="currency" id="currency" class="qs-buy-select">
+						<option value="">Select coin</option>
 						<?php echo $qsBuyCurrencyOptions; ?>
-						</optgroup>
 					</select>
 				</div>
 
@@ -91,6 +103,10 @@ if (isset($data) && $data) {
 					<div class="qs-buy-row">Start Date <b id="qs-sum-start"></b></div>
 					<div class="qs-buy-row">End Date <b id="qs-sum-end"></b></div>
 					<div class="qs-buy-row">Funding Source <b id="qs-sum-fund"></b></div>
+					<div class="qs-buy-row" id="qs-sum-coin-row">Deposit Coin <b id="qs-sum-coin"></b></div>
+					<div class="qs-buy-row" id="qs-sum-wallet-row">Wallet Balance <b id="qs-sum-wallet"></b></div>
+					<div class="qs-buy-row" id="qs-sum-debit-row">Amount Debited <b id="qs-sum-debit"></b></div>
+					<div class="qs-buy-row" id="qs-sum-remain-row">Balance After Purchase <b id="qs-sum-remain"></b></div>
 					<div class="qs-buy-row">Max Daily (capped) <b id="qs-sum-daily"></b></div>
 				</div>
 				<div class="qs-buy-warn">

@@ -7,6 +7,9 @@
 	var duration = document.getElementById('duration');
 	var amount = document.getElementById('amount');
 	var currency = document.getElementById('currency');
+	var platform = document.getElementById('qs-buy-platform');
+	var coinWrap = document.getElementById('qs-buy-coin');
+	var fundHint = document.getElementById('qs-buy-fund-hint');
 	var step1 = document.getElementById('qs-buy-step-1');
 	var step2 = document.getElementById('qs-buy-step-2');
 	var title = document.getElementById('qs-buy-title');
@@ -30,6 +33,8 @@
 		amount.value = pkg.min || '';
 		range.textContent = 'Min ' + money(pkg.min || 0) + ' • Max ' + money(pkg.max || 0);
 		currency.selectedIndex = 0;
+		if (platform) platform.value = '1';
+		setFunding('1');
 		document.getElementById('qs-buy-term1').checked = false;
 		document.getElementById('qs-buy-term2').checked = false;
 		setPayout('1');
@@ -90,6 +95,36 @@
 		durationHint.textContent = 'After ' + months + ' months, allocation reverts to 100% Main (' + term + '-month total term).';
 	}
 
+	function walletBalance(code) {
+		if (code === '2') return Number(overlay.getAttribute('data-main') || 0);
+		if (code === '3') return Number(overlay.getAttribute('data-staking') || 0);
+		if (code === '4') return Number(overlay.getAttribute('data-referral') || 0);
+		return 0;
+	}
+
+	function fundingLabel(code) {
+		if (code === '2') return 'Main Wallet';
+		if (code === '3') return 'Staking Wallet';
+		if (code === '4') return 'Referral Wallet';
+		return 'Direct Deposit';
+	}
+
+	function setFunding(code) {
+		if (platform) platform.value = code;
+		var isDeposit = code === '1';
+		coinWrap.classList.toggle('is-visible', isDeposit);
+		currency.required = isDeposit;
+		if (!isDeposit) currency.value = '';
+		var bal = walletBalance(code);
+		if (isDeposit) {
+			fundHint.textContent = 'Choose a coin to generate a deposit invoice.';
+			fundHint.classList.remove('qs-buy-fund-error');
+		} else {
+			fundHint.textContent = 'Available: ' + money(bal) + '. This amount is debited immediately if the balance covers the purchase.';
+			fundHint.classList.remove('qs-buy-fund-error');
+		}
+	}
+
 	function payoutLabel(val) {
 		if (val === '2') return 'Staking';
 		if (val === '3') return 'Hybrid';
@@ -103,10 +138,12 @@
 		var start = new Date();
 		var end = new Date();
 		end.setMonth(end.getMonth() + Number(pkg.term || 12));
-		var fund = 'Direct Deposit';
-		if (currency.value && currency.options[currency.selectedIndex]) {
-			fund = 'Direct Deposit · ' + currency.options[currency.selectedIndex].text;
-		}
+		var fundCode = platform ? platform.value : '1';
+		var fund = fundingLabel(fundCode);
+		var coinRow = document.getElementById('qs-sum-coin-row');
+		var walletRow = document.getElementById('qs-sum-wallet-row');
+		var debitRow = document.getElementById('qs-sum-debit-row');
+		var remainRow = document.getElementById('qs-sum-remain-row');
 		document.getElementById('qs-sum-name').textContent = pkg.name || '';
 		document.getElementById('qs-sum-amount').textContent = money(amt);
 		document.getElementById('qs-sum-payout').textContent = payoutLabel(payout.value);
@@ -116,6 +153,23 @@
 		document.getElementById('qs-sum-end').textContent = end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 		document.getElementById('qs-sum-fund').textContent = fund;
 		document.getElementById('qs-sum-daily').textContent = 'Up To ' + money(daily);
+		if (fundCode === '1') {
+			var coinName = currency.options[currency.selectedIndex] ? currency.options[currency.selectedIndex].text : '';
+			document.getElementById('qs-sum-coin').textContent = coinName;
+			coinRow.style.display = '';
+			walletRow.style.display = 'none';
+			debitRow.style.display = 'none';
+			remainRow.style.display = 'none';
+		} else {
+			var bal = walletBalance(fundCode);
+			document.getElementById('qs-sum-wallet').textContent = money(bal);
+			document.getElementById('qs-sum-debit').textContent = money(amt);
+			document.getElementById('qs-sum-remain').textContent = money(Math.max(0, bal - amt));
+			coinRow.style.display = 'none';
+			walletRow.style.display = '';
+			debitRow.style.display = '';
+			remainRow.style.display = '';
+		}
 	}
 
 	document.querySelectorAll('[data-qs-buy]').forEach(function (btn) {
@@ -152,6 +206,11 @@
 			setDuration(btn.getAttribute('data-qs-duration'), btn.getAttribute('data-qs-months'));
 		});
 	});
+	if (platform) {
+		platform.addEventListener('change', function () {
+			setFunding(platform.value);
+		});
+	}
 
 	document.getElementById('qs-buy-review').addEventListener('click', function () {
 		if (!amount.value || Number(amount.value) < Number(amount.min || 0)) {
@@ -162,9 +221,19 @@
 			amount.reportValidity();
 			return;
 		}
-		if (!currency.value) {
-			currency.reportValidity();
-			return;
+		var fundCode = platform ? platform.value : '1';
+		if (fundCode === '1') {
+			if (!currency.value) {
+				currency.reportValidity();
+				return;
+			}
+		} else {
+			var bal = walletBalance(fundCode);
+			if (Number(amount.value) > bal) {
+				fundHint.textContent = 'Insufficient ' + fundingLabel(fundCode) + ' balance. Available ' + money(bal) + '.';
+				fundHint.classList.add('qs-buy-fund-error');
+				return;
+			}
 		}
 		if ((payout.value === '2' || payout.value === '3') && !duration.value) {
 			return;

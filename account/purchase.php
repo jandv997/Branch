@@ -933,9 +933,10 @@ $data = $response->data;
 		$userid = $rows['id'];
 		$date = date("d") . " " . date("F") . " " . date("Y") . " , " . date("h") . " : " . date("i") . date("a");
 		$daily_roi = 0;
-		$current = $_POST['currency'];
+		$current = isset($_POST['currency']) ? $_POST['currency'] : '';
 		$orderId = "QS-" . uniqid();// "";
 		$duration = mysqli_real_escape_string($mysqli, $_POST['duration']);
+		$platform = isset($_POST['platform']) ? $_POST['platform'] : '1';
 	
 
 $stmt = $mysqli->prepare("SELECT membership_expires FROM users WHERE id=?");
@@ -969,6 +970,77 @@ if (!$exp || strtotime($exp) < time()) {
 			$daily_roi = $amount * ($row['percent'] / 100);
 		} else {
 			$daily_roi = $amount * ($row['compound_percent'] / 100);
+		}
+
+		if ($platform == '2' or $platform == '3' or $platform == '4') {
+			$amountNum = (float) $amount;
+			$minAmt = isset($row['min_amount']) ? (float) $row['min_amount'] : 0;
+			$maxAmt = isset($row['max_amount']) ? (float) $row['max_amount'] : 0;
+			if ($amountNum < $minAmt or ($maxAmt > 0 and $amountNum > $maxAmt) or !is_numeric($amount)) {
+				?>
+				<script>
+					notif({
+						msg: "<b>Invalid amount</b><br/> Enter a value within the portfolio range.",
+						width: 250,
+						position: "center",
+						type: "warning"
+					});
+					setTimeout(function () { location = "marketplace?buy=<?php echo urlencode($id); ?>"; }, 2000);
+				</script>
+				<?php
+				exit;
+			}
+
+			if ($platform == '2') {
+				$balance = (float) $rows['wallet'];
+				$walletColumn = 'wallet';
+				$walletName = 'Main Wallet';
+			} elseif ($platform == '3') {
+				$balance = (float) $rows['compound_profit'];
+				$walletColumn = 'compound_profit';
+				$walletName = 'Staking Wallet';
+			} else {
+				$balance = (float) $rows['ref_wallet'];
+				$walletColumn = 'ref_wallet';
+				$walletName = 'Referral Wallet';
+			}
+
+			if ($balance < $amountNum) {
+				?>
+				<script>
+					notif({
+						msg: "<b>Insufficient <?php echo $walletName; ?></b><br/> Available $<?php echo number_format($balance, 2); ?>.",
+						width: 280,
+						position: "center",
+						type: "warning"
+					});
+					setTimeout(function () { location = "marketplace?buy=<?php echo urlencode($id); ?>"; }, 2200);
+				</script>
+				<?php
+				exit;
+			}
+
+			$newBalance = $balance - $amountNum;
+			$updateWallet = mysqli_query($mysqli, "UPDATE users SET `$walletColumn`='$newBalance' WHERE id='$userid' ");
+			$durationVal = ($duration === '') ? 0 : intval($duration);
+			$addinvest = mysqli_query($mysqli, "INSERT INTO `investment`(`userid`, `investmentid`, `name`, `amount`, `daily_roi`, `payout`, `date`, `duration`) VALUES('$userid', '$investmentid', '$name', '$amount', '$daily_roi', '$payout', '$date', '$durationVal') ");
+			$action = "Deposit into " . $name;
+			$describe = "Purchase of $" . $amount . " from " . $walletName . " for " . $rows['firstname'];
+			$add = mysqli_query($mysqli, "INSERT INTO `activity`(`userid`, `action`, `describe`, `date`, `amount`,`status`) VALUES('$userid', '$action', '$describe', '$date','$amount', 'Credited') ");
+			if ($updateWallet and $addinvest) {
+				?>
+				<script>
+					notif({
+						msg: "<b>Purchase complete</b><br/> Debited from <?php echo $walletName; ?>.",
+						width: 280,
+						position: "center",
+						type: "success"
+					});
+					setTimeout(function () { location = "active-purchase"; }, 1600);
+				</script>
+				<?php
+			}
+			exit;
 		}
 
 
