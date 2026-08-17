@@ -10,6 +10,9 @@
  
 $isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_expires']) > time());
  ?>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link href="assets/css/qs-member.css" rel="stylesheet">
 
 <!-- Start of LiveChat (www.livechat.com) code -->
 <script>
@@ -179,6 +182,14 @@ $isActiveMember = ($rows['membership_expires'] && strtotime($rows['membership_ex
 								<img src="assets/img/brand/favicon.png" class="main-logo  mobile-logo" alt="logo">
 								<img src="assets/img/brand/favicon-white.png"  class="main-logo  mobile-dark" alt="logo">
 							</a>
+						</div>
+						<div class="qs-qcore-status">
+							<div class="qs-qcore-status__row">
+								<span>Q-Core Status</span>
+								<span class="qs-qcore-status__dot" aria-hidden="true"></span>
+							</div>
+							<p class="qs-qcore-status__state">OPERATIONAL</p>
+							<p class="qs-qcore-status__meta">Market · Execution · Chain</p>
 						</div>
 						<div class="main-sidemenu">
 							<div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>

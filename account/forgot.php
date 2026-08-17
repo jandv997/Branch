@@ -27,73 +27,14 @@ if(isset($_SESSION['id']) and (isset($_SESSION['2fa']) and $_SESSION['2fa'] == "
 include('connection.php');
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-
-		<meta charset="UTF-8">
-		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
-
-		<!-- Title -->
-		<title>Forgot | Quantum Scalp </title>
-
-		<!-- Favicon -->
-		<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
-
-		<!-- Icons css -->
-		<link href="assets/css/icons.css" rel="stylesheet">
-
-		<!--  bootstrap css-->
-		<link id="style" href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-		<!--- Style css --->
-		<link href="assets/css/style.css" rel="stylesheet">
-		<link href="assets/css/style-dark.css" rel="stylesheet">
-		<link href="assets/css/style-transparent.css" rel="stylesheet">
-
-		<!---Skinmodes css-->
-		<link href="assets/css/skin-modes.css" rel="stylesheet" />
-
-		<!--- Animations css-->
-		<link href="assets/css/animate.css" rel="stylesheet">
-
-<!-- Start of LiveChat (www.livechat.com) code -->
-<script>
-    window.__lc = window.__lc || {};
-    window.__lc.license = 19834219;
-    window.__lc.integration_name = "manual_onboarding";
-    window.__lc.product_name = "livechat";
-    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-</script>
-<noscript><a href="https://www.livechat.com/chat-with/19834219/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
-<!-- End of LiveChat code -->
-
-
-	</head>
-	<body class="ltr error-page1 bg-primary">
-
-		<!-- Loader -->
-		<div id="global-loader">
-        <img src="img/favicon.png" width="50" class="loader-img" alt="Loader">
-		</div>
-		<!-- /Loader -->
-
-			<div class="page" >
-				<div class="page-single">
-					<div class="container">
-						<div class="row">
-							<div class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-xs-10 card-sigin-main py-4 justify-content-center mx-auto">
-								<div class="card-sigin">
-									 <!-- Demo content-->
-									 <div class="main-card-signin d-md-flex">
-										 <div class="wd-100p">
-											 <div class="mb-3 d-flex"> <a href="index"><img src="assets/img/brand/favicon.png" class="sign-favicon ht-40" alt="logo"></a></div>
-												 <div class="main-card-signin d-md-flex bg-white">
-													 <div class="wd-100p">
-
-                                                     <?php 
+<?php
+$authPageTitle = 'Quantum Scalp | Forgot Password';
+$authTitle = 'Reset access';
+$authSubtitle = 'Recover your Q-Core account.';
+include('inc/auth-head.php');
+include('inc/auth-open.php');
+?>
+<?php 
 										if(!isset($_GET['token'])){
 									?>
 														 <div class="main-signin-header">
@@ -145,57 +86,12 @@ include('connection.php');
 
 <?php  } ?>
 
-
-														 <div class="main-signup-footer mg-t-20 text-center">
-															 <p>Forget it, <a href="index"> Send me back</a> to the sign in screen.</p>
-														 </div>
-													 </div>
-												 </div>
-										 </div>
-									 </div>
-								 </div>
-							 </div>
-						</div>
-					</div>
-				 </div>
-			</div>
-		
-
-		<!-- JQuery min js -->
-		<script src="assets/plugins/jquery/jquery.min.js"></script>
-
-		<!-- Bootstrap js -->
-		<script src="assets/plugins/bootstrap/js/popper.min.js"></script>
-		<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-		<!-- Moment js -->
-		<script src="assets/plugins/moment/moment.js"></script>
-
-		<!-- eva-icons js -->
-		<script src="assets/js/eva-icons.min.js"></script>
-
-
-        		<!--Internal  Notify js -->
-				<script src="assets/plugins/notify/js/notifIt.js"></script>
-		<script src="assets/plugins/notify/js/notifit-custom.js"></script>
-		<!--Internal  Perfect-scrollbar js -->
-		<script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-
-		<!-- Theme Color js -->
-		<script src="assets/js/themecolor.js"></script>
-
-		<!-- custom js -->
-		<script src="assets/js/custom.js"></script>
-
-	</body>
-
-
-
-
-
-
-
-    <?php  
+<p class="qs-auth-foot">Forget it, <a href="index">Send me back</a> to the sign in screen.</p>
+<?php
+include('inc/auth-close.php');
+include('inc/auth-scripts.php');
+?>
+<?php  
 	include_once("email-handler.php");
 	
 if(isset($_POST['forgot'])){
@@ -360,4 +256,5 @@ if(isset($_POST['reset'])){
 
 
 
+</body>
 </html>

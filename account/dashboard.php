@@ -57,6 +57,9 @@ if (!isset($_SESSION['id'])) {
 
 	<!---Skinmodes css-->
 	<link href="assets/css/skin-modes.css" rel="stylesheet" />
+	<link rel="preconnect" href="https://api.fontshare.com">
+	<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+	<link href="assets/css/qs-member.css" rel="stylesheet">
 
 
 	<style>
@@ -103,7 +106,7 @@ if (!isset($_SESSION['id'])) {
 		<div class="main-content app-content">
 
 			<!-- container -->
-			<div class="main-container container-fluid" style="background:url(../assets/img/bg/uo_bg.png)">
+			<div class="main-container container-fluid">
 
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
@@ -131,9 +134,9 @@ if (!isset($_SESSION['id'])) {
 									</div>
 									<div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
 										<div class="text-justified align-items-center">
-											<h2 class="text-dark font-weight-semibold mb-3 mt-2">Hi, Welcome Back <span
-													class="text-primary"><?php echo $rows['firstname']; ?>!</span></h2>
-											<p class="text-dark tx-17 mb-2 lh-3"> <br /></p>
+											<h2 class="text-dark font-weight-semibold mb-3 mt-2">Welcome back, <span
+													class="text-primary"><?php echo $rows['firstname']; ?></span></h2>
+											<p class="text-dark tx-17 mb-2 lh-3">Your Q-Core command center — wallets, portfolios, and activity.</p>
 											<p class="font-weight-semibold tx-12 mb-4">For account related issues,
 												contact us through support chat or mail us at info@quantumscalp.io </p>
 											<a href="marketplace" class="btn btn-primary mb-3 shadow">Select a Plan</a>
@@ -418,7 +421,7 @@ if (!isset($_SESSION['id'])) {
 					<style>
 						/* Action Card Styles */
 						.action-card {
-							background: linear-gradient(145deg, #1a1a2e, #16213e);
+							background: linear-gradient(180deg, #12131A, #0A0B10);
 							border-radius: 16px;
 							padding: 0;
 							box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -446,7 +449,7 @@ if (!isset($_SESSION['id'])) {
 							height: 60px;
 							margin: 0 auto 12px;
 							border-radius: 50%;
-							background: linear-gradient(135deg, rgba(45, 203, 138, 0.15), rgba(26, 155, 106, 0.15));
+							background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(14, 158, 144, 0.15));
 							display: flex;
 							align-items: center;
 							justify-content: center;
@@ -459,7 +462,7 @@ if (!isset($_SESSION['id'])) {
 							inset: -2px;
 							border-radius: 50%;
 							padding: 2px;
-							background: linear-gradient(135deg, #2dcb8a, #1a9b6a);
+							background: linear-gradient(135deg, #2DD4BF, #0E9E90);
 							-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
 							-webkit-mask-composite: xor;
 							mask-composite: exclude;
@@ -467,7 +470,7 @@ if (!isset($_SESSION['id'])) {
 
 						.action-main-icon {
 							font-size: 24px;
-							color: #2dcb8a;
+							color: #2DD4BF;
 						}
 
 						.action-title {
@@ -531,16 +534,16 @@ if (!isset($_SESSION['id'])) {
 
 						/* Deposit Button */
 						.action-btn-deposit::before {
-							background: linear-gradient(180deg, #2dcb8a, #1a9b6a);
+							background: linear-gradient(180deg, #2DD4BF, #0E9E90);
 						}
 
 						.action-btn-deposit .action-btn-icon {
-							background: rgba(45, 203, 138, 0.15);
-							color: #2dcb8a;
+							background: rgba(45, 212, 191, 0.15);
+							color: #2DD4BF;
 						}
 
 						.action-btn-deposit:hover .action-btn-icon {
-							background: rgba(45, 203, 138, 0.25);
+							background: rgba(45, 212, 191, 0.25);
 						}
 
 						/* Withdraw Button */
@@ -625,7 +628,7 @@ if (!isset($_SESSION['id'])) {
 						}
 
 						.action-btn:hover .action-btn-title {
-							color: #2dcb8a;
+							color: #2DD4BF;
 						}
 
 						.action-btn-desc {
@@ -642,7 +645,7 @@ if (!isset($_SESSION['id'])) {
 						}
 
 						.action-btn:hover .action-btn-arrow {
-							color: #2dcb8a;
+							color: #2DD4BF;
 							transform: translateX(3px);
 						}
 

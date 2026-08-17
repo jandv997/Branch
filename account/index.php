@@ -27,162 +27,33 @@ if(isset($_SESSION['id']) and (isset($_SESSION['2fa']) and $_SESSION['2fa'] == "
 include('connection.php');
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-
-		<meta charset="UTF-8">
-		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
-
-		<!-- Title -->
-		<title> Quantum Group | Sign In </title>
-
-		<!-- Favicon -->
-		<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
-
-		<!-- Icons css -->
-		<link href="assets/css/icons.css" rel="stylesheet">
-
-		<!--  bootstrap css-->
-		<link id="style" href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-		<!--- Style css --->
-		<link href="assets/css/style.css" rel="stylesheet">
-		<link href="assets/css/style-dark.css" rel="stylesheet">
-		<link href="assets/css/style-transparent.css" rel="stylesheet">
-
-		<!---Skinmodes css-->
-		<link href="assets/css/skin-modes.css" rel="stylesheet" />
-
-		<!--- Animations css-->
-		<link href="assets/css/animate.css" rel="stylesheet">
-
-<!-- Start of LiveChat (www.livechat.com) code -->
-<script>
-    window.__lc = window.__lc || {};
-    window.__lc.license = 19834219;
-    window.__lc.integration_name = "manual_onboarding";
-    window.__lc.product_name = "livechat";
-    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-</script>
-<noscript><a href="https://www.livechat.com/chat-with/19834219/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
-<!-- End of LiveChat code -->
-
-	</head>
-	<body class="ltr error-page1 bg-primary">
-
-		<!-- Loader -->
-		<div id="global-loader">
-        <img src="img/favicon.png" width="50" class="loader-img" alt="Loader">
-		</div>
-		<!-- /Loader -->
-
-		<div class="square-box">
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-
-		<div class="page" >
-			<div class="page-single">
-				<div class="container">
-					<div class="row">
-						<div class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-xs-10 card-sigin-main mx-auto my-auto py-4 justify-content-center">
-							<div class="card-sigin">
-								 <!-- Demo content-->
-								 <div class="main-card-signin d-md-flex">
-									 <div class="wd-100p"><div class="d-flex mb-4"><a href="index"><img src="assets/img/brand/favicon.png" class="sign-favicon ht-40" alt="logo"></a></div>
-										 <div class="">
-											<div class="main-signup-header">
-												<h2>Welcome back!</h2>
-												<h6 class="font-weight-semibold mb-4">Please sign in to continue.</h6>
-												<div class="panel panel-primary">
-												   <div class=" tab-menu-heading mb-2 border-bottom-0">
-													   <div class="tabs-menu1">
-														   <ul class="nav panel-tabs">
-															   <li class="me-2"><a href="#tab5" class="active" data-bs-toggle="tab">Email</a></li>
-															  
-														   </ul>
-													   </div>
-												   </div>
-												   <div class="panel-body tabs-menu-body border-0 p-3">
-													   <div class="tab-content">
-														   <div class="tab-pane active" id="tab5">
-															   <form method="POST">
-																   <div class="form-group">
-																	   <label>Email</label> <input class="form-control" required  placeholder="Enter your email" type="email" name="email">
-																   </div>
-																   <div class="form-group">
-																	   <label>Password</label> <input class="form-control" placeholder="Enter your password" name="password"  required type="password">
-																   </div><button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
-																   <div class="mt-4 d-flex text-center justify-content-center mb-2">
-																		
-																   </div>
-																</form>
-														   </div>
-														  
-													   </div>
-												   </div>
-											   </div>
-
-												<div class="main-signin-footer text-center mt-3">
-													<p><a href="forgot" class="mb-3">Forgot password?</a></p>
-													<p>Don't have an account? <a href="register">Create an Account</a></p>
-												</div>
-											</div>
-										 </div>
-									 </div>
-								 </div>
-							 </div>
-						 </div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- JQuery min js -->
-		<script src="assets/plugins/jquery/jquery.min.js"></script>
-
-		<!-- Bootstrap js -->
-		<script src="assets/plugins/bootstrap/js/popper.min.js"></script>
-		<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-		<!-- Moment js -->
-		<script src="assets/plugins/moment/moment.js"></script>
-
-		<!-- eva-icons js -->
-		<script src="assets/js/eva-icons.min.js"></script>
-
-		<!-- generate-otp js -->
-		<script src="assets/js/generate-otp.js"></script>
-
-
-				<!--Internal  Notify js -->
-				<script src="assets/plugins/notify/js/notifIt.js"></script>
-		<script src="assets/plugins/notify/js/notifit-custom.js"></script>
-
-		<!--Internal  Perfect-scrollbar js -->
-		<script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-
-		<!-- Theme Color js -->
-		<script src="assets/js/themecolor.js"></script>
-
-		<!-- custom js -->
-		<script src="assets/js/custom.js"></script>
+<?php
+$authPageTitle = 'Quantum Scalp | Sign In';
+$authTitle = 'Sign in';
+$authSubtitle = 'Access your Q-Core dashboard.';
+include('inc/auth-head.php');
+include('inc/auth-open.php');
+?>
+<form method="POST">
+    <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" required placeholder="you@example.com" type="email" name="email">
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <div class="input-group auth-pass-inputgroup">
+            <input class="form-control" id="login-password" placeholder="••••••••" name="password" required type="password">
+            <button class="btn btn-light shadow-none ms-0 qs-pass-toggle" type="button" data-qs-toggle-pass="login-password" aria-label="Show password"><i class="fe fe-eye"></i></button>
+        </div>
+    </div>
+    <button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
+</form>
+<p class="qs-auth-foot" style="margin-top:12px"><a href="forgot">Forgot password?</a></p>
+<p class="qs-auth-foot">New here? <a href="register">Create an account</a></p>
+<?php
+include('inc/auth-close.php');
+include('inc/auth-scripts.php');
+?>
 
 
 

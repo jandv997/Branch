@@ -4,109 +4,21 @@
 include('connection.php');
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-
-		<meta charset="UTF-8">
-		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
-
-		<!-- Title -->
-		<title> Quantum Group | Verify Account </title>
-
-		<!-- Favicon -->
-		<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
-
-		<!-- Icons css -->
-		<link href="assets/css/icons.css" rel="stylesheet">
-
-		<!--  bootstrap css-->
-		<link id="style" href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
-		<!--- Style css --->
-		<link href="assets/css/style.css" rel="stylesheet">
-		<link href="assets/css/style-dark.css" rel="stylesheet">
-		<link href="assets/css/style-transparent.css" rel="stylesheet">
-
-		<!---Skinmodes css-->
-		<link href="assets/css/skin-modes.css" rel="stylesheet" />
-
-		<!--- Animations css-->
-		<link href="assets/css/animate.css" rel="stylesheet">
-
-		<script src="//code.tidio.co/boh34gato9oarfy1efgvdwn7x1rfiex5.js" async></script>
-
-	</head>
-	<body class="ltr error-page1 bg-primary">
-
-		<!-- Loader -->
-		<div id="global-loader">
-        <img src="img/favicon.png" width="50" class="loader-img" alt="Loader">
-		</div>
-		<!-- /Loader -->
-
-		<div class="square-box">
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-
-		<div class="page" >
-		
-		</div>
-
-		<!-- JQuery min js -->
-		<script src="assets/plugins/jquery/jquery.min.js"></script>
-
-		<!-- Bootstrap js -->
-		<script src="assets/plugins/bootstrap/js/popper.min.js"></script>
-		<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-
-		<!-- Moment js -->
-		<script src="assets/plugins/moment/moment.js"></script>
-
-		<!-- eva-icons js -->
-		<script src="assets/js/eva-icons.min.js"></script>
-
-		<!-- generate-otp js -->
-		<script src="assets/js/generate-otp.js"></script>
-
-
-		    <!--Internal  Notify js -->
-    <script src="assets/plugins/notify/js/notifIt.js"></script>
-    <script src="assets/plugins/notify/js/notifit-custom.js"></script>
-
-
-		<!--Internal  Perfect-scrollbar js -->
-		<script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-
-		<!-- Theme Color js -->
-		<script src="assets/js/themecolor.js"></script>
-
-		<!-- custom js -->
-		<script src="assets/js/custom.js"></script>
-
-
-
-
-
-
-
-			<?php
+<?php
+$authPageTitle = 'Quantum Scalp | Verify Account';
+$authTitle = 'Verify your account';
+$authSubtitle = 'Confirming your Q-Core email.';
+$authNoLivechat = true;
+include('inc/auth-head.php');
+?>
+<script src="//code.tidio.co/boh34gato9oarfy1efgvdwn7x1rfiex5.js" async></script>
+<?php include('inc/auth-open.php'); ?>
+<p class="text-muted">Please wait while we verify your email.</p>
+<?php
+include('inc/auth-close.php');
+include('inc/auth-scripts.php');
+?>
+<?php
 
 
 // Include database connection
