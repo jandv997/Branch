@@ -27,6 +27,30 @@ if (!isset($_SESSION['id'])) {
 
 
 
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+	CURLOPT_URL => 'https://plisio.net/api/v1/currencies?api_key=VspBqpgF-tmQhKUQEHffoaqLTmLhLQLnydkT2R_CC9D45O15UGsmDBYrVpYTWnTd',
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => '',
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 0,
+	CURLOPT_FOLLOWLOCATION => true,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+
+$response = json_decode($response);
+
+$data = isset($response->data) ? $response->data : array();
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +138,14 @@ if (!isset($_SESSION['id'])) {
 								<div class="qs-verse-risk">
 									Up to <?php echo htmlspecialchars($pct); ?>% daily (capped) — based on real Q-Core performance. Returns vary day to day and can be negative. Losses are not capped. Not guaranteed.
 								</div>
-								<a href="purchase?id=<?php echo $row['id']; ?>" class="qs-verse-select">Select Portfolio</a>
+								<button type="button" class="qs-verse-select" data-qs-buy
+									data-id="<?php echo htmlspecialchars($row['id']); ?>"
+									data-name="<?php echo htmlspecialchars($row['name']); ?>"
+									data-min="<?php echo htmlspecialchars($row['min_amount']); ?>"
+									data-max="<?php echo htmlspecialchars(isset($row['max_amount']) ? $row['max_amount'] : 0); ?>"
+									data-percent="<?php echo htmlspecialchars($row['percent']); ?>"
+									data-compound="<?php echo htmlspecialchars($row['compound_percent']); ?>"
+									data-term="<?php echo htmlspecialchars($row['duration']); ?>">Select Portfolio</button>
 							</article>
 						<?php endwhile; ?>
 
@@ -217,6 +248,8 @@ if (!isset($_SESSION['id'])) {
 
 	<!-- custom js -->
 	<script src="assets/js/custom.js"></script>
+	<?php include('inc/verse-purchase-modal.php'); ?>
+	<script src="assets/js/qs-verse-buy.js"></script>
 
 </body>
 

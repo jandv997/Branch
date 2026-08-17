@@ -70,6 +70,12 @@ if ($membershipExpires && strtotime($membershipExpires) > $now) {
 
 }
 
+if (!isset($_POST['invest'])) {
+	$buyQuery = (isset($id) && $id !== '' && $id !== null) ? ('?buy=' . urlencode($id)) : '';
+	header('Location: marketplace' . $buyQuery);
+	exit;
+}
+
 
 
 

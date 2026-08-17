@@ -349,6 +349,283 @@
 .qs-verse-status-on { color: #2dd4bf !important; }
 .qs-verse-status-off { color: #f87171 !important; }
 
+button.qs-verse-select {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.qs-buy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: rgba(3, 3, 5, 0.72);
+  backdrop-filter: blur(6px);
+}
+.qs-buy-overlay.is-open { display: flex; }
+
+.qs-buy-modal {
+  width: min(520px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  background: #161b22;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 22px 22px 20px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+.qs-buy-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.qs-buy-head h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.qs-buy-close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.qs-buy-close:hover { color: #fff; }
+
+.qs-buy-field { margin-bottom: 16px; }
+.qs-buy-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 600;
+}
+.qs-buy-input,
+.qs-buy-select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0d1117;
+  color: #fff;
+  font-size: 15px;
+}
+.qs-buy-input:focus,
+.qs-buy-select:focus {
+  outline: none;
+  border-color: #2dd4bf;
+}
+.qs-buy-hint {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.qs-buy-payout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.qs-buy-payout button {
+  min-height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #12161c;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.qs-buy-payout button.is-active {
+  border-color: #2dd4bf;
+  color: #2dd4bf;
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.35);
+}
+
+.qs-buy-route {
+  margin-top: 12px;
+  padding: 12px 14px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d1117;
+}
+.qs-buy-route__label {
+  margin-bottom: 10px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.qs-buy-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: 10px;
+}
+.qs-buy-bar span {
+  display: block;
+  height: 100%;
+  background: #2dd4bf;
+}
+.qs-buy-bar--hybrid span:last-child {
+  background: #0e9e90;
+}
+.qs-buy-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 600;
+}
+.qs-buy-legend i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #2dd4bf;
+}
+
+.qs-buy-months { display: none; }
+.qs-buy-months.is-visible { display: block; }
+.qs-buy-month-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.qs-buy-month-row button {
+  min-height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #12161c;
+  color: #e2e8f0;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.qs-buy-month-row button.is-active {
+  border-color: #2dd4bf;
+  color: #2dd4bf;
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.35);
+}
+
+.qs-buy-cta,
+.qs-buy-confirm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: #2dd4bf;
+  color: #0b1220;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.qs-buy-cta:hover,
+.qs-buy-confirm:hover { background: #5eead4; }
+
+.qs-buy-native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.qs-buy-step { display: none; }
+.qs-buy-step.is-active { display: block; }
+
+.qs-buy-rows {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.qs-buy-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  font-size: 13px;
+}
+.qs-buy-row b {
+  color: #fff;
+  font-weight: 600;
+  text-align: right;
+}
+
+.qs-buy-warn {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(246, 173, 85, 0.35);
+  color: #e8d5a3;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.qs-buy-warn em {
+  color: #fc8181;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.qs-buy-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 10px 0;
+  color: #e2e8f0;
+  font-size: 13px;
+}
+.qs-buy-check input {
+  margin-top: 3px;
+  accent-color: #2dd4bf;
+}
+
+.qs-buy-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+.qs-buy-back {
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.qs-buy-actions .qs-buy-confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .qs-buy-month-row { grid-template-columns: repeat(3, 1fr); }
+}
+
 @media (max-width: 1100px) {
   .qs-verse-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
