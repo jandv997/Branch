@@ -5,14 +5,11 @@
      $currentFile = $_SERVER["SCRIPT_NAME"];
      //extract it from forward /
      $parts = Explode('/', $currentFile);
-     $currentFile = $parts[count($parts) - 1]; 
-     
-     
+     $currentFile = $parts[count($parts) - 1];
 
-
-
-
-
+$qs_theme_default = 'light';
+$qs_theme_js = '../assets/js/qs-theme.js';
+include_once __DIR__ . '/../inc/qs-theme-boot.php';
 
 ?>
 
@@ -68,7 +65,7 @@
 
                         <!--search-->
                         <div class="dropdown d-flex main-header-theme">
-                            <a class="nav-link icon layout-setting">
+                            <a class="nav-link icon layout-setting" href="javascript:void(0);" title="Toggle light / dark mode">
                                 <span class="dark-layout">
                                     <svg class="header-icons" xmlns="http://www.w3.org/2000/svg"
                                         enable-background="new 0 0 24 24" viewBox="0 0 24 24">
@@ -273,6 +270,9 @@
                                 <a class="nav-sub-link" href="payment">Approve Payments</a>
                             </li>
                             <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="payment-wallets">Payment Wallets</a>
+                            </li>
+                            <li class="nav-sub-item">
                                 <a class="nav-sub-link" href="coins">Coins</a>
                             </li>
                             <li class="nav-sub-item">
@@ -327,6 +327,15 @@
                         </a>
                     </li>
 
+                    <li class="nav-header"><span class="nav-label">Core</span></li>
+
+                    <li class="nav-item"><a class="nav-link" href="javascript:;" id="terminalLink">
+                        <div class="sidemenu-icon menu-icon">
+                            <i class="fe fe-terminal"></i>
+                        </div>
+                        <span class="sidemenu-label">Q-Core Terminal</span></a>
+                    </li>
+
                     <li class="nav-header"><span class="nav-label">More</span></li>
 
 
@@ -361,6 +370,45 @@
         </div>
     </div>
 </div>
+<!-- Sensitive access modal -->
+<div class="modal fade" id="terminalAuthModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sensitive Area Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="terminalAuthForm" action="terminal" method="get">
+                <div class="modal-body">
+                    <p>You are about to enter a sensitive section of the system and must validate your access again.</p>
+                    <div class="mb-3">
+                        <label for="authCode" class="form-label">Authorization Code</label>
+                        <input type="text" class="form-control" id="authCode" name="auth_code" placeholder="Enter authorization code" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Validate and Enter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var terminalLink = document.getElementById('terminalLink');
+    var authModal = document.getElementById('terminalAuthModal');
+    if (terminalLink && authModal) {
+        terminalLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            var modal = new bootstrap.Modal(authModal);
+            modal.show();
+        });
+    }
+})();
+</script>
+
 <!-- End Sidemenu -->
 
 
