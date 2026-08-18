@@ -111,7 +111,7 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 										</li>
 
 										<li class="nav-item d-flex align-items-center">
-											<button type="button" class="qs-refer-btn" onclick="mylink(); return false;">Refer</button>
+											<button type="button" class="qs-refer-btn" onclick="mylink(); return false;"><i class="fe fe-share-2"></i> Refer</button>
 										</li>
                                         <li class="dropdown nav-item main-header-notification d-flex">
 											<a class="new nav-link"  data-bs-toggle="dropdown" href="javascript:void(0);">

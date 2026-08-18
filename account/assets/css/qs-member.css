@@ -183,12 +183,13 @@ body.main-body #global-loader { background: #030305; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   margin-right: 8px;
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(45, 212, 191, 0.45);
-  background: rgba(45, 212, 191, 0.12);
-  color: #2dd4bf !important;
+  border: 1px solid var(--qs-accent);
+  background: transparent;
+  color: var(--qs-accent) !important;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -197,8 +198,13 @@ body.main-body #global-loader { background: #030305; }
   white-space: nowrap;
 }
 
+.qs-refer-btn i {
+  font-size: 13px;
+  line-height: 1;
+}
+
 .qs-refer-btn:hover {
-  background: #2dd4bf;
+  background: var(--qs-accent);
   color: #030305 !important;
 }
 
@@ -626,13 +632,13 @@ body.light-theme .btn-outline-primary {
 }
 
 body.light-theme .qs-refer-btn {
-  border-color: rgba(14, 158, 144, 0.4);
-  background: rgba(45, 212, 191, 0.12);
-  color: #0e9e90 !important;
+  border-color: var(--qs-accent);
+  background: transparent;
+  color: var(--qs-accent) !important;
 }
 
 body.light-theme .qs-refer-btn:hover {
-  background: #0e9e90;
-  color: #ffffff !important;
+  background: var(--qs-accent);
+  color: #030305 !important;
 }
 
