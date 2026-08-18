@@ -656,20 +656,35 @@ body.light-theme .qs-flex-note {
 }
 
 body.light-theme .qs-flex-title,
+body.light-theme .qs-flex-kpi span,
 body.light-theme .qs-flex-kpi strong,
+body.light-theme .qs-flex-lead-progress em,
+body.light-theme .qs-flex-lead-progress b,
+body.light-theme .qs-flex-reqline,
+body.light-theme .qs-flex-note,
+body.light-theme .qs-flex-note strong,
+body.light-theme .qs-flex-next,
 body.light-theme .qs-flex-step__name,
+body.light-theme .qs-flex-step__meta,
 body.light-theme .qs-flex-rank__name,
+body.light-theme .qs-flex-rank__kicker,
 body.light-theme .qs-flex-head h2,
 body.light-theme .qs-flex-bonus-card h3,
 body.light-theme .qs-flex-reward h3,
+body.light-theme .qs-flex-req span,
 body.light-theme .qs-flex-req strong,
-body.light-theme .qs-flex-togo strong {
-  color: #0f172a;
+body.light-theme .qs-flex-req small,
+body.light-theme .qs-flex-togo strong,
+body.light-theme .qs-flex-benefits li,
+body.light-theme .qs-flex-progress,
+body.light-theme .qs-flex-progress b,
+body.light-theme .qs-flex-lvl__toggle,
+body.light-theme .qs-flex-lvl__toggle span,
+body.light-theme .qs-flex-modal .modal-title {
+  color: #000000 !important;
 }
-
-body.light-theme .qs-flex-benefits li { color: #334155; }
 body.light-theme .qs-flex-bar { background: rgba(15, 23, 42, 0.08); }
 body.light-theme .qs-flex-modal .modal-content {
   background: #fff;
-  color: #0f172a;
+  color: #000000;
 }

@@ -925,21 +925,35 @@ body.light-theme .qs-verse-tabs {
 }
 
 body.light-theme .qs-verse-tab {
-  color: #64748b !important;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-verse-tab:hover,
 body.light-theme .qs-verse-tab.is-active {
-  color: #0f172a !important;
+  color: #000000 !important;
 }
 
-body.light-theme .qs-verse-card {
+body.light-theme .qs-verse-card,
+body.light-theme .qs-verse-empty,
+body.light-theme .qs-verse-terms {
   background: #ffffff;
   border-color: rgba(15, 23, 42, 0.08);
 }
 
-body.light-theme .qs-verse-card__name {
-  color: #0f172a;
+body.light-theme .qs-verse-card__name,
+body.light-theme .qs-verse-card__sub,
+body.light-theme .qs-verse-meta__row,
+body.light-theme .qs-verse-meta__row span,
+body.light-theme .qs-verse-empty,
+body.light-theme .qs-verse-empty h5,
+body.light-theme .qs-verse-terms > summary,
+body.light-theme .qs-verse-terms__body,
+body.light-theme .qs-verse-owned__date,
+body.light-theme .qs-verse-owned__amount,
+body.light-theme .qs-verse-owned__stat small,
+body.light-theme .qs-verse-owned__stat b,
+body.light-theme .qs-verse-owned__timeline-row {
+  color: #000000 !important;
 }
 
 

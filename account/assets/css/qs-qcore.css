@@ -615,12 +615,12 @@ body.light-theme .qs-qcore-tabs {
 }
 
 body.light-theme .qs-qcore-tab {
-  color: #64748b !important;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-qcore-tab:hover,
 body.light-theme .qs-qcore-tab.is-active {
-  color: #0f172a !important;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-qcore-engine,
@@ -637,7 +637,7 @@ body.light-theme .qs-qcore-card h3,
 body.light-theme .qs-qcore-panel__title,
 body.light-theme .qs-signal-card h3,
 body.light-theme .qs-qcore-table td {
-  color: #0f172a;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-qcore-engine p,
@@ -646,7 +646,7 @@ body.light-theme .qs-qcore-table th,
 body.light-theme .qs-qcore-note,
 body.light-theme .qs-qcore-section,
 body.light-theme .qs-signal-card p {
-  color: #64748b;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-qcore-table--cex thead th {
@@ -657,12 +657,12 @@ body.light-theme .qs-qcore-controls select,
 body.light-theme .qs-qcore-controls input {
   background: #f8fafc;
   border-color: rgba(15, 23, 42, 0.12);
-  color: #0f172a;
+  color: #000000;
 }
 
 body.light-theme .qs-qcore .rate-box .neutral,
 body.light-theme .qs-qcore-empty {
-  color: #64748b !important;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-qcore-path {
@@ -685,7 +685,7 @@ body.light-theme .qs-qcore-table tbody tr:hover td {
 }
 
 body.light-theme .qs-qcore-route {
-  color: #334155;
+  color: #000000;
 }
 
 body.light-theme .qs-qcore-pending {
@@ -693,11 +693,11 @@ body.light-theme .qs-qcore-pending {
 }
 
 body.light-theme .qs-qcore-pending span {
-  color: #334155;
+  color: #000000;
 }
 
 body.light-theme .qs-page-title {
-  color: #0f172a;
+  color: #000000 !important;
 }
 
 .signal-container {
@@ -938,15 +938,15 @@ body.light-theme .qs-signal-hero {
 
 body.light-theme .signal-text-compact {
   background: #f8fafc;
-  color: #0f172a;
+  color: #000000;
 }
 
 body.light-theme .signal-stats,
 body.light-theme .signal-meta-compact,
 body.light-theme .empty-state {
-  color: #64748b;
+  color: #000000;
 }
 
 body.light-theme .empty-state h5 {
-  color: #0f172a;
+  color: #000000;
 }

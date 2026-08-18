@@ -147,16 +147,20 @@ body.light-theme .qs-res-search,
 body.light-theme .qs-res-card {
   background: #fff;
   border-color: rgba(15, 23, 42, 0.1);
-  color: #0f172a;
+  color: #000000;
 }
 
-body.light-theme .qs-res-card h3 {
-  color: #0f172a;
+body.light-theme .qs-res-card h3,
+body.light-theme .qs-res-card p,
+body.light-theme .qs-res-cat,
+body.light-theme .qs-res-type,
+body.light-theme .qs-res-empty {
+  color: #000000 !important;
 }
 
 body.light-theme .qs-res-pill {
   border-color: rgba(15, 23, 42, 0.1);
-  color: #475569;
+  color: #000000;
 }
 
 body.light-theme .qs-res-pill.is-active {

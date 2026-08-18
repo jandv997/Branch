@@ -98,7 +98,7 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 							<div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
 								<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 									<ul class="nav nav-item header-icons navbar-nav-right ms-auto">
-										<?php if ($qs_on_qcore || $qs_on_membership || $qs_on_flex || $qs_on_resources) { ?>
+										<?php if ($qs_on_qcore || $qs_on_membership || $qs_on_resources) { ?>
 										<li class="nav-item d-none d-xl-flex align-items-center">
 											<span class="qs-demo-badge">DEMO DATA — NOT LIVE TRADING RESULTS</span>
 										</li>

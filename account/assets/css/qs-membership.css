@@ -366,18 +366,21 @@ body.light-theme .qs-mem-price,
 body.light-theme .qs-mem-receipts__head h2,
 body.light-theme .qs-mem-row__main strong,
 body.light-theme .qs-mem-row__amt strong {
-  color: #0f172a;
+  color: #000000 !important;
 }
 
 body.light-theme .qs-mem-status p,
 body.light-theme .qs-mem-features li,
-body.light-theme .qs-mem-price span {
-  color: #475569;
+body.light-theme .qs-mem-price span,
+body.light-theme .qs-mem-row__main span,
+body.light-theme .qs-mem-note,
+body.light-theme .qs-mem-plan .form-group label {
+  color: #000000 !important;
 }
 
 body.light-theme .qs-mem-plan .currency-select {
   background: #f8fafc;
-  color: #0f172a;
+  color: #000000;
   border-color: rgba(15, 23, 42, 0.12);
 }
 
@@ -439,5 +442,5 @@ body.light-theme .qs-mem-modal {
 }
 
 body.light-theme .qs-mem-modal__head h3 {
-  color: #0f172a;
+  color: #000000 !important;
 }
