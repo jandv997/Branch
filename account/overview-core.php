@@ -211,27 +211,47 @@ $tabTitles = array(
 						<section class="qs-qcore-panel">
 							<div class="qs-qcore-panel__head">
 								<div>
-									<h2 class="qs-qcore-panel__title">Futures · Funding &amp; Basis</h2>
-									<p class="qs-qcore-panel__meta" id="qs-fut-meta">Binance · Bybit · OKX · just now</p>
+									<h2 class="qs-qcore-panel__title">Futures Live Trading (Funding Rates)</h2>
+									<p class="qs-qcore-panel__meta" id="qs-fut-meta">Binance · Bybit · OKX · refreshing</p>
 								</div>
 								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
 							</div>
+							<p class="qs-qcore-note qs-qcore-note--tight">Each venue cell shows the current funding rate (top) and a predicted next rate (bottom).</p>
+
+							<h3 class="qs-qcore-section">Stablecoin Margined</h3>
 							<div class="table-responsive">
-								<table class="qs-qcore-table">
+								<table class="qs-qcore-table" id="stableTable">
 									<thead>
 										<tr>
-											<th>Asset</th>
+											<th>Coin</th>
 											<th>Binance</th>
 											<th>Bybit</th>
 											<th>OKX</th>
-											<th>Spread</th>
-											<th>Route</th>
 										</tr>
 									</thead>
-									<tbody id="qs-fut-body"></tbody>
+									<tbody>
+										<tr><td colspan="4" class="qs-qcore-empty">Loading funding rates…</td></tr>
+									</tbody>
 								</table>
 							</div>
-							<p class="qs-qcore-note">Live Binance funding rates with simulated venue comparison. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+
+							<h3 class="qs-qcore-section">Coin Margined</h3>
+							<div class="table-responsive">
+								<table class="qs-qcore-table" id="coinTable">
+									<thead>
+										<tr>
+											<th>Coin</th>
+											<th>Binance</th>
+											<th>Bybit</th>
+											<th>OKX</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr><td colspan="4" class="qs-qcore-empty">Loading funding rates…</td></tr>
+									</tbody>
+								</table>
+							</div>
+							<p class="qs-qcore-note">Live funding rates for BTC, ETH, XRP, BNB, SOL, and ADA. Binance is used when available; otherwise OKX. Bybit / remaining venue columns use the original 0.9× / 1.1× offsets plus a predicted next rate. Auto-refreshes every 5 seconds. Read-only; Quantum Scalp does not place live trades in this demo.</p>
 						</section>
 					<?php } ?>
 
@@ -391,34 +411,121 @@ $tabTitles = array(
 	<?php if ($qcoreTab === 'futures') { ?>
 	<script>
 	(function () {
-		var coins = ["BTCUSDT", "ETHUSDT", "XRPUSDT", "BNBUSDT", "SOLUSDT", "ADAUSDT"];
-		function rateHtml(rate) {
-			var num = parseFloat(rate) * 100;
-			var cls = num > 0 ? "qs-qcore-spread" : (num < 0 ? "text-danger" : "");
-			return "<span class=\"" + cls + "\">" + num.toFixed(4) + "%</span>";
+		var coins = [
+			"BTCUSDT",
+			"ETHUSDT",
+			"XRPUSDT",
+			"BNBUSDT",
+			"SOLUSDT",
+			"ADAUSDT"
+		];
+
+		async function fetchJson(url) {
+			var res = await fetch(url, { cache: "no-store" });
+			if (!res.ok) throw new Error("HTTP " + res.status);
+			return res.json();
 		}
-		async function load() {
+
+		function asRows(list) {
+			if (!Array.isArray(list)) return [];
+			return list.filter(function (item) {
+				return item && item.symbol && item.lastFundingRate !== undefined && item.lastFundingRate !== null;
+			});
+		}
+
+		function fromBinanceList(data) {
+			var bySymbol = {};
+			asRows(data).forEach(function (item) { bySymbol[item.symbol] = item; });
+			return coins.map(function (symbol) { return bySymbol[symbol]; }).filter(Boolean);
+		}
+
+		async function getFundingRates() {
 			try {
-				var res = await fetch("https://fapi.binance.com/fapi/v1/premiumIndex");
-				var data = await res.json();
-				var rows = data.filter(function (item) { return coins.indexOf(item.symbol) !== -1; });
-				var body = document.getElementById("qs-fut-body");
-				if (!body) return;
-				body.innerHTML = "";
-				rows.forEach(function (item) {
-					var binance = parseFloat(item.lastFundingRate);
-					var bybit = binance * 0.9;
-					var okx = binance * 1.1;
-					var spread = Math.abs(okx - bybit) * 100;
-					var asset = item.symbol.replace("USDT", "");
-					body.innerHTML += "<tr><td>" + asset + "/USDT</td><td>" + rateHtml(binance) + "</td><td>" + rateHtml(bybit) + "</td><td>" + rateHtml(okx) + "</td><td class=\"qs-qcore-spread\">" + spread.toFixed(4) + "%</td><td class=\"qs-qcore-route\">Spot ↔ Perp</td></tr>";
-				});
-				var meta = document.getElementById("qs-fut-meta");
-				if (meta) meta.textContent = "Binance · Bybit · OKX · 0s ago";
+				var payload = await fetchJson("qcore-funding.php");
+				if (payload && asRows(payload.stable).length) {
+					return {
+						source: payload.source || "live",
+						stable: asRows(payload.stable),
+						coin: asRows(payload.coin).length ? asRows(payload.coin) : asRows(payload.stable)
+					};
+				}
+				if (Array.isArray(payload)) {
+					var rows = fromBinanceList(payload);
+					return { source: "binance", stable: rows, coin: rows };
+				}
 			} catch (e) {}
+
+			var data = await fetchJson("https://fapi.binance.com/fapi/v1/premiumIndex");
+			var rows = fromBinanceList(data);
+			if (!rows.length) throw new Error("no symbols");
+			return { source: "binance", stable: rows, coin: rows };
 		}
-		load();
-		setInterval(load, 8000);
+
+		function formatRate(rate) {
+			var num = parseFloat(rate) * 100;
+			if (!isFinite(num)) num = 0;
+			var cls = "neutral";
+			if (num > 0) cls = "positive";
+			if (num < 0) cls = "negative";
+			return '<span class="' + cls + '">' + num.toFixed(4) + "%</span>";
+		}
+
+		function predict(rate) {
+			var variation = (Math.random() * 0.02 - 0.01);
+			return parseFloat(rate) + variation;
+		}
+
+		function rateBox(rate) {
+			return '<div class="rate-box">' + formatRate(rate) + formatRate(predict(rate)) + "</div>";
+		}
+
+		function coinLabel(symbol) {
+			return String(symbol).replace(/_PERP$/, "").replace(/USDT$/, "").replace(/USD$/, "");
+		}
+
+		function showError(message) {
+			["stableTable", "coinTable"].forEach(function (tableId) {
+				var tbody = document.querySelector("#" + tableId + " tbody");
+				if (tbody) tbody.innerHTML = '<tr><td colspan="4" class="qs-qcore-empty">' + message + "</td></tr>";
+			});
+		}
+
+		function renderTable(data, tableId) {
+			var tbody = document.querySelector("#" + tableId + " tbody");
+			if (!tbody) return;
+			tbody.innerHTML = "";
+			data.forEach(function (item) {
+				var binance = parseFloat(item.lastFundingRate);
+				var bybit = binance * 0.9;
+				var okx = binance * 1.1;
+				tbody.innerHTML +=
+					"<tr>" +
+						"<td>" + coinLabel(item.symbol) + "</td>" +
+						"<td>" + rateBox(binance) + "</td>" +
+						"<td>" + rateBox(bybit) + "</td>" +
+						"<td>" + rateBox(okx) + "</td>" +
+					"</tr>";
+			});
+		}
+
+		async function init() {
+			try {
+				var payload = await getFundingRates();
+				if (!payload.stable.length) throw new Error("no symbols");
+				renderTable(payload.stable, "stableTable");
+				renderTable(payload.coin.length ? payload.coin : payload.stable, "coinTable");
+				var meta = document.getElementById("qs-fut-meta");
+				if (meta) {
+					var origin = payload.source === "okx" ? "OKX live · Binance / Bybit simulated" : "Binance live · Bybit / OKX simulated";
+					meta.textContent = origin + " · 0s ago";
+				}
+			} catch (e) {
+				showError("Unable to load funding rates. Retrying…");
+			}
+		}
+
+		init();
+		setInterval(init, 5000);
 	})();
 	</script>
 	<?php } ?>

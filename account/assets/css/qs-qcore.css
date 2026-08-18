@@ -293,6 +293,46 @@
   font-size: 12px;
 }
 
+.qs-qcore-note--tight {
+  padding-top: 0;
+  padding-bottom: 4px;
+}
+
+.qs-qcore-section {
+  margin: 8px 20px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.qs-qcore-empty {
+  color: #64748b !important;
+  font-size: 13px;
+}
+
+.qs-qcore .rate-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.qs-qcore .rate-box .positive {
+  color: #00c853;
+  font-weight: 600;
+}
+
+.qs-qcore .rate-box .negative {
+  color: #ff3d00;
+  font-weight: 600;
+}
+
+.qs-qcore .rate-box .neutral {
+  color: #94a3b8;
+}
+
 .qs-qcore-pending {
   display: flex;
   align-items: flex-start;
@@ -503,8 +543,14 @@ body.light-theme .qs-qcore-engine p,
 body.light-theme .qs-qcore-card p,
 body.light-theme .qs-qcore-table th,
 body.light-theme .qs-qcore-note,
+body.light-theme .qs-qcore-section,
 body.light-theme .qs-signal-card p {
   color: #64748b;
+}
+
+body.light-theme .qs-qcore .rate-box .neutral,
+body.light-theme .qs-qcore-empty {
+  color: #64748b !important;
 }
 
 body.light-theme .qs-qcore-path {
