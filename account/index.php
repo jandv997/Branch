@@ -93,7 +93,7 @@ if(mysqli_num_rows($check_email) > 0){
         if($row['userstatus'] ==1){
 
             //check if admin has approved the account
-            // if($row['status'] ==1){
+            if($row['status'] ==1){
 
 
                 //attempt to enforce password reset and 2fa activiattion??
@@ -171,54 +171,26 @@ if(mysqli_num_rows($check_email) > 0){
 
 
             
-    //     }else{
-    //             //account not yet approved by admin
-
-    //             ?>
-    // <script>
-   
-
-	// notif({
-	// 	msg: "<b>Pending Approval Account</b> <br/> Your uploaded ID-Card is pending approval by Admin",
-	// 	width: 250,
-	// 	position: "center",
-	// 	type: "error",
-	// 	fade: true
-	// });
-    // </script>
-
-    // <?php  
-
-
-
-
-
-    //         }
-
-
-
-
+            }else{
+                $_SESSION['waiting_email'] = $email;
+                $_SESSION['waiting_state'] = 'approval';
+?>
+    <script>
+    location = 'waiting';
+    </script>
+<?php
+            }
 
         }else{
 
-      //acc not yet verified by user    
+      //acc not yet verified by user
+                $_SESSION['waiting_email'] = $email;
+                $_SESSION['waiting_state'] = 'verify';
 ?>
     <script>
-    
-	notif({
-		msg: "<b>Unverified Account</b> <br/> You have not yet verified your account, please check your email for verification link",
-		width: 250,
-		position: "center",
-		type: "error",
-		fade: true
-	});
+    location = 'waiting';
     </script>
-
-    <?php  
-
-
-
-
+<?php
         }
 
 

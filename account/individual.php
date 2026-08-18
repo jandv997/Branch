@@ -804,6 +804,7 @@ if(mysqli_num_rows($check_email) < 1 ){
 
     //check if user was reffered
     $refer = "";
+    $rr = null;
     if(!empty($_POST['refer'])){
         $refer = $_POST['refer'];
 
@@ -815,11 +816,13 @@ if(mysqli_num_rows($check_email) < 1 ){
  $describe ="New referral registed as ".$firstname."  ";
  
  //check if email exist aready
-$checkg = mysqli_query($mysqli,"SELECT id, email, firstname FROM users WHERE referal_link='$refer'");
+$checkg = mysqli_query($mysqli,"SELECT id, email, firstname, lastname FROM users WHERE referal_link='$refer'");
 $rr = mysqli_fetch_assoc($checkg);
+if($rr && !empty($rr['id'])){
  $userid = $rr['id'];
 
  $add = mysqli_query($mysqli,"INSERT INTO `activity`(`userid`, `action`, `describe`, `date`, `status`) VALUES('$userid', '$action', '$describe', '$date','Registered') ");
+}
  
 
 
@@ -944,6 +947,14 @@ sendVerificationEmail(
 
     'https://quantumscalp.io/account/verify?email=' .($email) . '&token='
 );
+
+if (!empty($refer) && is_array($rr) && !empty($rr['email'])) {
+    $uplineName = trim((isset($rr['firstname']) ? $rr['firstname'] : '') . ' ' . (isset($rr['lastname']) ? $rr['lastname'] : ''));
+    sendUplineReferralEmail($rr['email'], $uplineName, $name, $email);
+}
+
+$_SESSION['waiting_email'] = $email;
+$_SESSION['waiting_state'] = 'verify';
    
 
 
@@ -966,8 +977,8 @@ sendVerificationEmail(
 	});
 
     setTimeout(() => {
-        // location = 'index';
-    }, 5000);
+        location = 'waiting';
+    }, 1800);
     </script>
 
     <?php

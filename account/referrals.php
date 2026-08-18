@@ -88,9 +88,9 @@ $rows = mysqli_fetch_assoc($get_user);
 						<div class="left-content">
 						  <span class="main-content-title mg-b-0 mg-b-lg-1">Referral</span>
 						</div>
-						<div class="justify-content-center mt-2">
-							<button type="button" class="btn btn-primary">
-								<i class="fe fe-link me-1"></i> <?php echo $rows['referal_link']; ?>
+						<div class="justify-content-center mt-2 d-flex align-items-center flex-wrap">
+							<button type="button" class="btn btn-primary" onclick="mylink(); return false;">
+								<i class="fe fe-link me-1"></i> Copy referral link
 							</button>
 						</div>
 					</div>

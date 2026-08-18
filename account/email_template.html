@@ -1,240 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quantum Scalp · Email</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-    body {
-      background-color: #f2f5f9;
-      padding: 30px 0;
-    }
-    .email-wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #ffffff;
-      border-radius: 28px;
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
-      overflow: hidden;
-    }
-    .email-container {
-      padding: 40px 44px 36px;
-    }
-    /* header with logo + subject */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 12px 8px;
-    }
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo-img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      background: #f0f4fe;
-      border-radius: 14px;
-      padding: 4px;
-    }
-    .brand-name {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      color: #0b1b33;
-    }
-    .brand-name span {
-      color: #45ACAB;
-    }
-    .subject-badge {
-      background: #eef3fc;
-      padding: 8px 18px;
-      border-radius: 80px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #1f3a6b;
-      letter-spacing: 0.2px;
-      border: 1px solid rgba(42, 109, 244, 0.10);
-      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-      white-space: nowrap;
-    }
-    /* main content */
-    .main-content {
-      margin: 18px 0 28px;
-    }
-    .greeting {
-      font-size: 18px;
-      font-weight: 600;
-      color: #0b1b33;
-      margin-bottom: 16px;
-    }
-    .message-body {
-      color: #1e2f4a;
-      line-height: 1.6;
-      font-size: 16px;
-    }
-    .message-body p {
-      margin-bottom: 18px;
-    }
-    .highlight-box {
-      background: #f6f9ff;
-      border-left: 4px solid #45ACAB;
-      padding: 18px 22px;
-      border-radius: 12px;
-      margin: 24px 0 28px;
-    }
-    .highlight-box p {
-      font-size: 15px;
-      color: #1c3b66;
-      margin-bottom: 0;
-    }
-    .highlight-box strong {
-      color: #0b1b33;
-      font-weight: 600;
-    }
-    .cta-button {
-      display: inline-block;
-      background: #0b1b33;
-      color: white;
-      font-weight: 600;
-      font-size: 16px;
-      padding: 14px 34px;
-      border-radius: 60px;
-      text-decoration: none;
-      margin: 12px 0 16px;
-      letter-spacing: 0.2px;
-      transition: background 0.2s;
-      border: 1px solid #1f3451;
-    }
-    .cta-button:hover {
-      background: #1f3451;
-    }
-    .footer {
-      border-top: 1px solid #e7edf4;
-      margin-top: 32px;
-      padding-top: 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      color: #5b6f8c;
-      font-size: 14px;
-    }
-    .footer-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 6px 18px;
-      margin-bottom: 8px;
-    }
-    .footer-meta span {
-      opacity: 0.7;
-    }
-    .footer-year {
-      font-weight: 450;
-      color: #3d5475;
-    }
-    .footer a {
-      color: #45ACAB;
-      text-decoration: none;
-      font-weight: 450;
-    }
-    .footer a:hover {
-      text-decoration: underline;
-    }
-    .signature {
-      margin-top: 8px;
-      font-weight: 400;
-      letter-spacing: 0.1px;
-      color: #3d5475;
-    }
-    /* responsive */
-    @media (max-width: 520px) {
-      .email-container {
-        padding: 28px 20px 28px;
-      }
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .subject-badge {
-        white-space: normal;
-        align-self: flex-start;
-        margin-top: 4px;
-      }
-      .brand-name {
-        font-size: 20px;
-      }
-      .cta-button {
-        width: 100%;
-        text-align: center;
-        padding: 14px 20px;
-        box-sizing: border-box;
-      }
-    }
-  </style>
+  <title>Quantum Scalp</title>
 </head>
-<body>
-  <div class="email-wrapper">
-    <div class="email-container">
-      
-      <!-- HEADER: logo + subject -->
-      <div class="header">
-        <div class="logo-area">
-          <!-- logo from quantumscalp.io -->
-          <img class="logo-img" src="https://quantumscalp.io/assets/img/logo/logo.png" alt="Quantum Scalp logo" width="48" height="48">
-          <span class="brand-name">Quantum<span>Scalp</span></span>
-        </div>
-        <div class="subject-badge">
-         {{subject}}
-        </div>
-      </div>
-
-      <!-- MAIN CONTENT -->
-      <div class="main-content">
-        <div class="greeting">
-          Hello, {{title}}.
-        </div>
-        <div class="message-body">
-          <p>
-           {{body_email}}
-          </p>
-          
-        </div>
-
-        <!-- highlight / feature block -->
-        <div class="highlight-box">
-          <p>
-           {{body_email_2}}
-          </p>
-        </div>
-
-        <!-- call to action -->
-        <a href="{{action_link}}" class="cta-button" style="color: white; background: #0b1b33;">→  {{action_btn}}</a>
-        
-      
-      </div>
-
-      <!-- FOOTER: no address, only year 2026 -->
-      <div class="footer">
-        <div class="footer-meta">
-          <span>© 2026 Quantum Scalp</span>
-         
-        </div>
-      
-      </div>
-
-    </div>
-  </div>
+<body style="margin:0;padding:0;background-color:#030305;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#030305;padding:32px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background-color:#08090f;border:1px solid #1a3a36;border-radius:16px;overflow:hidden;">
+          <tr>
+            <td style="height:4px;background-color:#2dd4bf;font-size:0;line-height:0;">&nbsp;</td>
+          </tr>
+          <tr>
+            <td style="padding:32px 36px 12px;text-align:center;">
+              <img src="https://quantumscalp.io/assets/img/logo/logo.png" alt="Quantum Scalp" width="56" height="56" style="display:block;margin:0 auto 14px;border-radius:12px;background-color:#0a0b10;border:1px solid #1a3a36;padding:6px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;">Quantum<span style="color:#2dd4bf;">Scalp</span></div>
+              <div style="margin-top:12px;">
+                <span style="display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid #1a3a36;background-color:#0a0b10;color:#2dd4bf;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">{{subject}}</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:20px 36px 8px;">
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:18px;font-weight:600;color:#f8fafc;margin-bottom:12px;">Hello, {{title}}.</div>
+              <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#cbd5e1;">{{body_email}}</div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:16px 36px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0a0b10;border-left:3px solid #2dd4bf;border-radius:10px;">
+                <tr>
+                  <td style="padding:16px 18px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.7;color:#e2e8f0;">{{body_email_2}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" style="padding:8px 36px 32px;">
+              <a href="{{action_link}}" style="display:inline-block;background-color:#2dd4bf;color:#030305;text-decoration:none;font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:15px;padding:13px 28px;border-radius:999px;">{{action_btn}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:18px 36px 28px;border-top:1px solid #1a2330;text-align:center;font-family:Arial,Helvetica,sans-serif;color:#64748b;font-size:12px;">
+              &copy; 2026 Quantum Scalp
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>

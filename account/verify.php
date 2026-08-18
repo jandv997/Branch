@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 include('connection.php');
 
@@ -50,7 +50,7 @@ $email = trim($_GET['email']);
 $email = str_replace(' ', '+', $email);
 
 // Look up the user
-$stmt = $mysqli->prepare("SELECT id, firstname, lastname, email, userstatus FROM users WHERE email = ?");
+$stmt = $mysqli->prepare("SELECT id, firstname, lastname, email, userstatus, status FROM users WHERE email = ?");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 
@@ -84,11 +84,13 @@ $stmt->close();
 
 // Already verified?
 if ($user['userstatus'] == 1) {
+    $_SESSION['waiting_email'] = $user['email'];
+    $_SESSION['waiting_state'] = ((int) $user['status'] === 1) ? 'ready' : 'approval';
 
     ?>
     <script>
         notif({
-            msg: "<b>Already Verified</b><br/>Your email has already been verified. Please sign in.",
+            msg: "<b>Already Verified</b><br/>Your email is verified. Continue to your account status.",
             width: 300,
             position: "center",
             type: "info",
@@ -96,8 +98,8 @@ if ($user['userstatus'] == 1) {
         });
 
         setTimeout(() => {
-            location = 'index';
-        }, 3000);
+            location = 'waiting';
+        }, 1800);
     </script>
     <?php
 
@@ -112,15 +114,15 @@ $update->bind_param("s", $email);
 if ($update->execute()) {
 
     $name = trim($user['firstname'] . " " . $user['lastname']);
-
- 
+    $_SESSION['waiting_email'] = $user['email'];
+    $_SESSION['waiting_state'] = 'approval';
 
     ?>
 
     <script>
 
     notif({
-        msg: "<b>Verification Successful</b><br/>Your email has been verified successfully. You can now sign in.",
+        msg: "<b>Verification Successful</b><br/>Your email is verified. Your account is now awaiting admin approval.",
         width: 320,
         position: "center",
         type: "success",
@@ -128,8 +130,8 @@ if ($update->execute()) {
     });
 
     setTimeout(() => {
-        location = 'index';
-    }, 2500);
+        location = 'waiting';
+    }, 1800);
 
     </script>
 

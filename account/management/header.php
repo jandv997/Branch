@@ -254,6 +254,9 @@ include_once __DIR__ . '/../inc/qs-theme-boot.php';
                                 <a class="nav-sub-link" href="payment-wallets">Payment Wallets</a>
                             </li>
                             <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="coins">Coins</a>
+                            </li>
+                            <li class="nav-sub-item">
                                 <a class="nav-sub-link" href="payment-history">Payment History</a>
                             </li>
                            
@@ -263,6 +266,24 @@ include_once __DIR__ . '/../inc/qs-theme-boot.php';
 
 
                     
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="coins">
+                            <div class="sidemenu-icon menu-icon">
+                                <i class="fe fe-disc"></i>
+                            </div>
+                            <span class="sidemenu-label">Coins</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="resources">
+                            <div class="sidemenu-icon menu-icon">
+                                <i class="fe fe-download"></i>
+                            </div>
+                            <span class="sidemenu-label">Resources</span>
+                        </a>
+                    </li>
 
                     <li class="nav-header"><span class="nav-label">Core</span></li>
 
@@ -283,15 +304,6 @@ include_once __DIR__ . '/../inc/qs-theme-boot.php';
 
 
                     <li class="nav-header"><span class="nav-label">More</span></li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="resources">
-                            <div class="sidemenu-icon menu-icon">
-                                <i class="fe fe-download"></i>
-                            </div>
-                            <span class="sidemenu-label">Resources</span>
-                        </a>
-                    </li>
 
                     <li  class="nav-item"><a class="nav-link " href="logout" > <div class="sidemenu-icon menu-icon">
                                 <i class=" fe fe-log-out"></i>

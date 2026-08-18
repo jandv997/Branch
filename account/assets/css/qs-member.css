@@ -179,6 +179,29 @@ body.main-body #global-loader { background: #030305; }
   box-shadow: 0 0 8px rgba(250, 204, 21, 0.7);
 }
 
+.qs-refer-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(45, 212, 191, 0.45);
+  background: rgba(45, 212, 191, 0.12);
+  color: #2dd4bf !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.qs-refer-btn:hover {
+  background: #2dd4bf;
+  color: #030305 !important;
+}
+
 @media (max-width: 1100px) {
   .qs-demo-badge { display: none; }
 }
@@ -600,5 +623,16 @@ body.light-theme .btn-outline-light,
 body.light-theme .btn-outline-primary {
   border-color: rgba(15, 23, 42, 0.16) !important;
   color: #0f172a !important;
+}
+
+body.light-theme .qs-refer-btn {
+  border-color: rgba(14, 158, 144, 0.4);
+  background: rgba(45, 212, 191, 0.12);
+  color: #0e9e90 !important;
+}
+
+body.light-theme .qs-refer-btn:hover {
+  background: #0e9e90;
+  color: #ffffff !important;
 }
 

@@ -2,17 +2,23 @@
 
 
 
+function qsEmailTemplatePath()
+{
+    return __DIR__ . '/email_template.html';
+}
+
 function renderEmailTemplate($templatePath, $data = [])
 {
-    // Load template
+    if ($templatePath === '' || $templatePath === 'email_template.html') {
+        $templatePath = qsEmailTemplatePath();
+    }
+
     $template = file_get_contents($templatePath);
 
-    // Replace variables
     foreach ($data as $key => $value) {
         $template = str_replace('{{' . $key . '}}', $value, $template);
     }
 
-    // Remove unused placeholders (optional cleanup)
     $template = preg_replace('/{{(.*?)}}/', '', $template);
 
     return $template;
@@ -31,7 +37,7 @@ function sendVerificationEmail($email, $name, $verificationLink)
         'action_btn' => 'Verify Email'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -51,7 +57,7 @@ function sendAdminNotificationRegistration($admins = [], $name, $userEmail)
         'action_btn' => 'Go to Admin Panel'
     ];
 
-    $html = renderEmailTemplate(__DIR__ . '/email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     $results = [];
 
@@ -80,7 +86,7 @@ function sendAdminNotificationPayment($admins = [], $package, $amount, $fullName
         'action_btn' => 'Go to Admin Panel'
     ];
 
-    $html = renderEmailTemplate(__DIR__ . '/email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     $results = [];
 
@@ -104,7 +110,7 @@ function sendWelcomeEmail($email)
         'action_btn' => 'Go to Dashboard'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -122,7 +128,7 @@ function sendForgotPasswordEmail($email,  $resetLink)
         'action_btn' => 'Reset Password'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -144,7 +150,7 @@ function sendWithdrawalEmail($email, $wallet, $amount, $method, $date  ){
         'action_btn' => 'Sign In'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -168,7 +174,7 @@ function sendInvoiceEmail($email, $name, $wallet, $orderId, $date  ){
         'action_btn' => 'Sign In'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -179,14 +185,14 @@ function sendPaymentEmail($email, $body){
         $data = [
         'subject' => 'Order Completed',
         'body_email' => $body,
-       
+        'body_email_2' => "Sign in to review this order in your account.",
 
         'title' => 'Valued Investor',
         'action_link' => 'https://quantumscalp.io/account',
         'action_btn' => 'Sign In'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -200,12 +206,13 @@ function sendInvitationEmail($email,  $subject, $body_email, $body_email_2, $inv
         'subject' => $subject,
         'body_email' => $body_email,
         'body_email_2' => $body_email_2,
+        'title' => 'Valued Investor',
         'item_1' => 'Invitation to join Quantum Scalp',
         'action_link' => $inviteLink,
         'action_btn' => 'Accept Invitation'
     ];
 
-    $html = renderEmailTemplate('email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     return sendEmail($email, $data['subject'], $html);
 }
@@ -231,7 +238,7 @@ function sendAdminNotificationWithdrawal($admins = [], $name, $userEmail, $amoun
         'action_btn' => 'Go to Admin Panel'
     ];
 
-    $html = renderEmailTemplate(__DIR__ . '/email_template.html', $data);
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
 
     $results = [];
 
@@ -240,6 +247,28 @@ function sendAdminNotificationWithdrawal($admins = [], $name, $userEmail, $amoun
     }
 
     return $results;
+}
+
+
+function sendUplineReferralEmail($uplineEmail, $uplineName, $downlineName, $downlineEmail)
+{
+    $uplineTitle = trim($uplineName) !== '' ? $uplineName : 'Valued Investor';
+    $data = [
+        'subject' => 'New Downline Registration',
+        'body_email' => "One of your downlines has completed registration on Quantum Scalp.",
+        'body_email_2' => "
+            <strong>Name:</strong> {$downlineName}<br>
+            <strong>Email:</strong> {$downlineEmail}<br><br>
+            You can follow their progress from your Referrals page.
+        ",
+        'title' => $uplineTitle,
+        'action_link' => 'https://quantumscalp.io/account/referrals',
+        'action_btn' => 'View Referrals'
+    ];
+
+    $html = renderEmailTemplate(qsEmailTemplatePath(), $data);
+
+    return sendEmail($uplineEmail, $data['subject'], $html);
 }
 
 

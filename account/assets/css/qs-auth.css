@@ -320,6 +320,53 @@ body.qs-auth .square-box { display: none !important; }
   font-weight: 600;
 }
 
+.qs-auth .qs-wait-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.qs-auth .qs-wait-step {
+  flex: 1 1 120px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--qs-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--qs-muted-2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.qs-auth .qs-wait-step.is-active {
+  border-color: rgba(45, 212, 191, 0.45);
+  background: rgba(45, 212, 191, 0.1);
+  color: var(--qs-accent);
+}
+
+.qs-auth .qs-wait-step.is-done {
+  border-color: rgba(0, 230, 118, 0.25);
+  color: #00e676;
+}
+
+.qs-auth .qs-wait-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 16px;
+  color: var(--qs-label);
+  font-size: 14px;
+}
+
+.qs-auth .qs-wait-identity span {
+  color: var(--qs-muted);
+  font-size: 13px;
+  word-break: break-all;
+}
+
 .qs-auth h2,
 .qs-auth h5,
 .qs-auth .main-signup-header h2,

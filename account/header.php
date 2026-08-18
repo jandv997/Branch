@@ -110,8 +110,9 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 											</a>
 										</li>
 
-										
-                                        
+										<li class="nav-item d-flex align-items-center">
+											<button type="button" class="qs-refer-btn" onclick="mylink(); return false;">Refer</button>
+										</li>
                                         <li class="dropdown nav-item main-header-notification d-flex">
 											<a class="new nav-link"  data-bs-toggle="dropdown" href="javascript:void(0);">
 												<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"/></svg><span class=" pulse"></span>
@@ -297,45 +298,50 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 
 
 
-				<input type="text" style="display:none"
-    value="<?php echo $rows['referal_link']; ?>" id="refer-code" />
-    <input type="text" style="display:none"
-    value="https://quantumscalp.io/account/register?refer=<?php echo $rows['referal_link']; ?>" id="refer-link" />
+				<input type="text" style="position:absolute;left:-9999px"
+    value="<?php echo htmlspecialchars($rows['referal_link']); ?>" id="refer-code" readonly />
+    <input type="text" style="position:absolute;left:-9999px"
+    value="https://quantumscalp.io/account/register?refer=<?php echo htmlspecialchars($rows['referal_link']); ?>" id="refer-link" readonly />
 <script>
-function mycode() {
-    /* Get the text field */
-    var copyText = document.getElementById("refer-code");
-
-    copyText.style = "display:block";
-    /* Select the text field */
-    copyText.select();
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-
-    copyText.style = "display:none";
-
-    alert('Referral Code Copied!');
-
+function qsCopyValue(id, successMsg) {
+    var copyText = document.getElementById(id);
+    if (!copyText) return;
+    var text = copyText.value || '';
+    function done() {
+        if (typeof notif === 'function') {
+            notif({ msg: successMsg, width: 260, position: 'center', type: 'success', fade: true });
+        } else {
+            alert(successMsg);
+        }
+    }
+    function fallback() {
+        copyText.removeAttribute('readonly');
+        copyText.style.position = 'fixed';
+        copyText.style.left = '0';
+        copyText.style.top = '0';
+        copyText.style.opacity = '0';
+        copyText.focus();
+        copyText.select();
+        copyText.setSelectionRange(0, text.length);
+        try { document.execCommand('copy'); } catch (e) {}
+        copyText.setAttribute('readonly', 'readonly');
+        copyText.style.position = 'absolute';
+        copyText.style.left = '-9999px';
+        copyText.style.opacity = '';
+        done();
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+        fallback();
+    }
 }
 
+function mycode() {
+    qsCopyValue('refer-code', 'Referral code copied');
+}
 
 function mylink() {
-    /* Get the text field */
-    var copyText = document.getElementById("refer-link");
-
-    copyText.style = "display:block";
-    /* Select the text field */
-    copyText.select();
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-
-    copyText.style = "display:none";
-
-    alert('Referral Link Copied!');
-
+    qsCopyValue('refer-link', 'Referral link copied');
 }
-
-
 </script>

@@ -2,6 +2,7 @@
 session_start();
 
 include('connection.php');
+include_once __DIR__ . '/../email-handler.php';
 
 
 //check if session id is set if it is redirect to login

@@ -443,7 +443,6 @@ $data =$response->data;
 <?php
 $qsPayout = (int) $row['payout'];
 $qsPayoutLabel = $qsPayout === 2 ? 'Staking' : ($qsPayout === 3 ? 'Hybrid' : 'Daily');
-$qsAllocLabel = $qsPayout === 2 ? '100% Staking' : ($qsPayout === 3 ? '25% Main / 75% Staking' : '100% Main');
 $qsPnl = isset($row['added_roi']) ? (float) $row['added_roi'] : 0;
 $qsStart = !empty($row['created_at']) ? strtotime($row['created_at']) : false;
 if (!$qsStart) {
@@ -485,10 +484,6 @@ $qsHist = qs_build_portfolio_history($row, $qsActivities);
             <div>
                 <small>Payout</small>
                 <b><?php echo htmlspecialchars($qsPayoutLabel); ?></b>
-            </div>
-            <div>
-                <small>Allocation</small>
-                <b><?php echo htmlspecialchars($qsAllocLabel); ?></b>
             </div>
             <div>
                 <small>Max daily (cap)</small>
