@@ -155,28 +155,31 @@ $tabTitles = array(
 						<section class="qs-qcore-panel">
 							<div class="qs-qcore-panel__head">
 								<div>
-									<h2 class="qs-qcore-panel__title">CEX · Cross-Exchange Spreads</h2>
-									<p class="qs-qcore-panel__meta" id="qs-cex-meta">Binance · OKX · Kraken · refreshing</p>
+									<h2 class="qs-qcore-panel__title">CEXs Live Trading (Arbitrage)</h2>
+									<p class="qs-qcore-panel__meta" id="qs-cex-meta">Binance · Kraken · KuCoin · OKX · Huobi · BitMEX · Bitfinex · refreshing</p>
 								</div>
 								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
 							</div>
 							<div class="table-responsive">
-								<table class="qs-qcore-table">
+								<table class="qs-qcore-table qs-qcore-table--cex">
 									<thead>
 										<tr>
-											<th>Asset</th>
-											<th>Bought From</th>
+											<th>Coins</th>
+											<th>Purchased From</th>
 											<th>Sold To</th>
-											<th>Buy</th>
-											<th>Sell</th>
-											<th>Spread</th>
-											<th>Route</th>
+											<th>Value Bought</th>
+											<th>Value Sold</th>
+											<th>Spread (USDT)</th>
+											<th>Purchase Volume</th>
+											<th>Profit(USDT)</th>
 										</tr>
 									</thead>
-									<tbody id="qs-cex-body"></tbody>
+									<tbody id="table-body">
+										<tr><td colspan="8" class="qs-qcore-empty">Loading live CEX prices…</td></tr>
+									</tbody>
 								</table>
 							</div>
-							<p class="qs-qcore-note">Live CoinGecko prices with simulated venue spreads. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+							<p class="qs-qcore-note">Live CoinGecko prices with simulated cross-exchange buy/sell, volume, and profit. Auto-refreshes every 10 seconds. Read-only; Quantum Scalp does not place live trades in this demo.</p>
 						</section>
 					<?php } ?>
 
@@ -336,31 +339,61 @@ $tabTitles = array(
 			{ id: "stellar", symbol: "XLM" }
 		];
 		var exchanges = ["BINANCE", "KRAKEN", "KUCOIN", "OKX", "HUOBI", "BITMEX", "BITFINEX"];
-		function pick() { return exchanges[Math.floor(Math.random() * exchanges.length)]; }
-		function fmt(n, d) { return Number(n).toFixed(d); }
-		async function load() {
+
+		function randomExchange() {
+			return exchanges[Math.floor(Math.random() * exchanges.length)];
+		}
+
+		async function fetchJson(url) {
+			var res = await fetch(url, { cache: "no-store" });
+			if (!res.ok) throw new Error("HTTP " + res.status);
+			return res.json();
+		}
+
+		async function loadPrices() {
 			try {
+				return await fetchJson("qcore-cex.php");
+			} catch (e) {
 				var ids = coins.map(function (c) { return c.id; }).join(",");
-				var res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + ids + "&vs_currencies=usd");
-				var data = await res.json();
-				var body = document.getElementById("qs-cex-body");
-				if (!body) return;
-				body.innerHTML = "";
+				return await fetchJson("https://api.coingecko.com/api/v3/simple/price?ids=" + ids + "&vs_currencies=usd");
+			}
+		}
+
+		async function fetchPrices() {
+			var tbody = document.getElementById("table-body");
+			if (!tbody) return;
+			try {
+				var data = await loadPrices();
+				if (!data || typeof data !== "object") throw new Error("bad payload");
+				tbody.innerHTML = "";
 				coins.forEach(function (coin) {
-					var base = (data[coin.id] && data[coin.id].usd) || 0;
-					var buy = base * (1 - Math.random() * 0.01);
-					var sell = base * (1 + Math.random() * 0.01);
-					var spreadPct = base ? ((sell - buy) / base) * 100 : 0;
-					var from = pick(), to = pick();
-					if (from === to) to = pick();
-					body.innerHTML += "<tr><td>" + coin.symbol + "/USD</td><td>" + from + "</td><td>" + to + "</td><td>" + fmt(buy, 6) + "</td><td>" + fmt(sell, 6) + "</td><td class=\"qs-qcore-spread\">" + fmt(spreadPct, 4) + "%</td><td class=\"qs-qcore-route\">" + from + " → " + to + "</td></tr>";
+					var basePrice = (data[coin.id] && data[coin.id].usd) || 0;
+					var buyPrice = basePrice * (1 - Math.random() * 0.01);
+					var sellPrice = basePrice * (1 + Math.random() * 0.01);
+					var spread = sellPrice - buyPrice;
+					var volume = (Math.random() * 1000).toFixed(2);
+					var interest = (spread * volume).toFixed(4);
+					tbody.innerHTML +=
+						"<tr>" +
+							"<td>" + coin.symbol + "</td>" +
+							"<td class=\"qs-qcore-venue\">" + randomExchange() + "</td>" +
+							"<td class=\"qs-qcore-venue\">" + randomExchange() + "</td>" +
+							"<td class=\"qs-qcore-price\">" + buyPrice.toFixed(6) + "</td>" +
+							"<td class=\"qs-qcore-price\">" + sellPrice.toFixed(6) + "</td>" +
+							"<td>" + spread.toFixed(4) + "</td>" +
+							"<td>" + volume + "</td>" +
+							"<td class=\"qs-qcore-profit\">" + interest + "</td>" +
+						"</tr>";
 				});
 				var meta = document.getElementById("qs-cex-meta");
-				if (meta) meta.textContent = "Binance · OKX · Kraken · 0s ago";
-			} catch (e) {}
+				if (meta) meta.textContent = "Binance · Kraken · KuCoin · OKX · Huobi · BitMEX · Bitfinex · 0s ago";
+			} catch (e) {
+				tbody.innerHTML = '<tr><td colspan="8" class="qs-qcore-empty">Unable to load CEX prices. Retrying…</td></tr>';
+			}
 		}
-		load();
-		setInterval(load, 10000);
+
+		fetchPrices();
+		setInterval(fetchPrices, 10000);
 	})();
 	</script>
 	<?php } ?>
