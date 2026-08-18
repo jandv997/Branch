@@ -18,49 +18,32 @@ $flash = '';
 $flashType = 'success';
 
 if (isset($_POST['create'])) {
-	$name = trim(mysqli_real_escape_string($mysqli, $_POST['name']));
-	$wallet_address = trim(mysqli_real_escape_string($mysqli, $_POST['wallet_address']));
-	if ($name === '' || $wallet_address === '') {
-		$flash = 'Name and wallet address are required.';
-		$flashType = 'warning';
-	} else {
-		$create = mysqli_query($mysqli, "INSERT INTO payment_wallets (`name`, `wallet_address`) VALUES('$name', '$wallet_address')");
-		if ($create) {
-			$flash = 'Payment wallet created.';
-		} else {
-			$flash = 'Could not create payment wallet.';
-			$flashType = 'error';
-		}
-	}
+	$result = qs_payment_method_create(
+		$mysqli,
+		isset($_POST['name']) ? $_POST['name'] : '',
+		isset($_POST['wallet_address']) ? $_POST['wallet_address'] : '',
+		isset($_POST['code']) ? $_POST['code'] : ''
+	);
+	$flash = $result['message'];
+	$flashType = $result['ok'] ? 'success' : 'warning';
 }
 
 if (isset($_POST['edit'])) {
-	$id = (int) $_POST['id'];
-	$name = trim(mysqli_real_escape_string($mysqli, $_POST['name']));
-	$wallet_address = trim(mysqli_real_escape_string($mysqli, $_POST['wallet_address']));
-	if ($id <= 0 || $name === '' || $wallet_address === '') {
-		$flash = 'Name and wallet address are required.';
-		$flashType = 'warning';
-	} else {
-		$edit = mysqli_query($mysqli, "UPDATE payment_wallets SET `name`='$name', `wallet_address`='$wallet_address' WHERE id='$id'");
-		if ($edit) {
-			$flash = 'Payment wallet updated.';
-		} else {
-			$flash = 'Could not update payment wallet.';
-			$flashType = 'error';
-		}
-	}
+	$result = qs_payment_method_update(
+		$mysqli,
+		isset($_POST['id']) ? $_POST['id'] : 0,
+		isset($_POST['name']) ? $_POST['name'] : '',
+		isset($_POST['wallet_address']) ? $_POST['wallet_address'] : '',
+		isset($_POST['code']) ? $_POST['code'] : ''
+	);
+	$flash = $result['message'];
+	$flashType = $result['ok'] ? 'success' : 'warning';
 }
 
 if (isset($_POST['delete'])) {
-	$id = (int) $_POST['id'];
-	$del = mysqli_query($mysqli, "DELETE FROM payment_wallets WHERE id='$id'");
-	if ($del) {
-		$flash = 'Payment wallet deleted.';
-	} else {
-		$flash = 'Could not delete payment wallet.';
-		$flashType = 'error';
-	}
+	$result = qs_payment_method_delete($mysqli, isset($_POST['id']) ? $_POST['id'] : 0);
+	$flash = $result['message'];
+	$flashType = $result['ok'] ? 'success' : 'warning';
 }
 
 $wallets = qs_payment_wallets($mysqli);
@@ -106,11 +89,15 @@ $wallets = qs_payment_wallets($mysqli);
 									<h5 class="mb-3">Add Payment Wallet</h5>
 									<form method="POST">
 										<div class="row">
-											<div class="form-group col-md-4">
+											<div class="form-group col-md-3">
 												<label>Name</label>
-												<input type="text" name="name" class="form-control" placeholder="e.g. USDT_TRC20" required>
+												<input type="text" name="name" class="form-control" placeholder="e.g. USDT TRC20" required>
 											</div>
-											<div class="form-group col-md-6">
+											<div class="form-group col-md-2">
+												<label>Code</label>
+												<input type="text" name="code" class="form-control" placeholder="e.g. usdt(trc20)">
+											</div>
+											<div class="form-group col-md-5">
 												<label>Wallet Address</label>
 												<input type="text" name="wallet_address" class="form-control" placeholder="Enter wallet address" required>
 											</div>
@@ -134,6 +121,7 @@ $wallets = qs_payment_wallets($mysqli);
 												<tr>
 													<th>S/N</th>
 													<th>Name</th>
+													<th>Code</th>
 													<th>Wallet Address</th>
 													<th>Action</th>
 												</tr>
@@ -147,6 +135,7 @@ $wallets = qs_payment_wallets($mysqli);
 												<tr>
 													<td><?php echo $i; ?></td>
 													<td><?php echo htmlspecialchars($wallet['name']); ?></td>
+													<td><?php echo htmlspecialchars(isset($wallet['code']) ? $wallet['code'] : ''); ?></td>
 													<td><?php echo htmlspecialchars($wallet['wallet_address']); ?></td>
 													<td>
 														<button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editWallet<?php echo (int) $wallet['id']; ?>">Edit</button>
@@ -174,6 +163,10 @@ $wallets = qs_payment_wallets($mysqli);
 														<div class="form-group">
 															<label>Name</label>
 															<input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($wallet['name']); ?>" required>
+														</div>
+														<div class="form-group">
+															<label>Code</label>
+															<input type="text" name="code" class="form-control" value="<?php echo htmlspecialchars(isset($wallet['code']) ? $wallet['code'] : ''); ?>">
 														</div>
 														<div class="form-group">
 															<label>Wallet Address</label>

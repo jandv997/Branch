@@ -51,6 +51,10 @@ if (!$row) {
 $payAmount = (isset($row['crypto']) && $row['crypto'] !== '' && $row['crypto'] !== null) ? $row['crypto'] : $row['amount'];
 $payCurrency = isset($row['currency']) ? $row['currency'] : '';
 $payWallet = isset($row['wallet']) ? $row['wallet'] : '';
+$payMethod = qs_payment_wallet_by_id($mysqli, $payCurrency);
+if ($payMethod && isset($payMethod['name']) && $payMethod['name'] !== '') {
+	$payCurrency = $payMethod['name'];
+}
 $qrSrc = isset($row['qrcode']) ? $row['qrcode'] : '';
 if ($payWallet !== '') {
 	$generatedQr = qs_wallet_qr_data_uri($payWallet);
