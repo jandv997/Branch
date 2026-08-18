@@ -103,58 +103,70 @@ $tabTitles = array(
 
 						<div class="qs-qcore-grid">
 							<article class="qs-qcore-card">
-								<span class="qs-qcore-card__num">01</span>
-								<span class="qs-qcore-card__icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 7H3v4M17 17h4v-4M3 7l6 6M21 17l-6-6"/></svg>
-								</span>
-								<h3>Cross-Exchange Arbitrage</h3>
-								<p>Compares prices for the same digital assets across different centralized exchanges and identifies potential price discrepancies.</p>
-								<div class="qs-qcore-path">Exchange A → Asset → Exchange B</div>
+								<div class="qs-qcore-card__media">
+									<img src="assets/img/qcore/qcore-cross-exchange.jpg" alt="Cross-exchange arbitrage">
+									<span class="qs-qcore-card__num">01</span>
+								</div>
+								<div class="qs-qcore-card__body">
+									<h3>Cross-Exchange Arbitrage</h3>
+									<p>Compares prices for the same digital assets across different centralized exchanges and identifies potential price discrepancies.</p>
+									<div class="qs-qcore-path">Exchange A → Asset → Exchange B</div>
+								</div>
 							</article>
 							<article class="qs-qcore-card">
-								<span class="qs-qcore-card__num">02</span>
-								<span class="qs-qcore-card__icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 4 3.5 19h17L12 4z"/></svg>
-								</span>
-								<h3>Triangular Arbitrage</h3>
-								<p>Analyzes relationships between three trading pairs to identify potential pricing inefficiencies within a single exchange or market environment.</p>
-								<div class="qs-qcore-path">BTC → USDT → ETH → BTC</div>
+								<div class="qs-qcore-card__media">
+									<img src="assets/img/qcore/qcore-triangular.jpg" alt="Triangular arbitrage">
+									<span class="qs-qcore-card__num">02</span>
+								</div>
+								<div class="qs-qcore-card__body">
+									<h3>Triangular Arbitrage</h3>
+									<p>Analyzes relationships between three trading pairs to identify potential pricing inefficiencies within a single exchange or market environment.</p>
+									<div class="qs-qcore-path">BTC → USDT → ETH → BTC</div>
+								</div>
 							</article>
 							<article class="qs-qcore-card">
-								<span class="qs-qcore-card__num">03</span>
-								<span class="qs-qcore-card__icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16l5-5 4 4 7-8"/><path d="M14 7h6v6"/></svg>
-								</span>
-								<h3>Statistical Arbitrage</h3>
-								<p>Machine-learning models analyze historical relationships and market behavior to identify statistical deviations that may represent potential opportunities.</p>
-								<div class="qs-qcore-path">Historical correlation + AI signal</div>
+								<div class="qs-qcore-card__media">
+									<img src="assets/img/qcore/qcore-statistical.jpg" alt="Statistical arbitrage">
+									<span class="qs-qcore-card__num">03</span>
+								</div>
+								<div class="qs-qcore-card__body">
+									<h3>Statistical Arbitrage</h3>
+									<p>Machine-learning models analyze historical relationships and market behavior to identify statistical deviations that may represent potential opportunities.</p>
+									<div class="qs-qcore-path">Historical correlation + AI signal</div>
+								</div>
 							</article>
 							<article class="qs-qcore-card">
-								<span class="qs-qcore-card__num">04</span>
-								<span class="qs-qcore-card__icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8 12h8M16.2 7.6 8.8 11M16.2 16.4 8.8 13"/></svg>
-								</span>
-								<h3>DEX Arbitrage</h3>
-								<p>Monitors decentralized exchanges and automated market makers for pricing differences and liquidity imbalances.</p>
-								<div class="qs-qcore-path">DEX A → Blockchain → DEX B</div>
+								<div class="qs-qcore-card__media">
+									<img src="assets/img/qcore/qcore-dex.jpg" alt="DEX arbitrage">
+									<span class="qs-qcore-card__num">04</span>
+								</div>
+								<div class="qs-qcore-card__body">
+									<h3>DEX Arbitrage</h3>
+									<p>Monitors decentralized exchanges and automated market makers for pricing differences and liquidity imbalances.</p>
+									<div class="qs-qcore-path">DEX A → Blockchain → DEX B</div>
+								</div>
 							</article>
 							<article class="qs-qcore-card">
-								<span class="qs-qcore-card__num">05</span>
-								<span class="qs-qcore-card__icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 3 4 14h7l-1 7 10-12h-7l0-6z"/></svg>
-								</span>
-								<h3>Flash Loan Arbitrage</h3>
-								<p>Where technically and economically viable, identifies atomic on-chain arbitrage opportunities involving flash-loan infrastructure. Dependent on available liquidity, blockchain conditions, transaction costs, smart-contract conditions, and execution feasibility.</p>
-								<div class="qs-qcore-path">Borrow → Swap → Repay (atomic)</div>
+								<div class="qs-qcore-card__media">
+									<img src="assets/img/qcore/qcore-flash-loan.jpg" alt="Flash loan arbitrage">
+									<span class="qs-qcore-card__num">05</span>
+								</div>
+								<div class="qs-qcore-card__body">
+									<h3>Flash Loan Arbitrage</h3>
+									<p>Where technically and economically viable, identifies atomic on-chain arbitrage opportunities involving flash-loan infrastructure. Dependent on available liquidity, blockchain conditions, transaction costs, smart-contract conditions, and execution feasibility.</p>
+									<div class="qs-qcore-path">Borrow → Swap → Repay (atomic)</div>
+								</div>
 							</article>
 							<article class="qs-qcore-card">
-								<span class="qs-qcore-card__num">06</span>
-								<span class="qs-qcore-card__icon" aria-hidden="true">
-									<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 19V10M12 19V5M19 19v-7"/></svg>
-								</span>
-								<h3>Futures &amp; Derivatives Arbitrage</h3>
-								<p>Analyzes relationships between spot and derivatives markets, including funding-rate differences, basis spreads, calendar spreads, and other relative-value opportunities.</p>
-								<div class="qs-qcore-path">Spot ↔ Perp / Funding / Basis</div>
+								<div class="qs-qcore-card__media">
+									<img src="assets/img/qcore/qcore-futures.jpg" alt="Futures and derivatives arbitrage">
+									<span class="qs-qcore-card__num">06</span>
+								</div>
+								<div class="qs-qcore-card__body">
+									<h3>Futures &amp; Derivatives Arbitrage</h3>
+									<p>Analyzes relationships between spot and derivatives markets, including funding-rate differences, basis spreads, calendar spreads, and other relative-value opportunities.</p>
+									<div class="qs-qcore-path">Spot ↔ Perp / Funding / Basis</div>
+								</div>
 							</article>
 						</div>
 					<?php } ?>
@@ -200,20 +212,32 @@ $tabTitles = array(
 								</div>
 								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
 							</div>
-							<div class="qs-qcore-controls">
-								<select id="network">
-									<option value="eth">Ethereum</option>
-									<option value="bsc">BSC</option>
-									<option value="arbitrum">Arbitrum</option>
-								</select>
-								<select id="dex">
-									<option value="all">All DEXs</option>
-									<option value="uniswap">Uniswap</option>
-									<option value="pancakeswap">PancakeSwap</option>
-								</select>
-								<input type="number" id="minVolume" placeholder="Min USD (e.g 1000)">
-								<input type="number" id="limit" value="20">
-								<button type="button" id="qs-dex-refresh" onclick="fetchTrades()">Refresh</button>
+							<div class="qs-dex-filters">
+								<label class="qs-dex-field">
+									<span>Network</span>
+									<select id="network">
+										<option value="eth">Ethereum</option>
+										<option value="bsc">BSC</option>
+										<option value="arbitrum">Arbitrum</option>
+									</select>
+								</label>
+								<label class="qs-dex-field">
+									<span>DEX</span>
+									<select id="dex">
+										<option value="all">All DEXs</option>
+										<option value="uniswap">Uniswap</option>
+										<option value="pancakeswap">PancakeSwap</option>
+									</select>
+								</label>
+								<label class="qs-dex-field">
+									<span>Min USD</span>
+									<input type="number" id="minVolume" placeholder="e.g. 1000">
+								</label>
+								<label class="qs-dex-field">
+									<span>Results</span>
+									<input type="number" id="limit" value="20">
+								</label>
+								<button type="button" class="qs-dex-refresh" id="qs-dex-refresh" onclick="fetchTrades()">Refresh</button>
 							</div>
 							<div class="table-responsive">
 								<table class="qs-qcore-table">
@@ -287,72 +311,69 @@ $tabTitles = array(
 						</section>
 					<?php } ?>
 
-					<?php if ($qcoreTab === 'signals') { ?>
-						<div class="card primary-custom-card1 qs-signal-hero">
-							<div class="card-body">
-								<div class="row">
-									<div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
-										<div class="prime-card"><img class="img-fluid" src="../assets/img/bg/uo_bg.png" alt=""></div>
-									</div>
-									<div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
-										<div class="text-justified align-items-center">
-											<div class="signal-header mt-4">
-												<h1><i class="fas fa-chart-line"></i> Quantum Signal <i class="fas fa-waveform"></i></h1>
-												<div class="signal-stats">
-													<span><i class="fas fa-bolt"></i> Live Intelligence</span>
-													<span><i class="fas fa-sync-alt"></i> Real-time updates</span>
-													<span><i class="fas fa-database"></i> Last 100 signals</span>
-												</div>
-												<br /><br />
-												<a href="membership" class="btn btn-primary mb-3 shadow text-center">Purchase A License</a>
-											</div>
-										</div>
-									</div>
+					<?php if ($qcoreTab === 'signals') {
+						$qsSignalSide = function ($text) {
+							$u = strtoupper((string) $text);
+							if (preg_match('/\b(SELL|SHORT|BEARISH)\b/', $u)) {
+								return 'sell';
+							}
+							if (preg_match('/\b(BUY|LONG|BULLISH)\b/', $u)) {
+								return 'buy';
+							}
+							return 'watch';
+						};
+						$qsSignalPair = function ($text) {
+							if (preg_match('/\b([A-Z]{2,10}[\/\-][A-Z]{2,10})\b/', strtoupper((string) $text), $m)) {
+								return $m[1];
+							}
+							if (preg_match('/\b([A-Z]{3,6}USDT|[A-Z]{3,6}USD|[A-Z]{3,6}BTC)\b/', strtoupper((string) $text), $m)) {
+								return $m[1];
+							}
+							return '';
+						};
+					?>
+						<section class="qs-signal-desk">
+							<div class="qs-signal-desk__head">
+								<div>
+									<h2>Quantum Signals</h2>
+									<p><?php echo (int) $signalCount; ?> live signal<?php echo $signalCount === 1 ? '' : 's'; ?> today · professional market intelligence</p>
 								</div>
+								<a class="qs-signal-cta" href="membership">Purchase a License</a>
 							</div>
-						</div>
 
-						<div class="signal-container mb-5">
-							<div class="signal-grid-custom">
-								<?php if ($signalCount > 0) { ?>
-									<div class="row row-custom">
-										<?php foreach ($signalRows as $row) {
-											$timestamp = strtotime($row['created_at']);
-											$formattedDate = date("d M Y · g:i A", $timestamp);
-											$signalPreview = htmlspecialchars($row['message_text']);
-										?>
-											<div class="col-md-6 col-lg-4">
-												<div class="signal-card-compact">
-													<div class="card-body-compact">
-														<div class="signal-badge-row">
-															<span class="signal-badge-new">
-																<i class="fas fa-broadcast-tower"></i>
-																<span class="live-dot"></span> LIVE SIGNAL
-															</span>
-															<i class="fas fa-chart-simple" style="color:#4ade80; font-size:0.75rem; opacity:0.8;"></i>
-														</div>
-														<div class="signal-text-compact">
-															<?php echo $signalPreview; ?>
-														</div>
-														<div class="signal-meta-compact">
-															<i class="far fa-clock"></i> <?php echo htmlspecialchars($formattedDate); ?>
-															<span style="flex:1"></span>
-															<i class="fas fa-arrow-trend-up" style="font-size:0.65rem;"></i>
-														</div>
-													</div>
-												</div>
+							<?php if ($signalCount > 0) { ?>
+								<div class="qs-signal-feed">
+									<?php foreach ($signalRows as $row) {
+										$timestamp = strtotime($row['created_at']);
+										$side = $qsSignalSide($row['message_text']);
+										$pair = $qsSignalPair($row['message_text']);
+										$sideLabel = $side === 'buy' ? 'BUY' : ($side === 'sell' ? 'SELL' : 'WATCH');
+									?>
+										<article class="qs-signal-ticket">
+											<div class="qs-signal-ticket__time">
+												<strong><?php echo htmlspecialchars(date('g:i A', $timestamp)); ?></strong>
+												<span><?php echo htmlspecialchars(date('d M Y', $timestamp)); ?></span>
 											</div>
-										<?php } ?>
-									</div>
-								<?php } else { ?>
-									<div class="empty-state">
-										<i class="fas fa-satellite-dish"></i>
-										<h5>No signals available</h5>
-										<p>Waiting for incoming trading intelligence ...</p>
-									</div>
-								<?php } ?>
-							</div>
-						</div>
+											<div class="qs-signal-ticket__body">
+												<div class="qs-signal-ticket__meta">
+													<span class="qs-signal-side is-<?php echo htmlspecialchars($side); ?>"><?php echo $sideLabel; ?></span>
+													<?php if ($pair !== '') { ?>
+														<strong class="qs-signal-pair"><?php echo htmlspecialchars($pair); ?></strong>
+													<?php } ?>
+													<span class="qs-signal-live"><i></i> LIVE</span>
+												</div>
+												<p><?php echo nl2br(htmlspecialchars($row['message_text'])); ?></p>
+											</div>
+										</article>
+									<?php } ?>
+								</div>
+							<?php } else { ?>
+								<div class="qs-signal-empty">
+									<h5>No signals available</h5>
+									<p>Waiting for incoming trading intelligence.</p>
+								</div>
+							<?php } ?>
+						</section>
 					<?php } ?>
 				</div>
 			</div>
@@ -437,10 +458,10 @@ $tabTitles = array(
 							"<td>" + coin.symbol + "</td>" +
 							"<td class=\"qs-qcore-venue\">" + randomExchange() + "</td>" +
 							"<td class=\"qs-qcore-venue\">" + randomExchange() + "</td>" +
-							"<td class=\"qs-qcore-price\">" + buyPrice.toFixed(6) + "</td>" +
-							"<td class=\"qs-qcore-price\">" + sellPrice.toFixed(6) + "</td>" +
+							"<td class=\"qs-cex-bought\">" + buyPrice.toFixed(6) + "</td>" +
+							"<td class=\"qs-cex-sold\">" + sellPrice.toFixed(6) + "</td>" +
 							"<td>" + spread.toFixed(4) + "</td>" +
-							"<td>" + volume + "</td>" +
+							"<td class=\"qs-cex-volume\">" + volume + "</td>" +
 							"<td class=\"qs-qcore-profit\">" + interest + "</td>" +
 						"</tr>";
 				});
@@ -517,11 +538,11 @@ $tabTitles = array(
 						"<td><span class=\"network\">" + chain.toUpperCase() + "</span></td>" +
 						"<td><span class=\"dex\">" + (t.exchangeName || "Unknown") + "</span></td>" +
 						"<td>" + pair + "</td>" +
-						"<td class=\"" + (type === "BUY" ? "buy" : "sell") + "\">" + type + "</td>" +
+						"<td><span class=\"" + (type === "BUY" ? "buy" : "sell") + "\">" + type + "</span></td>" +
 						"<td>$" + price.toFixed(6) + "</td>" +
 						"<td>" + amount.toFixed(4) + " " + (t.bought.symbol || "") + "</td>" +
-						"<td class=\"buy\">$" + usdValue.toFixed(2) + "</td>" +
-						"<td><a href=\"" + txLink + "\" target=\"_blank\" rel=\"noopener\">View</a></td>" +
+						"<td class=\"qs-qcore-profit\">$" + usdValue.toFixed(2) + "</td>" +
+						"<td><a class=\"qs-dex-view\" href=\"" + txLink + "\" target=\"_blank\" rel=\"noopener\">View</a></td>" +
 					"</tr>";
 				count++;
 			});
@@ -664,17 +685,6 @@ $tabTitles = array(
 		init();
 		setInterval(init, 5000);
 	})();
-	</script>
-	<?php } ?>
-
-	<?php if ($qcoreTab === 'signals') { ?>
-	<script>
-		var cards = document.querySelectorAll('.signal-card-compact');
-		cards.forEach(function (card) {
-			card.addEventListener('mouseenter', function () {
-				card.style.transition = 'all 0.18s ease-out';
-			});
-		});
 	</script>
 	<?php } ?>
 
