@@ -187,26 +187,47 @@ $tabTitles = array(
 						<section class="qs-qcore-panel">
 							<div class="qs-qcore-panel__head">
 								<div>
-									<h2 class="qs-qcore-panel__title">DEX · CEX ↔ DEX Spreads</h2>
-									<p class="qs-qcore-panel__meta" id="qs-dex-meta">Uniswap v3 · OKX · Ethereum · just now</p>
+									<h2 class="qs-qcore-panel__title">DEXs Live Trading</h2>
+									<p class="qs-qcore-panel__meta" id="qs-dex-meta">Ethereum · Uniswap · PancakeSwap · refreshing</p>
 								</div>
 								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+							</div>
+							<div class="qs-qcore-controls">
+								<select id="network">
+									<option value="eth">Ethereum</option>
+									<option value="bsc">BSC</option>
+									<option value="arbitrum">Arbitrum</option>
+								</select>
+								<select id="dex">
+									<option value="all">All DEXs</option>
+									<option value="uniswap">Uniswap</option>
+									<option value="pancakeswap">PancakeSwap</option>
+								</select>
+								<input type="number" id="minVolume" placeholder="Min USD (e.g 1000)">
+								<input type="number" id="limit" value="20">
+								<button type="button" id="qs-dex-refresh" onclick="fetchTrades()">Refresh</button>
 							</div>
 							<div class="table-responsive">
 								<table class="qs-qcore-table">
 									<thead>
 										<tr>
-											<th>Asset</th>
-											<th>Uniswap (DEX)</th>
-											<th>OKX (CEX)</th>
-											<th>Spread</th>
-											<th>Route</th>
+											<th>Time</th>
+											<th>Network</th>
+											<th>DEX</th>
+											<th>Pair</th>
+											<th>Side</th>
+											<th>Price</th>
+											<th>Amount</th>
+											<th>Profit (USD)</th>
+											<th>TX</th>
 										</tr>
 									</thead>
-									<tbody id="qs-dex-body"></tbody>
+									<tbody id="tradeTable">
+										<tr><td colspan="9" class="qs-qcore-empty">Loading DEX trades…</td></tr>
+									</tbody>
 								</table>
 							</div>
-							<p class="qs-qcore-note">Real market prices versus a simulated Uniswap v3 / OKX spread. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+							<p class="qs-qcore-note">Live Moralis swap feed for WETH on the selected network. Filter by DEX and minimum USD, then open the transaction on the explorer. Read-only; Quantum Scalp does not place live trades in this demo.</p>
 						</section>
 					<?php } ?>
 
@@ -400,44 +421,89 @@ $tabTitles = array(
 
 	<?php if ($qcoreTab === 'dex') { ?>
 	<script>
-	(function () {
-		var assets = [
-			{ id: "uniswap", symbol: "UNI" },
-			{ id: "aave", symbol: "AAVE" },
-			{ id: "bitcoin", symbol: "BTC" },
-			{ id: "ethereum", symbol: "ETH" },
-			{ id: "chainlink", symbol: "LINK" },
-			{ id: "pepe", symbol: "PEPE" }
-		];
-		function fmt(n) {
-			if (n >= 1000) return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-			if (n >= 1) return n.toFixed(4);
-			return n.toFixed(8);
+	async function fetchTrades() {
+		var networkEl = document.getElementById("network");
+		var dexEl = document.getElementById("dex");
+		var minEl = document.getElementById("minVolume");
+		var limitEl = document.getElementById("limit");
+		var table = document.getElementById("tradeTable");
+		if (!networkEl || !table) return;
+
+		var chain = networkEl.value;
+		var dexFilter = (dexEl.value || "all").toLowerCase();
+		var minVolume = parseFloat(minEl.value || 0);
+		var limit = parseInt(limitEl.value || 20, 10);
+		if (!isFinite(minVolume) || minVolume < 0) minVolume = 0;
+		if (!isFinite(limit) || limit < 1) limit = 20;
+
+		table.innerHTML = '<tr><td colspan="9" class="qs-qcore-empty">Loading DEX trades…</td></tr>';
+
+		try {
+			var res = await fetch("fetch_trades.php?chain=" + encodeURIComponent(chain) + "&limit=" + encodeURIComponent(limit), { cache: "no-store" });
+			var data = await res.json();
+			if (!data || !data.result) {
+				table.innerHTML = '<tr><td colspan="9" class="qs-qcore-empty">No data</td></tr>';
+				return;
+			}
+
+			var trades = data.result;
+			table.innerHTML = "";
+			var count = 0;
+
+			trades.forEach(function (t) {
+				if (!t.bought || !t.sold) return;
+
+				var dexName = (t.exchangeName || "Unknown").toLowerCase();
+				if (dexFilter !== "all" && dexName.indexOf(dexFilter) === -1) return;
+
+				var usdValue = Math.abs(parseFloat(t.totalValueUsd || 0));
+				if (usdValue < minVolume) return;
+				if (count >= limit) return;
+
+				var type = t.transactionType === "buy" ? "BUY" : "SELL";
+				var pair = t.pairLabel || ((t.bought.symbol || "") + "/" + (t.sold.symbol || ""));
+				var amount = Math.abs(parseFloat(t.bought.amount || 0));
+				var price = parseFloat(t.bought.usdPrice || 0);
+				if (!isFinite(amount)) amount = 0;
+				if (!isFinite(price)) price = 0;
+				var time = t.blockTimestamp ? new Date(t.blockTimestamp).toLocaleTimeString() : "--";
+
+				var txLink = "#";
+				if (chain === "eth") txLink = "https://etherscan.io/tx/" + t.transactionHash;
+				if (chain === "bsc") txLink = "https://bscscan.com/tx/" + t.transactionHash;
+				if (chain === "arbitrum") txLink = "https://arbiscan.io/tx/" + t.transactionHash;
+
+				table.innerHTML +=
+					"<tr>" +
+						"<td>" + time + "</td>" +
+						"<td><span class=\"network\">" + chain.toUpperCase() + "</span></td>" +
+						"<td><span class=\"dex\">" + (t.exchangeName || "Unknown") + "</span></td>" +
+						"<td>" + pair + "</td>" +
+						"<td class=\"" + (type === "BUY" ? "buy" : "sell") + "\">" + type + "</td>" +
+						"<td>$" + price.toFixed(6) + "</td>" +
+						"<td>" + amount.toFixed(4) + " " + (t.bought.symbol || "") + "</td>" +
+						"<td class=\"buy\">$" + usdValue.toFixed(2) + "</td>" +
+						"<td><a href=\"" + txLink + "\" target=\"_blank\" rel=\"noopener\">View</a></td>" +
+					"</tr>";
+				count++;
+			});
+
+			if (!count) {
+				table.innerHTML = '<tr><td colspan="9" class="qs-qcore-empty">No trades match these filters.</td></tr>';
+			}
+
+			var meta = document.getElementById("qs-dex-meta");
+			if (meta) {
+				meta.textContent = chain.toUpperCase() + " · " + (dexEl.options[dexEl.selectedIndex] ? dexEl.options[dexEl.selectedIndex].text : "All DEXs") + " · " + count + " trades · 0s ago";
+			}
+		} catch (err) {
+			table.innerHTML = '<tr><td colspan="9" class="qs-qcore-empty">Unable to load DEX trades. Retrying from Refresh.</td></tr>';
 		}
-		async function load() {
-			try {
-				var ids = assets.map(function (a) { return a.id; }).join(",");
-				var res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + ids + "&vs_currencies=usd");
-				var data = await res.json();
-				var body = document.getElementById("qs-dex-body");
-				if (!body) return;
-				body.innerHTML = "";
-				assets.forEach(function (asset) {
-					var base = (data[asset.id] && data[asset.id].usd) || 0;
-					var delta = (Math.random() * 0.006) - 0.001;
-					var uni = base * (1 + delta);
-					var okx = base;
-					var spread = base ? (Math.abs(uni - okx) / base) * 100 : 0;
-					var route = uni >= okx ? "Uniswap → OKX" : "OKX → Uniswap";
-					body.innerHTML += "<tr><td>" + asset.symbol + "/USD</td><td>" + fmt(uni) + "</td><td>" + fmt(okx) + "</td><td class=\"qs-qcore-spread\">" + spread.toFixed(4) + "%</td><td class=\"qs-qcore-route\">" + route + "</td></tr>";
-				});
-				var meta = document.getElementById("qs-dex-meta");
-				if (meta) meta.textContent = "Uniswap v3 · OKX · Ethereum · 0s ago";
-			} catch (e) {}
-		}
-		load();
-		setInterval(load, 12000);
-	})();
+	}
+
+	document.getElementById("network").onchange = fetchTrades;
+	document.getElementById("dex").onchange = fetchTrades;
+	fetchTrades();
 	</script>
 	<?php } ?>
 
