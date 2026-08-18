@@ -24,7 +24,14 @@ if (!in_array($qcoreTab, $allowedTabs, true)) {
 }
 
 $signalRows = array();
+$signalCount = 0;
 if ($qcoreTab === 'signals') {
+	mysqli_query($mysqli, "CREATE TABLE IF NOT EXISTS `bot_messages` (
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`message_text` text,
+		`created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+		PRIMARY KEY (`id`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 	$result = $mysqli->query("
 		SELECT * FROM bot_messages WHERE DATE(created_at) = CURDATE()
 		ORDER BY id DESC
@@ -34,6 +41,7 @@ if ($qcoreTab === 'signals') {
 		while ($row = $result->fetch_assoc()) {
 			$signalRows[] = $row;
 		}
+		$signalCount = count($signalRows);
 	}
 }
 
@@ -280,41 +288,71 @@ $tabTitles = array(
 					<?php } ?>
 
 					<?php if ($qcoreTab === 'signals') { ?>
-						<div class="qs-qcore-pending">
-							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4.5 10.5c0-4.1 3.4-7.5 7.5-7.5s7.5 3.4 7.5 7.5c0 5-7.5 11-7.5 11S4.5 15.5 4.5 10.5z"/><circle cx="12" cy="10.5" r="2.2"/></svg>
-							<div>
-								<strong>LIVE DATA CONNECTION PENDING</strong>
-								<span>Quantum Signals — showing clearly-labeled DEMO DATA until Q-Core APIs are connected.</span>
+						<div class="card primary-custom-card1 qs-signal-hero">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-xl-5 col-lg-6 col-md-12 col-sm-12">
+										<div class="prime-card"><img class="img-fluid" src="../assets/img/bg/uo_bg.png" alt=""></div>
+									</div>
+									<div class="col-xl-7 col-lg-6 col-md-12 col-sm-12">
+										<div class="text-justified align-items-center">
+											<div class="signal-header mt-4">
+												<h1><i class="fas fa-chart-line"></i> Quantum Signal <i class="fas fa-waveform"></i></h1>
+												<div class="signal-stats">
+													<span><i class="fas fa-bolt"></i> Live Intelligence</span>
+													<span><i class="fas fa-sync-alt"></i> Real-time updates</span>
+													<span><i class="fas fa-database"></i> Last 100 signals</span>
+												</div>
+												<br /><br />
+												<a href="membership" class="btn btn-primary mb-3 shadow text-center">Purchase A License</a>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="qs-qcore-signals">
-							<article class="qs-signal-card">
-								<div class="qs-signal-card__top">
-									<span class="qs-signal-card__kind">Cross-Exchange</span>
-									<span class="qs-signal-status is-active">ACTIVE</span>
-								</div>
-								<h3>BTC/USDT</h3>
-								<p>Informational technology output — not financial advice.</p>
-							</article>
-							<article class="qs-signal-card">
-								<div class="qs-signal-card__top">
-									<span class="qs-signal-card__kind">Statistical</span>
-									<span class="qs-signal-status is-watch">MONITORING</span>
-								</div>
-								<h3>ETH/USDT</h3>
-								<p>Informational technology output — not financial advice.</p>
-							</article>
-						</div>
-						<?php if (count($signalRows) > 0) { ?>
-							<div class="qs-qcore-feed">
-								<?php foreach ($signalRows as $signal) { ?>
-									<article class="qs-qcore-feed-item">
-										<p><?php echo htmlspecialchars($signal['message_text']); ?></p>
-										<time><?php echo htmlspecialchars(date('d M Y · g:i A', strtotime($signal['created_at']))); ?></time>
-									</article>
+
+						<div class="signal-container mb-5">
+							<div class="signal-grid-custom">
+								<?php if ($signalCount > 0) { ?>
+									<div class="row row-custom">
+										<?php foreach ($signalRows as $row) {
+											$timestamp = strtotime($row['created_at']);
+											$formattedDate = date("d M Y · g:i A", $timestamp);
+											$signalPreview = htmlspecialchars($row['message_text']);
+										?>
+											<div class="col-md-6 col-lg-4">
+												<div class="signal-card-compact">
+													<div class="card-body-compact">
+														<div class="signal-badge-row">
+															<span class="signal-badge-new">
+																<i class="fas fa-broadcast-tower"></i>
+																<span class="live-dot"></span> LIVE SIGNAL
+															</span>
+															<i class="fas fa-chart-simple" style="color:#4ade80; font-size:0.75rem; opacity:0.8;"></i>
+														</div>
+														<div class="signal-text-compact">
+															<?php echo $signalPreview; ?>
+														</div>
+														<div class="signal-meta-compact">
+															<i class="far fa-clock"></i> <?php echo htmlspecialchars($formattedDate); ?>
+															<span style="flex:1"></span>
+															<i class="fas fa-arrow-trend-up" style="font-size:0.65rem;"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										<?php } ?>
+									</div>
+								<?php } else { ?>
+									<div class="empty-state">
+										<i class="fas fa-satellite-dish"></i>
+										<h5>No signals available</h5>
+										<p>Waiting for incoming trading intelligence ...</p>
+									</div>
 								<?php } ?>
 							</div>
-						<?php } ?>
+						</div>
 					<?php } ?>
 				</div>
 			</div>
@@ -626,6 +664,17 @@ $tabTitles = array(
 		init();
 		setInterval(init, 5000);
 	})();
+	</script>
+	<?php } ?>
+
+	<?php if ($qcoreTab === 'signals') { ?>
+	<script>
+		var cards = document.querySelectorAll('.signal-card-compact');
+		cards.forEach(function (card) {
+			card.addEventListener('mouseenter', function () {
+				card.style.transition = 'all 0.18s ease-out';
+			});
+		});
 	</script>
 	<?php } ?>
 
