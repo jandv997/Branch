@@ -41,7 +41,7 @@ function qs_nav_active($page) {
         </nav>
         <div class="qs-header__actions">
             <a class="qs-signin" href="account/index">Sign In</a>
-            <a class="qs-btn qs-btn--primary" href="account/register">Access Q-Core →</a>
+            <a class="qs-btn qs-btn--primary" href="account/index">Access Q-Core →</a>
             <button class="qs-menu-btn" type="button" data-qs-menu aria-label="Menu">☰</button>
         </div>
     </div>
