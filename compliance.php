@@ -204,10 +204,97 @@ $docs = array(
                     </article>
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="affiliate">
-                        <h3 class="qs-h3">Affiliate / Partner Terms</h3>
-                        <p>Qualified partners may introduce users to the platform under an approved referral or affiliate program focused on technology adoption, education, and community — not recruitment.</p>
-                        <p>Compensation is configurable and subject to the official, legally approved compensation plan, applicable terms, and geographic restrictions. Applications are reviewed and subject to approval; approval is not guaranteed.</p>
-                        <p>Partners must not make claims of guaranteed returns, risk-free trading, or regulatory approvals that Quantum Scalp has not verified. See the <a class="qs-text-link" href="partners">Partners</a> page to apply.</p>
+                        <h3 class="qs-h3">Quantum Scalp Affiliate Terms &amp; Conditions</h3>
+                        <p>Effective Date: August 19, 2026</p>
+                        <p>These Affiliate Terms (“Affiliate Terms”) govern participation in the Quantum Scalp Affiliate Program (“Program”) operated by Quantum Scalp AI (“Quantum Scalp,” “Company,” “we,” “us,” or “our”).</p>
+                        <p>By applying for or participating in the Program, you agree to these Affiliate Terms.</p>
+                        <h3>1. Eligibility</h3>
+                        <p>Affiliates must:</p>
+                        <ul>
+                            <li>be at least 18 years old;</li>
+                            <li>have legal capacity to enter into an agreement;</li>
+                            <li>provide accurate registration information;</li>
+                            <li>comply with applicable laws;</li>
+                            <li>complete any required verification; and</li>
+                            <li>reside in a jurisdiction where participation is legally permitted.</li>
+                        </ul>
+                        <p>Quantum Scalp may reject or terminate an application at its discretion.</p>
+                        <h3>2. Independent Relationship</h3>
+                        <p>Affiliates are independent contractors and are not employees, agents, partners, representatives, or legal representatives of Quantum Scalp.</p>
+                        <p>Affiliates may not represent that they have authority to bind the Company.</p>
+                        <h3>3. Affiliate Links and Referrals</h3>
+                        <p>Approved Affiliates may receive unique referral links, codes, or other tracking mechanisms.</p>
+                        <p>Commissions are payable only on qualifying transactions that are properly attributed to the Affiliate under the Company’s tracking system.</p>
+                        <p>The Company’s records will generally determine referral attribution unless there is demonstrable evidence of an error.</p>
+                        <h3>4. Commission Structure</h3>
+                        <p>The applicable commission structure will be displayed within the Affiliate Program materials or Affiliate dashboard.</p>
+                        <p>Quantum Scalp reserves the right to modify commission rates, qualifying criteria, promotional campaigns, or program rules upon reasonable notice.</p>
+                        <h3>5. No Guaranteed Earnings</h3>
+                        <p>Affiliates must not make claims that participation in the Program will produce guaranteed income.</p>
+                        <p>Affiliates must not represent that:</p>
+                        <ul>
+                            <li>a particular income level is guaranteed;</li>
+                            <li>a particular number of customers is guaranteed;</li>
+                            <li>trading profits are guaranteed;</li>
+                            <li>users cannot lose money;</li>
+                            <li>historical results guarantee future results; or</li>
+                            <li>joining the Program is an investment that will generate guaranteed returns.</li>
+                        </ul>
+                        <h3>6. Marketing Standards</h3>
+                        <p>Affiliates must represent Quantum Scalp accurately and professionally.</p>
+                        <p>Affiliates must not:</p>
+                        <ul>
+                            <li>make false or misleading claims;</li>
+                            <li>make unauthorized financial or investment recommendations;</li>
+                            <li>fabricate trading results;</li>
+                            <li>manipulate screenshots or performance information;</li>
+                            <li>impersonate Quantum Scalp personnel;</li>
+                            <li>use spam;</li>
+                            <li>engage in deceptive advertising;</li>
+                            <li>make guaranteed-income claims;</li>
+                            <li>make guaranteed-profit claims; or</li>
+                            <li>advertise in jurisdictions where the Company has prohibited marketing.</li>
+                        </ul>
+                        <h3>7. Use of Company Materials</h3>
+                        <p>Affiliates may use approved Quantum Scalp marketing materials.</p>
+                        <p>Affiliates must not alter official materials in a manner that changes their meaning or creates misleading claims.</p>
+                        <h3>8. Prohibited Activities</h3>
+                        <p>Affiliates may not use:</p>
+                        <ul>
+                            <li>misleading websites;</li>
+                            <li>fake testimonials;</li>
+                            <li>fake reviews;</li>
+                            <li>misleading social-media accounts;</li>
+                            <li>unauthorized paid advertisements;</li>
+                            <li>spam;</li>
+                            <li>phishing;</li>
+                            <li>deceptive domain names;</li>
+                            <li>false regulatory claims; or</li>
+                            <li>misleading claims concerning the Company’s ownership, licensing, performance, or financial position.</li>
+                        </ul>
+                        <h3>9. Compliance</h3>
+                        <p>Affiliates are responsible for complying with advertising, consumer-protection, financial-promotion, privacy, data-protection, AML, sanctions, and other applicable laws in the jurisdictions where they operate.</p>
+                        <h3>10. Commission Reversals</h3>
+                        <p>The Company may reverse commissions associated with:</p>
+                        <ul>
+                            <li>refunds;</li>
+                            <li>chargebacks;</li>
+                            <li>fraudulent transactions;</li>
+                            <li>canceled transactions;</li>
+                            <li>duplicate transactions;</li>
+                            <li>regulatory violations; or</li>
+                            <li>transactions that do not meet qualifying criteria.</li>
+                        </ul>
+                        <h3>11. Suspension</h3>
+                        <p>Quantum Scalp may suspend or terminate an Affiliate account where the Affiliate violates these Terms or creates legal, regulatory, reputational, or financial risk for the Company.</p>
+                        <h3>12. No Sub-Affiliate Entitlement</h3>
+                        <p>Unless expressly provided within the published compensation plan, Affiliates have no entitlement to commissions outside the compensation structure officially provided by Quantum Scalp.</p>
+                        <h3>13. Taxes</h3>
+                        <p>Affiliates are responsible for their own tax obligations arising from commissions or other compensation.</p>
+                        <h3>14. Amendments</h3>
+                        <p>Quantum Scalp may amend these Terms from time to time. Continued participation after the effective date of an amendment constitutes acceptance.</p>
+                        <h3>15. Governing Law</h3>
+                        <p>These Terms shall be governed by the laws of the state of Wyoming.</p>
                     </article>
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="aml">
