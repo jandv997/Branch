@@ -37,7 +37,7 @@ function qs_nav_active($page) {
                     <a href="leadership">Leadership</a>
                     <a class="<?php echo qs_nav_active('events'); ?>" href="events">Events</a>
                     <a href="contact">Contact</a>
-                    <a href="compliance">Compliance</a>
+                    <a class="<?php echo qs_nav_active('compliance'); ?>" href="compliance">Compliance</a>
                 </div>
             </div>
         </nav>

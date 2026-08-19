@@ -371,6 +371,37 @@
     window.setInterval(loadLedger, 15000);
   }
 
+  var docs = document.querySelector('[data-qs-docs]');
+  if (docs) {
+    var tabs = docs.querySelectorAll('[data-qs-doc]');
+    var panels = docs.querySelectorAll('[data-qs-doc-panel]');
+    function showDoc(key) {
+      Array.prototype.forEach.call(tabs, function (tab) {
+        var on = tab.getAttribute('data-qs-doc') === key;
+        tab.classList.toggle('is-active', on);
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      Array.prototype.forEach.call(panels, function (panel) {
+        panel.classList.toggle('is-active', panel.getAttribute('data-qs-doc-panel') === key);
+      });
+    }
+    Array.prototype.forEach.call(tabs, function (tab) {
+      tab.addEventListener('click', function () {
+        var key = tab.getAttribute('data-qs-doc');
+        showDoc(key);
+        if (history.replaceState) {
+          history.replaceState(null, '', '#' + key);
+        }
+      });
+    });
+    var hash = (window.location.hash || '').replace('#', '');
+    var known = false;
+    Array.prototype.forEach.call(tabs, function (tab) {
+      if (tab.getAttribute('data-qs-doc') === hash) known = true;
+    });
+    if (known) showDoc(hash);
+  }
+
   var faq = document.querySelector('[data-qs-faq]');
   if (faq) {
     Array.prototype.forEach.call(faq.querySelectorAll('details'), function (item) {
