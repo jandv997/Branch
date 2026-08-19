@@ -1,66 +1,59 @@
 <?php
 if (!function_exists('qs_flex_display_names')) {
-	function qs_flex_display_names() {
+	function qs_flex_engine_bars() {
 		return array(
-			'Explorer',
-			'Analyst',
-			'Strategist',
-			'Architect',
-			'Director',
-			'Executive',
-			'Partner',
-			'Senior Partner',
-			'Regional Leader',
-			'Global Leader',
-			'Ambassador',
-			'Quantum Elite',
+			array('amount' => 3500, 'level1' => 1000, 'bonus' => 200, 'weekly' => 0, 'name' => 'Beginner', 'desc' => '1,000 being from level 1 <br/>One-time Payment of $200'),
+			array('amount' => 8000, 'level1' => 2500, 'bonus' => 500, 'weekly' => 0, 'name' => 'Promoter', 'desc' => '2,500 being from level 1 <br/>One-time Payment of $500'),
+			array('amount' => 15000, 'level1' => 4500, 'bonus' => 800, 'weekly' => 0, 'name' => 'Elite', 'desc' => '4,500 being from level 1 <br/>One-time Payment of $800'),
+			array('amount' => 35000, 'level1' => 10000, 'bonus' => 1750, 'weekly' => 70, 'name' => 'Leader', 'desc' => '10,000 being from level 1 <br/>One-time Payment of $1,750 <br/>Lifetime weekly payment $70'),
+			array('amount' => 70000, 'level1' => 20000, 'bonus' => 3500, 'weekly' => 150, 'name' => 'Mentor', 'desc' => '20,000 being from level 1 <br/>One-time Payment of $3,500 <br/>Lifetime weekly payment $150'),
+			array('amount' => 150000, 'level1' => 35000, 'bonus' => 7500, 'weekly' => 350, 'name' => 'Director', 'desc' => '35,000 being from level 1 <br/>One-time Payment of $7,500 <br/>Lifetime weekly payment $350'),
+			array('amount' => 250000, 'level1' => 50000, 'bonus' => 15000, 'weekly' => 550, 'name' => 'Ambassador', 'desc' => '50,000 being from level 1 <br/>One-time Payment of $15,000 <br/>Lifetime weekly payment $550'),
+			array('amount' => 500000, 'level1' => 80000, 'bonus' => 25000, 'weekly' => 1000, 'name' => 'Master', 'desc' => '80,000 being from level 1 <br/>One-time Payment of $25,000 <br/>Lifetime weekly payment $1,000'),
+			array('amount' => 1000000, 'level1' => 100000, 'bonus' => 50000, 'weekly' => 1750, 'name' => 'Executive', 'desc' => '100,000 being from level 1 <br/>One-time Payment of $50,000 <br/>Lifetime weekly payment $1,750'),
+			array('amount' => 2000000, 'level1' => 300000, 'bonus' => 150000, 'weekly' => 3000, 'name' => 'Visionary', 'desc' => '300,000 being from level 1 <br/>One-time Payment of $150,000 <br/>Lifetime weekly payment $3,000'),
+			array('amount' => 5000000, 'level1' => 500000, 'bonus' => 300000, 'weekly' => 6000, 'name' => 'Legend', 'desc' => '500,000 being from level 1 <br/>One-time Payment of $300,000 <br/>Lifetime weekly payment $6,000'),
+			array('amount' => 12000000, 'level1' => 1000000, 'bonus' => 700000, 'weekly' => 10000, 'name' => 'Co-founder', 'desc' => '1,000,000 being from level 1 <br/>One-time Payment of $700,000 <br/>Lifetime weekly payment $10,000'),
 		);
 	}
 
-	function qs_flex_engine_bars() {
-		return array(
-			array('amount' => 3500, 'level1' => 1000, 'bonus' => 200, 'name' => 'Beginner', 'desc' => '1000 being from level 1 <br/>One time payment of 200'),
-			array('amount' => 8000, 'level1' => 2500, 'bonus' => 500, 'name' => 'Promoter', 'desc' => '2,500 being from level 1 <br/>One time payment of 500'),
-			array('amount' => 15000, 'level1' => 4500, 'bonus' => 800, 'name' => 'Elite', 'desc' => '4,500 being from level 1 <br/> One time payment of 800'),
-			array('amount' => 35000, 'level1' => 10000, 'bonus' => 1750, 'name' => 'Leader', 'desc' => '10,000 being from level 1 <br/>One time payment of 1,750 <br/>lifetime weekly payment 70'),
-			array('amount' => 70000, 'level1' => 20000, 'bonus' => 3500, 'name' => 'Mentor', 'desc' => '20,000 being from level 1 <br/>One time payment of 3,500 <br/>lifetime weekly payment 150'),
-			array('amount' => 150000, 'level1' => 50000, 'bonus' => 7500, 'name' => 'Director', 'desc' => '50,000 being from level 1 <br/>One time payment of 7,500 <br/>lifetime weekly payment 350'),
-			array('amount' => 250000, 'level1' => 100000, 'bonus' => 15000, 'name' => 'Ambassador', 'desc' => '100,000 being from level 1 <br/>One time payment of 15,000 <br/>lifetime weekly payment 550'),
-			array('amount' => 500000, 'level1' => 200000, 'bonus' => 25000, 'name' => 'Master', 'desc' => '200,000 being from level 1 <br/>One time payment of 25,000 <br/>lifetime weekly payment 1000'),
-			array('amount' => 1000000, 'level1' => 300000, 'bonus' => 50000, 'name' => 'Executive', 'desc' => '300,000 being from level 1 <br/>One time payment of 50,000 <br/>lifetime weekly payment 1750'),
-			array('amount' => 2000000, 'level1' => 500000, 'bonus' => 150000, 'name' => 'Visionary', 'desc' => '500,000 being from level 1 <br/>One time payment 150,000 <br/>Lifetime daily payment 3,000'),
-			array('amount' => 5000000, 'level1' => 750000, 'bonus' => 300000, 'name' => 'Legend', 'desc' => '750,000 being from level 1 <br/>One time payment 300,000 <br/>Lifetime daily payment 6,000'),
-			array('amount' => 12000000, 'level1' => 1000000, 'bonus' => 700000, 'name' => 'Director X', 'desc' => '1,000,000 being from level 1 <br/>One time payment 700,000 <br/>Lifetime daily payment 10,000'),
-		);
+	function qs_flex_display_names() {
+		$names = array();
+		foreach (qs_flex_engine_bars() as $bar) {
+			$names[] = $bar['name'];
+		}
+		return $names;
+	}
+
+	function qs_flex_reward_label($bonus, $weekly) {
+		$label = 'One-time Payment $' . number_format((float) $bonus);
+		if ((float) $weekly > 0) {
+			$label .= ' + $' . number_format((float) $weekly) . '/week Lifetime';
+		}
+		return $label;
 	}
 
 	function qs_flex_ranks() {
-		$names = qs_flex_display_names();
-		$bars = qs_flex_engine_bars();
 		$ranks = array();
-		foreach ($bars as $i => $bar) {
-			$benefits = array();
-			foreach (explode('<br/>', $bar['desc']) as $line) {
-				$line = trim($line);
-				if ($line !== '') {
-					$benefits[] = $line;
-				}
-			}
-			if ($i === 0) {
-				$benefits = array(
-					'Access to 7-level referral commissions',
-					'Referral wallet payouts',
-				);
+		foreach (qs_flex_engine_bars() as $bar) {
+			$weekly = isset($bar['weekly']) ? (float) $bar['weekly'] : 0.0;
+			$benefits = array(
+				'$' . number_format((float) $bar['level1']) . ' being from level 1',
+				'One-time Payment $' . number_format((float) $bar['bonus']),
+			);
+			if ($weekly > 0) {
+				$benefits[] = 'Lifetime weekly payment $' . number_format($weekly);
 			}
 			$ranks[] = array(
-				'name' => $names[$i],
+				'name' => $bar['name'],
 				'engine_name' => $bar['name'],
-				'amount' => ($i === 0) ? 0.0 : (float) $bar['amount'],
-				'level1' => ($i === 0) ? 0.0 : (float) $bar['level1'],
+				'amount' => (float) $bar['amount'],
+				'level1' => (float) $bar['level1'],
 				'qualify_amount' => (float) $bar['amount'],
 				'qualify_level1' => (float) $bar['level1'],
 				'bonus' => (float) $bar['bonus'],
-				'rewards' => ($i === 0) ? 'Platform access' : ('One-time $' . number_format((float) $bar['bonus'], 2)),
+				'weekly' => $weekly,
+				'rewards' => qs_flex_reward_label($bar['bonus'], $weekly),
 				'benefits' => $benefits,
 			);
 		}

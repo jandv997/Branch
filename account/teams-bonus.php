@@ -174,7 +174,17 @@ function qs_flex_icon_chevron() {
 							Rank Ladder
 						</h2>
 						<div class="qs-flex-next">
-							<span>Next rank: <?php echo $hasNext ? htmlspecialchars($nextRank['name']) . ' +$' . number_format($nextRank['bonus'], 2) . ' bonus' : 'Max rank'; ?></span>
+							<span>Next rank: <?php
+								if ($hasNext) {
+									$nextPay = htmlspecialchars($nextRank['name']) . ' +$' . number_format($nextRank['bonus']);
+									if (!empty($nextRank['weekly'])) {
+										$nextPay .= ' + $' . number_format($nextRank['weekly']) . '/wk lifetime';
+									}
+									echo $nextPay;
+								} else {
+									echo 'Max rank';
+								}
+							?></span>
 							<b><?php echo number_format($progressPct, 0); ?>% qualified</b>
 						</div>
 						<div class="qs-flex-togo">
@@ -192,7 +202,18 @@ function qs_flex_icon_chevron() {
 									<span class="qs-flex-step__name"><?php echo htmlspecialchars($ranks[$i]['name']); ?></span>
 									<span class="qs-flex-step__meta">Rank <?php echo $i + 1; ?> — team $<?php echo number_format($ranks[$i]['amount'], 2); ?> — personal $<?php echo number_format($ranks[$i]['level1'], 2); ?></span>
 								</span>
-								<span class="qs-flex-step__bonus"><?php echo $ranks[$i]['bonus'] > 0 ? '+$' . number_format($ranks[$i]['bonus'], 2) : '—'; ?></span>
+								<span class="qs-flex-step__bonus">
+									<?php if ($ranks[$i]['bonus'] > 0): ?>
+										+$<?php echo number_format($ranks[$i]['bonus']); ?>
+										<?php if (!empty($ranks[$i]['weekly'])): ?>
+											<small>+$<?php echo number_format($ranks[$i]['weekly']); ?>/wk lifetime</small>
+										<?php else: ?>
+											<small>One-time Payment</small>
+										<?php endif; ?>
+									<?php else: ?>
+										—
+									<?php endif; ?>
+								</span>
 								<?php if ($isCurrent): ?><span class="qs-flex-here">YOU ARE HERE</span><?php endif; ?>
 							</div>
 							<?php endfor; ?>
