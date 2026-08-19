@@ -33,7 +33,7 @@ function qs_nav_active($page) {
                     <a href="security">Security</a>
                     <a class="<?php echo qs_nav_active('verify'); ?>" href="verify">Verify on Chain</a>
                     <a href="faq">FAQ</a>
-                    <a href="partners">Partners</a>
+                    <a class="<?php echo qs_nav_active('partners'); ?>" href="partners">Partners</a>
                     <a href="leadership">Leadership</a>
                     <a href="events">Events</a>
                     <a href="contact">Contact</a>

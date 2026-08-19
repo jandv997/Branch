@@ -567,6 +567,26 @@ h1, h2, h3, h4 { margin: 0; letter-spacing: -0.03em; line-height: 1.12; }
   border-radius: 12px; padding: 12px 14px;
 }
 .qs-form textarea { min-height: 140px; resize: vertical; }
+.qs-form label {
+  display: grid; gap: 6px; color: #cbd5e1; font-size: 13px; font-weight: 600;
+}
+.qs-req { color: var(--qs-accent); }
+.qs-form-ok, .qs-form-err {
+  margin: 0; border-radius: 12px; padding: 12px 14px; font-size: 14px;
+}
+.qs-form-ok {
+  color: #bbf7d0; background: rgba(0, 230, 118, .1); border: 1px solid rgba(0, 230, 118, .35);
+}
+.qs-form-err {
+  color: #fecaca; background: rgba(239, 68, 68, .1); border: 1px solid rgba(239, 68, 68, .35);
+}
+.qs-apply {
+  display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: start;
+}
+.qs-partner-form { max-width: none; }
+.qs-partner-note {
+  margin: 22px 0 0; color: #64748b; font-size: 13px; max-width: 720px;
+}
 .qs-legal p, .qs-prose p { color: var(--qs-muted); margin: 0 0 14px; }
 .qs-legal h3, .qs-prose h3 { margin: 28px 0 10px; }
 
@@ -773,10 +793,10 @@ h1, h2, h3, h4 { margin: 0; letter-spacing: -0.03em; line-height: 1.12; }
   .qs-onchain-go { width: 100%; border-radius: 0 0 12px 12px; }
   .qs-ledger__table { min-width: 720px; }
   .qs-menu-btn { display: block; }
-  .qs-hero__grid, .qs-grid-2, .qs-grid-5, .qs-stats, .qs-price, .qs-footer__grid, .qs-split, .qs-grid-4, .qs-coverage, .qs-arch, .qs-pipe, .qs-signals-offer, .qs-vip-offer {
+  .qs-hero__grid, .qs-grid-2, .qs-grid-5, .qs-stats, .qs-price, .qs-footer__grid, .qs-split, .qs-coverage, .qs-arch, .qs-pipe, .qs-signals-offer, .qs-vip-offer, .qs-apply {
     grid-template-columns: 1fr;
   }
-  .qs-grid-3 { grid-template-columns: 1fr 1fr; }
+  .qs-grid-3, .qs-grid-4 { grid-template-columns: 1fr 1fr; }
   .qs-risk { padding: 28px 20px; }
   .qs-risk-grid { grid-template-columns: repeat(2, 1fr); }
   .qs-header__actions .qs-btn { display: none; }
@@ -881,5 +901,5 @@ h1, h2, h3, h4 { margin: 0; letter-spacing: -0.03em; line-height: 1.12; }
 .qs-ledger__verify:hover { background: rgba(45, 212, 191, .1); }
 
 @media (max-width: 560px) {
-  .qs-risk-grid, .qs-grid-3 { grid-template-columns: 1fr; }
+  .qs-risk-grid, .qs-grid-3, .qs-grid-4 { grid-template-columns: 1fr; }
 }
