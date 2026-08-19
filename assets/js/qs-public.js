@@ -133,4 +133,12 @@
       meta.textContent = current.replace(/\d+[sm] ago/, formatAge(lastUpdated));
     }, 1000);
   }
+
+  document.addEventListener('mousemove', function (event) {
+    var card = event.target.closest('[data-qs-strategy]');
+    if (!card) return;
+    var box = card.getBoundingClientRect();
+    card.style.setProperty('--x', (event.clientX - box.left) + 'px');
+    card.style.setProperty('--y', (event.clientY - box.top) + 'px');
+  });
 })();

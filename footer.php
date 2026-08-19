@@ -45,8 +45,12 @@
             </div>
         </div>
         <div class="qs-footer__legal">
+            <h4>Legal Disclaimer</h4>
             <p>Quantum Scalp provides software and technology services. Automated cryptocurrency trading involves substantial risk, including the possible loss of capital. No trading strategy or technology guarantees profits. Nothing on this website constitutes investment, financial, legal, or tax advice. Availability of products and services may vary by jurisdiction.</p>
-            <p>© <?php echo date('Y'); ?> Quantum Scalp AI. All rights reserved. · Software &amp; technology services · Trading involves risk</p>
+            <div class="qs-footer__copy">
+                <p>© <?php echo date('Y'); ?> Quantum Scalp AI. All rights reserved.</p>
+                <p>Software &amp; technology services · Trading involves risk</p>
+            </div>
         </div>
     </div>
 </footer>
