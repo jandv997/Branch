@@ -326,7 +326,7 @@ if ($qsUid > 0) {
 
 					<h2 class="qs-mem-h">Plans</h2>
 					<div class="qs-mem-plans">
-						<article class="qs-mem-plan">
+						<a class="qs-mem-plan" href="dashboard">
 							<h3>Q-Core License</h3>
 							<div class="qs-mem-price">$50 <span>/ 3 Months</span></div>
 							<ul class="qs-mem-features">
@@ -335,22 +335,22 @@ if ($qsUid > 0) {
 								<li>Quantum Verse access</li>
 								<li>Quantum Flex access</li>
 							</ul>
-							<button class="qs-mem-btn" type="button" data-qs-mem-buy><?php echo $isActive ? "Renew Membership" : "Become a Member"; ?></button>
-						</article>
+							<span class="qs-mem-btn"><?php echo $isActive ? "Renew Membership" : "Become a Member"; ?></span>
+						</a>
 
-						<article class="qs-mem-plan">
+						<a class="qs-mem-plan" href="dashboard">
 							<h3>Q-Core Pro</h3>
-							<div class="qs-mem-price">$120 <span>/ 6 Months</span></div>
+							<div class="qs-mem-price">$150 <span>/ 12 Months</span></div>
 							<ul class="qs-mem-features">
 								<li>Everything in Q-Core License</li>
 								<li>Priority technical support</li>
 								<li>Early access to new tools</li>
 								<li>Exclusive member resources</li>
 							</ul>
-							<button class="qs-mem-btn" type="button" data-qs-mem-buy>Become a Member</button>
-						</article>
+							<span class="qs-mem-btn">Become a Member</span>
+						</a>
 
-						<article class="qs-mem-plan">
+						<a class="qs-mem-plan" href="dashboard">
 							<h3>Q-Core Enterprise</h3>
 							<div class="qs-mem-price">Custom</div>
 							<ul class="qs-mem-features">
@@ -359,8 +359,8 @@ if ($qsUid > 0) {
 								<li>API access</li>
 								<li>Priority technical support</li>
 							</ul>
-							<a class="qs-mem-btn" href="javascript:void(0);" onclick="if (window.LiveChatWidget) { LiveChatWidget.call('maximize'); }">Contact Sales</a>
-						</article>
+							<span class="qs-mem-btn">Contact Sales</span>
+						</a>
 					</div>
 
 					<section class="qs-mem-receipts">

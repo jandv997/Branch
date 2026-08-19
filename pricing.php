@@ -4,6 +4,7 @@ $pageDescription = 'Choose your Q-Core license. License fees provide access to s
 $currentPage = 'pricing';
 include 'inc/public-start.php';
 include 'header.php';
+$dashboardUrl = 'account/dashboard';
 ?>
 <main>
     <section class="qs-hero qs-section--tight">
@@ -15,7 +16,7 @@ include 'header.php';
     </section>
     <section class="qs-section">
         <div class="qs-wrap qs-price">
-            <article class="qs-card qs-card--accent">
+            <a class="qs-card qs-card--accent" href="<?php echo htmlspecialchars($dashboardUrl); ?>">
                 <div class="qs-popular">★ MOST POPULAR</div>
                 <h3 class="qs-h3">Q-Core License</h3>
                 <p class="qs-muted">Core access to the Q-Core engine.</p>
@@ -28,12 +29,12 @@ include 'header.php';
                     <li>Technical support</li>
                     <li>Platform updates</li>
                 </ul>
-                <a class="qs-btn qs-btn--primary qs-btn--block" href="account/register">Become a Member</a>
-            </article>
-            <article class="qs-card">
+                <span class="qs-btn qs-btn--primary qs-btn--block">Become a Member</span>
+            </a>
+            <a class="qs-card" href="<?php echo htmlspecialchars($dashboardUrl); ?>">
                 <h3 class="qs-h3">Q-Core Pro</h3>
                 <p class="qs-muted">Extended access with priority support.</p>
-                <div class="qs-price__amt">$120 <small>/ 6 Months</small></div>
+                <div class="qs-price__amt">$150 <small>/ 12 Months</small></div>
                 <ul class="qs-list">
                     <li>Everything in Q-Core License</li>
                     <li>Priority technical support</li>
@@ -41,9 +42,9 @@ include 'header.php';
                     <li>Configurable risk parameters</li>
                     <li>Early feature access</li>
                 </ul>
-                <a class="qs-btn qs-btn--ghost qs-btn--block" href="account/register">Become a Member</a>
-            </article>
-            <article class="qs-card">
+                <span class="qs-btn qs-btn--ghost qs-btn--block">Become a Member</span>
+            </a>
+            <a class="qs-card" href="<?php echo htmlspecialchars($dashboardUrl); ?>">
                 <h3 class="qs-h3">Q-Core Enterprise</h3>
                 <p class="qs-muted">For teams and high-volume license holders.</p>
                 <div class="qs-price__amt">Custom</div>
@@ -54,8 +55,8 @@ include 'header.php';
                     <li>API / data access where available</li>
                     <li>Executive support access</li>
                 </ul>
-                <a class="qs-btn qs-btn--ghost qs-btn--block" href="contact">Contact Sales</a>
-            </article>
+                <span class="qs-btn qs-btn--ghost qs-btn--block">Contact Sales</span>
+            </a>
         </div>
         <p class="qs-wrap qs-muted" style="margin-top:28px;text-align:center;">Trading activity involves risk. License fees provide access to software and services and do not represent an investment or guaranteed return.</p>
     </section>
