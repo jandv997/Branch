@@ -19,6 +19,7 @@
                 <a href="q-core">Q-Core Engine</a>
                 <a href="strategies">Strategies</a>
                 <a href="security">Security</a>
+                <a href="verify">Verify on Chain</a>
                 <a href="how-it-works">How It Works</a>
             </div>
             <div>

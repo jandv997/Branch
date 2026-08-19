@@ -220,4 +220,154 @@
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') closeVideo();
   });
+
+  var more = document.querySelector('[data-qs-more]');
+  if (more) {
+    var moreBtn = more.querySelector('[data-qs-more-btn]');
+    var hideTimer = 0;
+    function isCompactNav() {
+      return window.matchMedia('(max-width: 980px)').matches;
+    }
+    function openMore() {
+      window.clearTimeout(hideTimer);
+      more.classList.add('is-open');
+      if (moreBtn) moreBtn.setAttribute('aria-expanded', 'true');
+    }
+    function closeMore() {
+      more.classList.remove('is-open');
+      if (moreBtn) moreBtn.setAttribute('aria-expanded', 'false');
+    }
+    function scheduleClose() {
+      if (isCompactNav()) return;
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(closeMore, 400);
+    }
+    more.addEventListener('mouseenter', openMore);
+    more.addEventListener('mouseleave', scheduleClose);
+    more.addEventListener('focusin', openMore);
+    more.addEventListener('focusout', function (event) {
+      if (!more.contains(event.relatedTarget)) scheduleClose();
+    });
+    if (moreBtn) {
+      moreBtn.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (more.classList.contains('is-open') && !isCompactNav()) {
+          closeMore();
+        } else {
+          openMore();
+        }
+      });
+    }
+    document.addEventListener('click', function (event) {
+      if (isCompactNav()) return;
+      if (!more.contains(event.target)) closeMore();
+    });
+  }
+
+  var verifyPage = document.querySelector('[data-qs-verify-page]');
+  if (verifyPage) {
+    var form = verifyPage.querySelector('[data-qs-verify-form]');
+    var hashInput = verifyPage.querySelector('[data-qs-verify-hash]');
+    var networkSelect = verifyPage.querySelector('[data-qs-verify-network]');
+    if (form && hashInput && networkSelect) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var hash = (hashInput.value || '').trim();
+        var base = networkSelect.value || '';
+        if (!hash || !base) {
+          hashInput.focus();
+          return;
+        }
+        window.open(base + encodeURIComponent(hash), '_blank', 'noopener,noreferrer');
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    var ledgerBody = verifyPage.querySelector('[data-qs-ledger-body]');
+    var copySvg = '<svg class="qs-verify__copy-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="qs-verify__copied-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5l4 4 10-10"/></svg>';
+    var clockSvg = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>';
+    var extSvg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 5h5v5"/><path d="M19 5L10 14"/><path d="M5 10v9h9"/></svg>';
+
+    function networkIcon(id) {
+      if (id === 'bsc') {
+        return '<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#F0B90B"/><path d="M8 3.2L5.4 5.8 8 8.4l2.6-2.6L8 3.2zm-3.6 3.6L1.8 8.4 4.4 11 7 8.4 4.4 6.8zm7.2 0L9 8.4 11.6 11l2.6-2.6-2.6-1.6zM8 9.6L5.4 12.2 8 14.8l2.6-2.6L8 9.6z" fill="#0a0b10"/></svg>';
+      }
+      if (id === 'arbitrum') {
+        return '<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#12AAFF"/><path d="M8.2 3.4L4.2 12h2.1l.7-1.6h2.5L10.2 12h2.2L8.2 3.4zm0 3.1l.8 1.9H7.4l.8-1.9z" fill="#fff"/></svg>';
+      }
+      return '<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#627EEA"/><path d="M8 2.8l-.1 3.6 3.2 1.4L8 2.8zm0 0L4.9 7.8 8 6.4V2.8zM8 11.1v2.1l3.2-4.4L8 11.1zm0 2.1v-2.1L4.8 8.8 8 13.2zM8 10.4l3.2-1.8L8 7.1v3.3zm-3.2-1.8L8 10.4V7.1L4.8 8.6z" fill="#fff"/></svg>';
+    }
+
+    function bindCopy(root) {
+      Array.prototype.forEach.call(root.querySelectorAll('[data-qs-copy]'), function (button) {
+        button.addEventListener('click', function () {
+          var value = button.getAttribute('data-qs-copy') || '';
+          var done = function () {
+            button.classList.add('is-copied');
+            window.setTimeout(function () { button.classList.remove('is-copied'); }, 1600);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(value).then(done).catch(function () {
+              fallbackCopy(value);
+              done();
+            });
+          } else {
+            fallbackCopy(value);
+            done();
+          }
+        });
+      });
+    }
+
+    function renderLedger(payload) {
+      if (!ledgerBody) return;
+      var rows = payload && payload.settlements ? payload.settlements : [];
+      if (!rows.length) {
+        ledgerBody.innerHTML = '<tr><td colspan="5" class="qs-ledger__empty">No live DEX settlements are available right now.</td></tr>';
+        return;
+      }
+      ledgerBody.innerHTML = rows.map(function (row) {
+        var hash = escapeHtml(row.hash || '');
+        var shortHash = escapeHtml(row.hash_short || row.hash || '');
+        var explorer = escapeHtml(row.explorer || '#');
+        var network = escapeHtml(row.network || '');
+        var amount = escapeHtml(row.amount || '—');
+        var time = escapeHtml(row.timestamp || '—');
+        var id = row.network_id || 'eth';
+        return (
+          '<tr>' +
+            '<td><span class="qs-net-pill">' + networkIcon(id) + ' ' + network + '</span></td>' +
+            '<td><span class="qs-hash"><a href="' + explorer + '" target="_blank" rel="noopener noreferrer">' + shortHash + '</a>' +
+              '<button type="button" class="qs-verify__copy" data-qs-copy="' + hash + '" aria-label="Copy transaction hash">' + copySvg + '</button></span></td>' +
+            '<td><span class="qs-time">' + clockSvg + ' ' + time + '</span></td>' +
+            '<td class="qs-ledger__amount">' + amount + '</td>' +
+            '<td><a class="qs-ledger__verify" href="' + explorer + '" target="_blank" rel="noopener noreferrer" aria-label="View transaction">' + extSvg + '</a></td>' +
+          '</tr>'
+        );
+      }).join('');
+      bindCopy(ledgerBody);
+    }
+
+    function loadLedger() {
+      fetch('api/market/dex-trades.php', { cache: 'no-store' })
+        .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+        .then(renderLedger)
+        .catch(function () {
+          if (ledgerBody) {
+            ledgerBody.innerHTML = '<tr><td colspan="5" class="qs-ledger__empty">Unable to load live DEX settlements. Retrying…</td></tr>';
+          }
+        });
+    }
+
+    loadLedger();
+    window.setInterval(loadLedger, 15000);
+  }
 })();

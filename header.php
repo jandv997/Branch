@@ -22,15 +22,16 @@ function qs_nav_active($page) {
             <a class="<?php echo qs_nav_active('strategies'); ?>" href="strategies">Strategies</a>
             <a class="<?php echo qs_nav_active('signals'); ?>" href="signals">Signals</a>
             <a class="<?php echo qs_nav_active('pricing'); ?>" href="pricing">License</a>
-            <div class="qs-more">
-                <span>More ▾</span>
-                <div class="qs-dropdown">
+            <div class="qs-more" data-qs-more>
+                <button class="qs-more__btn" type="button" data-qs-more-btn aria-expanded="false" aria-haspopup="true">More ▾</button>
+                <div class="qs-dropdown" data-qs-dropdown>
                     <a class="<?php echo qs_nav_active('vip'); ?>" href="vip">VIP Membership</a>
                     <a href="about">About</a>
                     <a href="team">Team</a>
                     <a href="roadmap">Roadmap</a>
                     <a href="how-it-works">How It Works</a>
                     <a href="security">Security</a>
+                    <a class="<?php echo qs_nav_active('verify'); ?>" href="verify">Verify on Chain</a>
                     <a href="faq">FAQ</a>
                     <a href="partners">Partners</a>
                     <a href="leadership">Leadership</a>
