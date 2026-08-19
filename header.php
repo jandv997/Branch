@@ -25,6 +25,7 @@ function qs_nav_active($page) {
             <div class="qs-more" data-qs-more>
                 <button class="qs-more__btn" type="button" data-qs-more-btn aria-expanded="false" aria-haspopup="true">More ▾</button>
                 <div class="qs-dropdown" data-qs-dropdown>
+                    <div class="qs-dropdown__panel">
                     <a class="<?php echo qs_nav_active('vip'); ?>" href="vip">VIP Membership</a>
                     <a href="about">About</a>
                     <a class="<?php echo qs_nav_active('team'); ?>" href="team">Team</a>
@@ -38,6 +39,7 @@ function qs_nav_active($page) {
                     <a class="<?php echo qs_nav_active('events'); ?>" href="events">Events</a>
                     <a href="contact">Contact</a>
                     <a class="<?php echo qs_nav_active('compliance'); ?>" href="compliance">Compliance</a>
+                    </div>
                 </div>
             </div>
         </nav>

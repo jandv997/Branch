@@ -224,44 +224,36 @@
   var more = document.querySelector('[data-qs-more]');
   if (more) {
     var moreBtn = more.querySelector('[data-qs-more-btn]');
-    var hideTimer = 0;
     function isCompactNav() {
       return window.matchMedia('(max-width: 980px)').matches;
     }
     function openMore() {
-      window.clearTimeout(hideTimer);
       more.classList.add('is-open');
       if (moreBtn) moreBtn.setAttribute('aria-expanded', 'true');
     }
     function closeMore() {
+      if (isCompactNav()) return;
       more.classList.remove('is-open');
       if (moreBtn) moreBtn.setAttribute('aria-expanded', 'false');
     }
-    function scheduleClose() {
-      if (isCompactNav()) return;
-      window.clearTimeout(hideTimer);
-      hideTimer = window.setTimeout(closeMore, 400);
-    }
-    more.addEventListener('mouseenter', openMore);
-    more.addEventListener('mouseleave', scheduleClose);
-    more.addEventListener('focusin', openMore);
-    more.addEventListener('focusout', function (event) {
-      if (!more.contains(event.relatedTarget)) scheduleClose();
+    more.addEventListener('mouseenter', function () {
+      if (!isCompactNav()) openMore();
+    });
+    more.addEventListener('focusin', function () {
+      if (!isCompactNav()) openMore();
     });
     if (moreBtn) {
       moreBtn.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
-        if (more.classList.contains('is-open') && !isCompactNav()) {
-          closeMore();
-        } else {
-          openMore();
-        }
+        openMore();
       });
     }
     document.addEventListener('click', function (event) {
-      if (isCompactNav()) return;
       if (!more.contains(event.target)) closeMore();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeMore();
     });
   }
 
