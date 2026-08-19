@@ -25,6 +25,7 @@ function qs_nav_active($page) {
             <div class="qs-more">
                 <span>More ▾</span>
                 <div class="qs-dropdown">
+                    <a class="<?php echo qs_nav_active('vip'); ?>" href="vip">VIP Membership</a>
                     <a href="about">About</a>
                     <a href="team">Team</a>
                     <a href="roadmap">Roadmap</a>
