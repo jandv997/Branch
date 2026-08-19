@@ -28,7 +28,7 @@ function qs_nav_active($page) {
                     <a class="<?php echo qs_nav_active('vip'); ?>" href="vip">VIP Membership</a>
                     <a href="about">About</a>
                     <a href="team">Team</a>
-                    <a href="roadmap">Roadmap</a>
+                    <a class="<?php echo qs_nav_active('roadmap'); ?>" href="roadmap">Roadmap</a>
                     <a href="how-it-works">How It Works</a>
                     <a href="security">Security</a>
                     <a class="<?php echo qs_nav_active('verify'); ?>" href="verify">Verify on Chain</a>
