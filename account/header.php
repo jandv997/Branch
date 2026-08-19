@@ -18,6 +18,7 @@ $qs_on_verse = in_array($currentFile, $qs_verse_files, true);
 $qs_on_membership = ($currentFile === 'membership.php');
 $qs_on_flex = ($currentFile === 'teams-bonus.php');
 $qs_on_resources = ($currentFile === 'resources.php');
+$qs_on_activities = ($currentFile === 'transactions.php');
 
 $qs_theme_default = 'dark';
 $qs_theme_js = 'assets/js/qs-theme.js';
@@ -38,6 +39,9 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 <?php } ?>
 <?php if ($qs_on_resources) { ?>
 <link href="assets/css/qs-resources.css" rel="stylesheet">
+<?php } ?>
+<?php if ($qs_on_activities) { ?>
+<link href="assets/css/qs-activities.css" rel="stylesheet">
 <?php } ?>
 
 <!-- Start of LiveChat (www.livechat.com) code -->
