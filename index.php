@@ -337,14 +337,16 @@ $verifyLabel = '0xbD32…079C · Ethereum Mainnet';
 
     <section class="qs-section">
         <div class="qs-wrap">
-            <p class="qs-eyebrow">Core Trust Principle</p>
-            <h2 class="qs-h2">We don't ask you to trust us blindly.</h2>
-            <div class="qs-pills" style="margin-top:22px;">
-                <span>Understand the technology.</span>
-                <span>Understand the architecture.</span>
-                <span>Understand the risks.</span>
-                <span>Verify what can be verified.</span>
-                <span>Then decide.</span>
+            <div class="qs-trust">
+                <p class="qs-trust__label">Core Trust Principle</p>
+                <h2 class="qs-h2">We don't ask you to trust us blindly.</h2>
+                <div class="qs-trust__pills">
+                    <span>Understand the technology.</span>
+                    <span>Understand the architecture.</span>
+                    <span>Understand the risks.</span>
+                    <span>Verify what can be verified.</span>
+                    <span>Then decide.</span>
+                </div>
             </div>
         </div>
     </section>
