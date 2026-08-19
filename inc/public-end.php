@@ -11,7 +11,7 @@
         </video>
     </div>
 </div>
-<script src="assets/js/qs-public.js"></script>
+<script src="assets/js/qs-public.js?v=<?php echo is_file(__DIR__ . '/../assets/js/qs-public.js') ? filemtime(__DIR__ . '/../assets/js/qs-public.js') : time(); ?>"></script>
 <?php include __DIR__ . '/cookie-banner.php'; ?>
 </body>
 </html>

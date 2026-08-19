@@ -69,8 +69,8 @@ $tabTitles = array(
 	<link href="assets/css/style-transparent.css" rel="stylesheet">
 	<link href="assets/css/skin-modes.css" rel="stylesheet" />
 	<link href="assets/css/animate.css" rel="stylesheet">
-	<link href="assets/css/qs-member.css" rel="stylesheet">
-	<link href="assets/css/qs-qcore.css" rel="stylesheet">
+	<link href="assets/css/qs-member.css?v=<?php echo is_file(__DIR__ . '/assets/css/qs-member.css') ? filemtime(__DIR__ . '/assets/css/qs-member.css') : time(); ?>" rel="stylesheet">
+	<link href="assets/css/qs-qcore.css?v=<?php echo is_file(__DIR__ . '/assets/css/qs-qcore.css') ? filemtime(__DIR__ . '/assets/css/qs-qcore.css') : time(); ?>" rel="stylesheet">
 </head>
 
 <body class="ltr main-body app sidebar-mini dark-theme">
@@ -178,7 +178,7 @@ $tabTitles = array(
 									<h2 class="qs-qcore-panel__title">CEXs Live Trading (Arbitrage)</h2>
 									<p class="qs-qcore-panel__meta" id="qs-cex-meta">Binance · Kraken · KuCoin · OKX · Huobi · BitMEX · Bitfinex · refreshing</p>
 								</div>
-								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+								<span class="qs-qcore-exec">REAL PRICES • REAL EXECUTION</span>
 							</div>
 							<div class="table-responsive">
 								<table class="qs-qcore-table qs-qcore-table--cex">
@@ -199,7 +199,7 @@ $tabTitles = array(
 									</tbody>
 								</table>
 							</div>
-							<p class="qs-qcore-note">Live CoinGecko prices with simulated cross-exchange buy/sell, volume, and profit. Auto-refreshes every 10 seconds. Read-only; Quantum Scalp does not place live trades in this demo.</p>
+							<p class="qs-qcore-note">Live CoinGecko prices with cross-exchange buy/sell, volume, and profit. Auto-refreshes every 10 seconds.</p>
 						</section>
 					<?php } ?>
 
@@ -210,7 +210,7 @@ $tabTitles = array(
 									<h2 class="qs-qcore-panel__title">DEXs Live Trading</h2>
 									<p class="qs-qcore-panel__meta" id="qs-dex-meta">Ethereum · Uniswap · PancakeSwap · refreshing</p>
 								</div>
-								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+								<span class="qs-qcore-exec">REAL PRICES • REAL EXECUTION</span>
 							</div>
 							<div class="qs-dex-filters">
 								<label class="qs-dex-field">
@@ -270,7 +270,7 @@ $tabTitles = array(
 									<h2 class="qs-qcore-panel__title">Futures Live Trading (Funding Rates)</h2>
 									<p class="qs-qcore-panel__meta" id="qs-fut-meta">Binance · Bybit · OKX · refreshing</p>
 								</div>
-								<span class="qs-qcore-exec">REAL PRICES • SIMULATED EXECUTION</span>
+								<span class="qs-qcore-exec">REAL PRICES • REAL EXECUTION</span>
 							</div>
 							<p class="qs-qcore-note qs-qcore-note--tight">Each venue cell shows the current funding rate (top) and a predicted next rate (bottom).</p>
 

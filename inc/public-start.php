@@ -24,8 +24,8 @@ if (!isset($currentPage)) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/qs-theme.css">
-    <link rel="stylesheet" href="assets/css/qs-cookie.css">
+    <link rel="stylesheet" href="assets/css/qs-theme.css?v=<?php echo is_file(__DIR__ . '/../assets/css/qs-theme.css') ? filemtime(__DIR__ . '/../assets/css/qs-theme.css') : time(); ?>">
+    <link rel="stylesheet" href="assets/css/qs-cookie.css?v=<?php echo is_file(__DIR__ . '/../assets/css/qs-cookie.css') ? filemtime(__DIR__ . '/../assets/css/qs-cookie.css') : time(); ?>">
 </head>
 <body class="qs-body">
 <div class="qs-stars" aria-hidden="true"></div>

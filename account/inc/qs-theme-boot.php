@@ -24,4 +24,8 @@ if (!isset($qs_theme_js)) {
 	document.body.setAttribute('data-qs-theme', stored);
 })();
 </script>
-<script src="<?php echo htmlspecialchars($qs_theme_js, ENT_QUOTES, 'UTF-8'); ?>"></script>
+<?php
+$qs_theme_js_file = dirname(__DIR__) . '/assets/js/qs-theme.js';
+$qs_theme_js_ver = is_file($qs_theme_js_file) ? filemtime($qs_theme_js_file) : time();
+?>
+<script src="<?php echo htmlspecialchars($qs_theme_js, ENT_QUOTES, 'UTF-8'); ?>?v=<?php echo (int) $qs_theme_js_ver; ?>"></script>
