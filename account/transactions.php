@@ -25,8 +25,8 @@ $rows = mysqli_fetch_assoc($get_user);
 }
 
 $activities = array();
-$chartByDay = array();
-$totalAmount = 0.0;
+$creditedByMonth = array();
+$creditedAmount = 0.0;
 $creditedCount = 0;
 $pendingCount = 0;
 if (isset($rows['id'])) {
@@ -35,28 +35,29 @@ if (isset($rows['id'])) {
 		while ($row = mysqli_fetch_assoc($get)) {
 			$activities[] = $row;
 			$amount = isset($row['amount']) ? (float) $row['amount'] : 0;
-			$totalAmount += $amount;
 			$status = isset($row['status']) ? $row['status'] : '';
-			if ($status === 'Credited' || $status === 'Confirmed' || $status === 'Successful') {
+			if ($status === 'Credited') {
 				$creditedCount++;
+				$creditedAmount += $amount;
+				$monthKey = date('Y-m', strtotime($row['date']));
+				if (!isset($creditedByMonth[$monthKey])) {
+					$creditedByMonth[$monthKey] = 0.0;
+				}
+				$creditedByMonth[$monthKey] += $amount;
 			} elseif ($status === 'Pending' || $status === 'Pending Confirmation') {
 				$pendingCount++;
 			}
-			$dayKey = date('Y-m-d', strtotime($row['date']));
-			if (!isset($chartByDay[$dayKey])) {
-				$chartByDay[$dayKey] = 0.0;
-			}
-			$chartByDay[$dayKey] += $amount;
 		}
 	}
 }
 
 $chartLabels = array();
 $chartValues = array();
-for ($d = 13; $d >= 0; $d--) {
-	$dayKey = date('Y-m-d', strtotime('-' . $d . ' days'));
-	$chartLabels[] = date('M j', strtotime($dayKey));
-	$chartValues[] = isset($chartByDay[$dayKey]) ? round($chartByDay[$dayKey], 2) : 0;
+for ($m = 11; $m >= 0; $m--) {
+	$monthTs = strtotime(date('Y-m-01') . ' -' . $m . ' months');
+	$monthKey = date('Y-m', $monthTs);
+	$chartLabels[] = date('M Y', $monthTs);
+	$chartValues[] = isset($creditedByMonth[$monthKey]) ? round($creditedByMonth[$monthKey], 2) : 0;
 }
 
 ?>
@@ -131,13 +132,13 @@ for ($d = 13; $d >= 0; $d--) {
 						<div class="qs-act-kpi"><span>Total records</span><strong><?php echo number_format(count($activities)); ?></strong></div>
 						<div class="qs-act-kpi"><span>Credited</span><strong><?php echo number_format($creditedCount); ?></strong></div>
 						<div class="qs-act-kpi"><span>Pending</span><strong><?php echo number_format($pendingCount); ?></strong></div>
-						<div class="qs-act-kpi"><span>Volume</span><strong>$<?php echo number_format($totalAmount, 2); ?></strong></div>
+						<div class="qs-act-kpi"><span>Credited volume</span><strong>$<?php echo number_format($creditedAmount, 2); ?></strong></div>
 					</div>
 
 					<div class="row row-sm mb-4">
 						<div class="col-xl-5 col-lg-5 col-md-12">
 							<div class="qs-act-photo card custom-card">
-								<img src="img/transactions.jpg" alt="Account activities">
+								<img src="img/activities-transactions.jpg" alt="Account transactions">
 							</div>
 						</div>
 						<div class="col-xl-7 col-lg-7 col-md-12">
@@ -145,8 +146,8 @@ for ($d = 13; $d >= 0; $d--) {
 								<div class="card-body">
 									<div class="qs-act-chart-head">
 										<div>
-											<h6 class="main-content-label mb-1">Activity volume</h6>
-											<p class="text-muted card-sub-title mb-0">Last 14 days of recorded amounts</p>
+											<h6 class="main-content-label mb-1">Credited amount</h6>
+											<p class="text-muted card-sub-title mb-0">Monthly credited activity for the last 12 months</p>
 										</div>
 									</div>
 									<div class="qs-act-chart-wrap">
@@ -287,7 +288,7 @@ for ($d = 13; $d >= 0; $d--) {
 					data: {
 						labels: window.qsActivityChart.labels,
 						datasets: [{
-							label: 'Amount',
+							label: 'Credited',
 							data: window.qsActivityChart.values,
 							borderColor: '#2dd4bf',
 							backgroundColor: 'rgba(45,212,191,0.14)',
