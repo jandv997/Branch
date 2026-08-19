@@ -450,9 +450,41 @@ $docs = array(
                     </article>
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="jurisdiction">
-                        <h3 class="qs-h3">Jurisdiction Restrictions</h3>
-                        <p>Availability of products and services may vary by jurisdiction. Users should only access the platform where legally permitted. The Company may suspend or terminate access where the User is located in a restricted jurisdiction or where continued access would create legal or regulatory risk.</p>
-                        <p>This website and the Software License Agreement are governed by the laws of the state of Wyoming, subject to applicable mandatory consumer and regulatory protections.</p>
+                        <h3 class="qs-h3">Quantum Scalp Jurisdiction Restrictions Policy</h3>
+                        <p>Effective Date: February 2026</p>
+                        <p>Quantum Scalp operates a compliance-based access model and may restrict access to its software, services, affiliate program, or other offerings in jurisdictions where providing or promoting those services may be prohibited, restricted, or subject to regulatory authorization.</p>
+                        <h3>1. General Principle</h3>
+                        <p>Nothing on the Quantum Scalp website is intended to constitute an offer, solicitation, recommendation, or provision of services in a jurisdiction where such activity is prohibited or requires authorization that Quantum Scalp does not hold.</p>
+                        <h3>2. Restricted Jurisdictions</h3>
+                        <p>Quantum Scalp may restrict or prohibit customers, affiliates, distributors, or other users located in jurisdictions identified by the Company as restricted.</p>
+                        <p>The restricted-jurisdiction list may change periodically based on:</p>
+                        <ul>
+                            <li>applicable laws;</li>
+                            <li>regulatory requirements;</li>
+                            <li>sanctions;</li>
+                            <li>licensing requirements;</li>
+                            <li>AML considerations;</li>
+                            <li>local financial-promotion restrictions;</li>
+                            <li>advice from legal counsel; and</li>
+                            <li>changes in the Company’s operations.</li>
+                        </ul>
+                        <h3>3. Geographic Restrictions</h3>
+                        <p>The Company may refuse access to persons located in, ordinarily resident in, incorporated in, or operating from restricted jurisdictions.</p>
+                        <p>The Company may also restrict access where it determines that a user is attempting to circumvent geographic restrictions.</p>
+                        <h3>4. Affiliate Marketing Restrictions</h3>
+                        <p>Affiliates must not actively market Quantum Scalp into a jurisdiction that the Company has designated as restricted.</p>
+                        <p>Affiliates are responsible for understanding and complying with applicable local marketing and financial-promotion laws.</p>
+                        <p>An Affiliate must not assume that because Quantum Scalp’s website is accessible from a particular country, Quantum Scalp is authorized to provide regulated services in that country.</p>
+                        <h3>5. VPNs and Circumvention</h3>
+                        <p>Users must not use VPNs, proxy servers, false addresses, false identity information, or other methods to circumvent geographic restrictions or KYC controls.</p>
+                        <p>Where appropriate, Quantum Scalp may suspend or terminate accounts suspected of attempting to circumvent these controls.</p>
+                        <h3>6. Regulatory Status</h3>
+                        <p>Quantum Scalp does not represent that it is licensed or authorized in every jurisdiction in which its website may technically be accessible.</p>
+                        <p>Users are responsible for determining whether accessing or using the Company’s services is lawful in their jurisdiction.</p>
+                        <h3>7. Right to Refuse Service</h3>
+                        <p>Quantum Scalp reserves the right to refuse, suspend, restrict, or terminate access where necessary to comply with applicable laws, regulations, sanctions, licensing requirements, or internal compliance policies.</p>
+                        <h3>8. Changes to Restricted Jurisdictions</h3>
+                        <p>The Company may add or remove jurisdictions from its restricted list without prior notice where necessary to address regulatory, legal, compliance, or operational requirements.</p>
                     </article>
                 </div>
             </div>
