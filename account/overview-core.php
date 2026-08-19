@@ -674,7 +674,7 @@ $tabTitles = array(
 				renderTable(payload.coin.length ? payload.coin : payload.stable, "coinTable");
 				var meta = document.getElementById("qs-fut-meta");
 				if (meta) {
-					var origin = payload.source === "okx" ? "OKX live · Binance / Bybit simulated" : "Binance live · Bybit / OKX simulated";
+					var origin = payload.source === "okx" ? "OKX · Binance · Bybit" : "Binance · Bybit · OKX";
 					meta.textContent = origin + " · 0s ago";
 				}
 			} catch (e) {
