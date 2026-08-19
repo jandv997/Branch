@@ -13,39 +13,39 @@ function qs_nav_active($page) {
 </div>
 <header class="qs-header">
     <div class="qs-header__inner">
-        <a class="qs-logo" href="index">
+        <a class="qs-logo" href="index.php">
             <img src="assets/img/logo/logo.png" alt="Quantum Scalp">
         </a>
         <nav class="qs-nav" data-qs-nav>
-            <a class="<?php echo qs_nav_active('technology'); ?>" href="technology">Technology</a>
-            <a class="<?php echo qs_nav_active('q-core'); ?>" href="q-core">Q-Core</a>
-            <a class="<?php echo qs_nav_active('strategies'); ?>" href="strategies">Strategies</a>
-            <a class="<?php echo qs_nav_active('signals'); ?>" href="signals">Signals</a>
-            <a class="<?php echo qs_nav_active('pricing'); ?>" href="pricing">License</a>
+            <a class="<?php echo qs_nav_active('technology'); ?>" href="technology.php">Technology</a>
+            <a class="<?php echo qs_nav_active('q-core'); ?>" href="q-core.php">Q-Core</a>
+            <a class="<?php echo qs_nav_active('strategies'); ?>" href="strategies.php">Strategies</a>
+            <a class="<?php echo qs_nav_active('signals'); ?>" href="signals.php">Signals</a>
+            <a class="<?php echo qs_nav_active('pricing'); ?>" href="pricing.php">License</a>
             <div class="qs-more" data-qs-more>
                 <button class="qs-more__btn" type="button" data-qs-more-btn aria-expanded="false" aria-haspopup="true">More ▾</button>
                 <div class="qs-dropdown" data-qs-dropdown>
                     <div class="qs-dropdown__panel">
-                    <a class="<?php echo qs_nav_active('vip'); ?>" href="vip">VIP Membership</a>
-                    <a href="about">About</a>
-                    <a class="<?php echo qs_nav_active('team'); ?>" href="team">Team</a>
-                    <a class="<?php echo qs_nav_active('roadmap'); ?>" href="roadmap">Roadmap</a>
-                    <a href="how-it-works">How It Works</a>
-                    <a href="security">Security</a>
-                    <a class="<?php echo qs_nav_active('verify'); ?>" href="verify">Verify on Chain</a>
-                    <a class="<?php echo qs_nav_active('faq'); ?>" href="faq">FAQ</a>
-                    <a class="<?php echo qs_nav_active('partners'); ?>" href="partners">Partners</a>
-                    <a href="leadership">Leadership</a>
-                    <a class="<?php echo qs_nav_active('events'); ?>" href="events">Events</a>
-                    <a href="contact">Contact</a>
-                    <a class="<?php echo qs_nav_active('compliance'); ?>" href="compliance">Compliance</a>
+                    <a class="<?php echo qs_nav_active('vip'); ?>" href="vip.php">VIP Membership</a>
+                    <a class="<?php echo qs_nav_active('about'); ?>" href="about.php">About</a>
+                    <a class="<?php echo qs_nav_active('team'); ?>" href="team.php">Team</a>
+                    <a class="<?php echo qs_nav_active('roadmap'); ?>" href="roadmap.php">Roadmap</a>
+                    <a class="<?php echo qs_nav_active('how-it-works'); ?>" href="how-it-works.php">How It Works</a>
+                    <a class="<?php echo qs_nav_active('security'); ?>" href="security.php">Security</a>
+                    <a class="<?php echo qs_nav_active('verify'); ?>" href="verify.php">Verify on Chain</a>
+                    <a class="<?php echo qs_nav_active('faq'); ?>" href="faq.php">FAQ</a>
+                    <a class="<?php echo qs_nav_active('partners'); ?>" href="partners.php">Partners</a>
+                    <a class="<?php echo qs_nav_active('leadership'); ?>" href="leadership.php">Leadership</a>
+                    <a class="<?php echo qs_nav_active('events'); ?>" href="events.php">Events</a>
+                    <a class="<?php echo qs_nav_active('contact'); ?>" href="contact.php">Contact</a>
+                    <a class="<?php echo qs_nav_active('compliance'); ?>" href="compliance.php">Compliance</a>
                     </div>
                 </div>
             </div>
         </nav>
         <div class="qs-header__actions">
-            <a class="qs-signin" href="account/index">Sign In</a>
-            <a class="qs-btn qs-btn--primary" href="account/index">Access Q-Core →</a>
+            <a class="qs-signin" href="account/index.php">Sign In</a>
+            <a class="qs-btn qs-btn--primary" href="account/index.php">Access Q-Core →</a>
             <button class="qs-menu-btn" type="button" data-qs-menu aria-label="Menu">☰</button>
         </div>
     </div>
