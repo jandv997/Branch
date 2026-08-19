@@ -16,3 +16,4 @@
     });
 })();
 </script>
+<?php include dirname(__DIR__, 2) . '/inc/cookie-banner.php'; ?>

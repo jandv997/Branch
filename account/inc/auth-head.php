@@ -16,6 +16,7 @@ if (!isset($authPageTitle)) {
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
     <link href="assets/css/qs-auth.css" rel="stylesheet">
+    <link href="../assets/css/qs-cookie.css" rel="stylesheet">
 <?php if (empty($authNoLivechat)) { ?>
 <script>
     window.__lc = window.__lc || {};

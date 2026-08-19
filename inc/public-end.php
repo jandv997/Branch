@@ -12,5 +12,6 @@
     </div>
 </div>
 <script src="assets/js/qs-public.js"></script>
+<?php include __DIR__ . '/cookie-banner.php'; ?>
 </body>
 </html>

@@ -26,6 +26,7 @@ include_once __DIR__ . '/inc/qs-theme-boot.php';
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
 <link href="assets/css/qs-member.css" rel="stylesheet">
+<link href="../assets/css/qs-cookie.css" rel="stylesheet">
 <?php if ($qs_on_qcore) { ?>
 <link href="assets/css/qs-qcore.css" rel="stylesheet">
 <?php } ?>
@@ -345,3 +346,4 @@ function mylink() {
     qsCopyValue('refer-link', 'Referral link copied');
 }
 </script>
+<?php include __DIR__ . '/../inc/cookie-banner.php'; ?>

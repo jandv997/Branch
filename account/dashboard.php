@@ -2,6 +2,17 @@
 session_start();
 
 include('connection.php');
+include_once __DIR__ . '/inc/disclaimer.php';
+qs_ensure_disclaimer_agreed_column($mysqli);
+
+if (isset($_POST['agree_disclaimer']) && isset($_SESSION['id'])) {
+	qs_mark_disclaimer_agreed($mysqli, $_SESSION['id']);
+	qs_set_disclaimer_cookie();
+	header('Content-Type: application/json');
+	header('Cache-Control: no-store');
+	echo json_encode(array('ok' => true));
+	exit;
+}
 
 
 //check if session id is set if it is redirect to login
@@ -23,6 +34,15 @@ if (!isset($_SESSION['id'])) {
 
 
 }
+
+$disclaimerAgreed = false;
+if (isset($_SESSION['id']) && isset($rows) && is_array($rows)) {
+	$disclaimerAgreed = !empty($rows['disclaimer_agreed']);
+	if ($disclaimerAgreed) {
+		qs_set_disclaimer_cookie();
+	}
+}
+
 
 
 
@@ -255,19 +275,40 @@ if (!isset($_SESSION['id'])) {
 	document.addEventListener("DOMContentLoaded", function () {
 
 		const modalEl = document.getElementById('disclaimerModal');
+		if (!modalEl || typeof bootstrap === 'undefined') return;
 		const modal = new bootstrap.Modal(modalEl);
+		var agreedServer = <?php echo $disclaimerAgreed ? 'true' : 'false'; ?>;
 
-		// Check if already agreed
-		if (!localStorage.getItem("qs_disclaimer_agreed")) {
-			modal.show();
+		function qsHasDisclaimer() {
+			if (agreedServer) return true;
+			try {
+				if (localStorage.getItem('qs_disclaimer_agreed') === 'true') return true;
+			} catch (e) {}
+			return document.cookie.indexOf('qs_disclaimer_agreed=1') !== -1;
+		}
+
+		function qsRememberDisclaimer() {
+			try { localStorage.setItem('qs_disclaimer_agreed', 'true'); } catch (e) {}
+			var expires = new Date(Date.now() + 400 * 24 * 60 * 60 * 1000).toUTCString();
+			document.cookie = 'qs_disclaimer_agreed=1; expires=' + expires + '; path=/; SameSite=Lax';
+			try {
+				fetch('dashboard.php', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					body: 'agree_disclaimer=1',
+					credentials: 'same-origin'
+				});
+			} catch (e) {}
+		}
+
+		if (qsHasDisclaimer()) {
+			if (!agreedServer) qsRememberDisclaimer();
 		} else {
-			//remove this part later, just for testing
 			modal.show();
 		}
 
-		// Agree button
 		document.getElementById("agreeBtn").addEventListener("click", function () {
-			localStorage.setItem("qs_disclaimer_agreed", "true");
+			qsRememberDisclaimer();
 			modal.hide();
 		});
 
