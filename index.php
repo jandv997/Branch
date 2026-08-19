@@ -314,7 +314,16 @@ $verifyLabel = '0xbD32…079C · Ethereum Mainnet';
     <section class="qs-section">
         <div class="qs-wrap">
             <div class="qs-risk">
-                <h2 class="qs-h2">Trading Involves Risk.</h2>
+                <div class="qs-risk__head">
+                    <span class="qs-risk__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                            <circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.7"/>
+                            <path d="M12 7.4v6.1" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                            <circle cx="12" cy="16.6" r="1" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <h2 class="qs-h2">Trading Involves Risk.</h2>
+                </div>
                 <p class="qs-lead">Automated trading does not eliminate market risk. Arbitrage opportunities can disappear quickly. Losses may occur. We believe in transparency over hype — understand the risks before you decide.</p>
                 <div class="qs-risk-grid">
                     <span>Market volatility</span><span>Slippage</span><span>Liquidity constraints</span><span>Network congestion</span>
