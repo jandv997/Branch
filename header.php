@@ -27,7 +27,7 @@ function qs_nav_active($page) {
                 <div class="qs-dropdown" data-qs-dropdown>
                     <a class="<?php echo qs_nav_active('vip'); ?>" href="vip">VIP Membership</a>
                     <a href="about">About</a>
-                    <a href="team">Team</a>
+                    <a class="<?php echo qs_nav_active('team'); ?>" href="team">Team</a>
                     <a class="<?php echo qs_nav_active('roadmap'); ?>" href="roadmap">Roadmap</a>
                     <a href="how-it-works">How It Works</a>
                     <a href="security">Security</a>
