@@ -133,7 +133,7 @@ $docs = array(
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="license">
                         <h3 class="qs-h3">Quantum Scalp Software License Agreement</h3>
-                        <p>Effective Date: August 19, 2026</p>
+                        <p>Effective Date: February 2026</p>
                         <p>This Software License Agreement (“Agreement”) is entered into between Quantum Scalp AI, operating under the brand name Quantum Scalp (“Quantum Scalp,” “Company,” “we,” “us,” or “our”), and the individual or legal entity accessing or using the Quantum Scalp software and services (“User,” “you,” or “your”).</p>
                         <p>By creating an account, purchasing a license, accessing, or using the Quantum Scalp platform, you acknowledge that you have read, understood, and agreed to this Agreement.</p>
                         <h3>1. Software License</h3>
@@ -205,7 +205,7 @@ $docs = array(
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="affiliate">
                         <h3 class="qs-h3">Quantum Scalp Affiliate Terms &amp; Conditions</h3>
-                        <p>Effective Date: August 19, 2026</p>
+                        <p>Effective Date: February 2026</p>
                         <p>These Affiliate Terms (“Affiliate Terms”) govern participation in the Quantum Scalp Affiliate Program (“Program”) operated by Quantum Scalp AI (“Quantum Scalp,” “Company,” “we,” “us,” or “our”).</p>
                         <p>By applying for or participating in the Program, you agree to these Affiliate Terms.</p>
                         <h3>1. Eligibility</h3>
@@ -298,15 +298,155 @@ $docs = array(
                     </article>
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="aml">
-                        <h3 class="qs-h3">AML / KYC Policy</h3>
-                        <p>Quantum Scalp may require identity verification (KYC) as part of onboarding, withdrawals, or risk review. We may suspend or restrict access where required information is not provided, or where AML, fraud, or sanctions concerns arise.</p>
-                        <p>Users must not use the platform for money laundering, terrorist financing, sanctions evasion, market manipulation, or other unlawful activity. We may share information with vendors and authorities when required by law.</p>
+                        <h3 class="qs-h3">Quantum Scalp Anti-Money Laundering (AML), Counter-Terrorist Financing (CTF) and Know Your Customer (KYC) Policy</h3>
+                        <p>Effective Date: February 2026</p>
+                        <h3>1. Purpose</h3>
+                        <p>Quantum Scalp is committed to maintaining appropriate controls designed to prevent its platform and services from being used for money laundering, terrorist financing, fraud, sanctions evasion, or other financial crime.</p>
+                        <p>This Policy establishes the Company’s framework for customer identification, risk assessment, transaction monitoring, sanctions screening, and suspicious activity escalation.</p>
+                        <p>The controls described in this Policy are risk-based and may be strengthened where circumstances require.</p>
+                        <h3>2. Customer Identification</h3>
+                        <p>Quantum Scalp may require customers to provide information including:</p>
+                        <ul>
+                            <li>full legal name;</li>
+                            <li>date of birth;</li>
+                            <li>residential address;</li>
+                            <li>nationality;</li>
+                            <li>email address;</li>
+                            <li>telephone number;</li>
+                            <li>government-issued identification;</li>
+                            <li>proof of address;</li>
+                            <li>source-of-funds information;</li>
+                            <li>source-of-wealth information where appropriate; and</li>
+                            <li>other information reasonably necessary for compliance purposes.</li>
+                        </ul>
+                        <h3>3. Identity Verification</h3>
+                        <p>The Company may use third-party identity-verification providers to verify customer information.</p>
+                        <p>Verification may include:</p>
+                        <ul>
+                            <li>document authentication;</li>
+                            <li>facial verification;</li>
+                            <li>database checks;</li>
+                            <li>sanctions screening;</li>
+                            <li>politically exposed person screening;</li>
+                            <li>adverse-media screening; and</li>
+                            <li>other appropriate risk-based checks.</li>
+                        </ul>
+                        <h3>4. Risk-Based Approach</h3>
+                        <p>Customers may be assigned different risk levels based on factors including:</p>
+                        <ul>
+                            <li>jurisdiction;</li>
+                            <li>customer type;</li>
+                            <li>transaction activity;</li>
+                            <li>source of funds;</li>
+                            <li>expected account activity;</li>
+                            <li>use of third-party wallets;</li>
+                            <li>sanctions exposure;</li>
+                            <li>PEP status;</li>
+                            <li>adverse media;</li>
+                            <li>unusual transaction patterns; and</li>
+                            <li>other relevant risk indicators.</li>
+                        </ul>
+                        <p>Enhanced Due Diligence may be required for higher-risk customers.</p>
+                        <h3>5. Politically Exposed Persons</h3>
+                        <p>Quantum Scalp may apply enhanced measures to customers identified as politically exposed persons (“PEPs”), their family members, or known close associates, where required by applicable law.</p>
+                        <h3>6. Sanctions</h3>
+                        <p>Quantum Scalp may screen customers and transactions against applicable sanctions and restricted-party lists.</p>
+                        <p>The Company may refuse, freeze, suspend, or terminate activity where required or reasonably necessary to comply with applicable sanctions obligations.</p>
+                        <h3>7. Source of Funds</h3>
+                        <p>Quantum Scalp may request information or documentation concerning the source of funds or source of wealth associated with a customer’s activity.</p>
+                        <p>Failure to provide satisfactory information may result in restricted access or termination.</p>
+                        <h3>8. Transaction Monitoring</h3>
+                        <p>The Company may monitor account and transaction activity for unusual or suspicious patterns.</p>
+                        <p>Indicators may include:</p>
+                        <ul>
+                            <li>unusual transaction volumes;</li>
+                            <li>rapid movement of assets;</li>
+                            <li>activity inconsistent with the customer’s profile;</li>
+                            <li>use of multiple accounts;</li>
+                            <li>suspected fraud;</li>
+                            <li>transactions involving high-risk jurisdictions;</li>
+                            <li>attempts to circumvent platform controls; or</li>
+                            <li>other suspicious behavior.</li>
+                        </ul>
+                        <h3>9. Suspicious Activity</h3>
+                        <p>Where required by applicable law, Quantum Scalp may report suspicious activity to the appropriate authorities.</p>
+                        <p>The Company may be prohibited from informing a customer that a suspicious activity report has been made.</p>
+                        <h3>10. Record Keeping</h3>
+                        <p>Quantum Scalp will maintain relevant customer and transaction records for the period required by applicable law.</p>
+                        <h3>11. Cooperation With Authorities</h3>
+                        <p>The Company may cooperate with law-enforcement, regulatory, judicial, and other competent authorities where legally required or permitted.</p>
+                        <h3>12. Refusal of Service</h3>
+                        <p>Quantum Scalp reserves the right to refuse onboarding or terminate a relationship where:</p>
+                        <ul>
+                            <li>identity cannot be adequately verified;</li>
+                            <li>information is false or misleading;</li>
+                            <li>the source of funds cannot be reasonably established;</li>
+                            <li>sanctions concerns exist;</li>
+                            <li>suspicious activity is identified;</li>
+                            <li>the customer refuses required KYC procedures; or</li>
+                            <li>continued service presents unacceptable legal or compliance risk.</li>
+                        </ul>
+                        <h3>13. Privacy</h3>
+                        <p>Personal information collected through KYC procedures will be handled in accordance with the Company’s <a class="qs-text-link" href="privacy">Privacy Policy</a> and applicable data-protection laws.</p>
+                        <h3>14. Updates</h3>
+                        <p>This Policy may be updated periodically to reflect changes in applicable laws, regulations, regulatory guidance, and the Company’s risk environment.</p>
+                        <p>The policy is intended to operate consistently with a risk-based AML/CFT framework; FATF’s current guidance specifically emphasizes risk assessment and appropriate controls for virtual-asset service providers.</p>
                     </article>
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="cookies">
-                        <h3 class="qs-h3">Cookie Policy</h3>
-                        <p>We use cookies to operate the site, remember your preferences (including cookie consent and certain dashboard acknowledgements), and improve your experience.</p>
-                        <p>You can accept or decline non-essential tracking via the cookie banner. Essential cookies needed to run the site may still be used. See the <a class="qs-text-link" href="privacy">Privacy Policy</a> for how we handle information.</p>
+                        <h3 class="qs-h3">Quantum Scalp Cookie Policy</h3>
+                        <p>Effective Date: February 2026</p>
+                        <p>This Cookie Policy explains how Quantum Scalp AI, operating as Quantum Scalp (“Quantum Scalp,” “we,” “us,” or “our”), uses cookies and similar technologies when you visit our website or use our online services.</p>
+                        <h3>1. What Are Cookies?</h3>
+                        <p>Cookies are small text files placed on your device when you visit a website.</p>
+                        <p>They allow websites to recognize a device, remember preferences, maintain sessions, understand website usage, and improve functionality.</p>
+                        <h3>2. Types of Cookies We May Use</h3>
+                        <h4>Strictly Necessary Cookies</h4>
+                        <p>These cookies are required for core website functionality.</p>
+                        <p>They may be used for:</p>
+                        <ul>
+                            <li>account authentication;</li>
+                            <li>security;</li>
+                            <li>session management;</li>
+                            <li>fraud prevention;</li>
+                            <li>load balancing; and</li>
+                            <li>other essential functions.</li>
+                        </ul>
+                        <p>These cookies generally cannot be disabled through our cookie-management tools where they are technically necessary.</p>
+                        <h4>Functional Cookies</h4>
+                        <p>These cookies allow the website to remember choices and preferences, such as language or interface settings.</p>
+                        <h4>Analytics Cookies</h4>
+                        <p>Analytics technologies may help us understand:</p>
+                        <ul>
+                            <li>how visitors use the website;</li>
+                            <li>which pages are visited;</li>
+                            <li>how users navigate the platform;</li>
+                            <li>website performance; and</li>
+                            <li>technical errors.</li>
+                        </ul>
+                        <h4>Marketing Cookies</h4>
+                        <p>Where used and legally permitted, marketing technologies may help measure advertising effectiveness and deliver more relevant promotional content.</p>
+                        <h3>3. Third-Party Cookies</h3>
+                        <p>Some cookies may be placed by third-party providers, such as:</p>
+                        <ul>
+                            <li>analytics providers;</li>
+                            <li>security providers;</li>
+                            <li>payment providers;</li>
+                            <li>advertising providers;</li>
+                            <li>customer-support providers; or</li>
+                            <li>embedded content providers.</li>
+                        </ul>
+                        <p>Third-party providers may process information according to their own privacy policies.</p>
+                        <h3>4. Cookie Consent</h3>
+                        <p>Where required by applicable law, Quantum Scalp will request consent before placing non-essential cookies on your device.</p>
+                        <p>You may withdraw or modify consent using the website’s cookie-management tools where available.</p>
+                        <h3>5. Managing Cookies</h3>
+                        <p>You can also control cookies through your browser settings.</p>
+                        <p>Disabling certain cookies may affect the functionality of portions of the website.</p>
+                        <h3>6. Similar Technologies</h3>
+                        <p>Quantum Scalp may use technologies such as pixels, tags, local storage, device identifiers, and similar technologies for purposes comparable to cookies.</p>
+                        <h3>7. Changes to This Policy</h3>
+                        <p>We may update this Cookie Policy periodically to reflect changes in technology, law, or our services.</p>
                     </article>
 
                     <article class="qs-docs__panel qs-legal" data-qs-doc-panel="jurisdiction">

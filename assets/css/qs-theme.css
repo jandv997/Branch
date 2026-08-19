@@ -589,6 +589,7 @@ h1, h2, h3, h4 { margin: 0; letter-spacing: -0.03em; line-height: 1.12; }
 }
 .qs-legal p, .qs-prose p { color: var(--qs-muted); margin: 0 0 14px; }
 .qs-legal h3, .qs-prose h3 { margin: 28px 0 10px; }
+.qs-legal h4, .qs-prose h4 { margin: 18px 0 8px; font-size: 15px; }
 .qs-legal ul { margin: 0 0 14px; padding-left: 20px; color: var(--qs-muted); }
 .qs-legal li { margin: 0 0 6px; }
 
