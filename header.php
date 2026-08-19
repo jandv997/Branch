@@ -32,7 +32,7 @@ function qs_nav_active($page) {
                     <a href="how-it-works">How It Works</a>
                     <a href="security">Security</a>
                     <a class="<?php echo qs_nav_active('verify'); ?>" href="verify">Verify on Chain</a>
-                    <a href="faq">FAQ</a>
+                    <a class="<?php echo qs_nav_active('faq'); ?>" href="faq">FAQ</a>
                     <a class="<?php echo qs_nav_active('partners'); ?>" href="partners">Partners</a>
                     <a href="leadership">Leadership</a>
                     <a class="<?php echo qs_nav_active('events'); ?>" href="events">Events</a>

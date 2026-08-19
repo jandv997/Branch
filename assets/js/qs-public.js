@@ -370,4 +370,16 @@
     loadLedger();
     window.setInterval(loadLedger, 15000);
   }
+
+  var faq = document.querySelector('[data-qs-faq]');
+  if (faq) {
+    Array.prototype.forEach.call(faq.querySelectorAll('details'), function (item) {
+      item.addEventListener('toggle', function () {
+        if (!item.open) return;
+        Array.prototype.forEach.call(faq.querySelectorAll('details'), function (other) {
+          if (other !== item) other.open = false;
+        });
+      });
+    });
+  }
 })();
