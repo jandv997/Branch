@@ -82,8 +82,8 @@ if (isset($_SESSION['id']) && isset($rows) && is_array($rows)) {
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-	<link href="assets/css/qs-member.css" rel="stylesheet">
-	<link href="assets/css/qs-overview.css" rel="stylesheet">
+	<link href="assets/css/qs-member.css?v=<?php echo is_file(__DIR__ . '/assets/css/qs-member.css') ? filemtime(__DIR__ . '/assets/css/qs-member.css') : time(); ?>" rel="stylesheet">
+	<link href="assets/css/qs-overview.css?v=<?php echo is_file(__DIR__ . '/assets/css/qs-overview.css') ? filemtime(__DIR__ . '/assets/css/qs-overview.css') : time(); ?>" rel="stylesheet">
 
 
 	<style>
@@ -110,7 +110,7 @@ if (isset($_SESSION['id']) && isset($rows) && is_array($rows)) {
 	</style>
 </head>
 
-<body class="ltr main-body app sidebar-mini">
+<body class="ltr main-body app sidebar-mini qs-dash-page">
 
 	<!-- Loader -->
 	<div id="global-loader">
@@ -337,7 +337,7 @@ if (isset($_SESSION['id']) && isset($rows) && is_array($rows)) {
 					type: 'doughnut',
 					data: {
 						labels: ['Main', 'Staking', 'Referral'],
-						datasets: [{ data: [w, s, r], backgroundColor: ['#2DD4BF', '#0E9E90', '#00E676'], borderWidth: 0 }]
+						datasets: [{ data: [w, s, r], backgroundColor: ['#F5A623', '#4C8DFF', '#2DD4BF'], borderWidth: 0 }]
 					},
 					options: {
 						cutoutPercentage: 72,
@@ -354,8 +354,8 @@ if (isset($_SESSION['id']) && isset($rows) && is_array($rows)) {
 						labels: ['W1', 'W2', 'W3', 'W4'],
 						datasets: [{
 							data: [0, d.profit * 0.35, d.profit * 0.7, d.profit],
-							borderColor: '#2DD4BF',
-							backgroundColor: 'rgba(45,212,191,0.12)',
+							borderColor: '#F5A623',
+							backgroundColor: 'rgba(245,166,35,0.12)',
 							borderWidth: 2,
 							pointRadius: 0
 						}]

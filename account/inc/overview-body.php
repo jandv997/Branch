@@ -82,8 +82,22 @@ $allocTotal = $wallet + $staking + $referral;
 ?>
 <div class="qs-ov">
 
+	<div class="qs-ov-hero">
+		<div class="qs-ov-hero__copy">
+			<h1 class="qs-ov-hero__title">Overview</h1>
+			<p class="qs-ov-hero__sub">Let’s manage your finance wallet.</p>
+		</div>
+		<div class="qs-ov-hero__actions">
+			<a class="qs-ov-btn qs-ov-btn--orange" href="<?php echo $qs_go('marketplace'); ?>"><i class="fe fe-grid"></i> Choose Portfolio</a>
+			<a class="qs-ov-btn qs-ov-btn--blue" href="<?php echo $qs_go('membership'); ?>"><i class="fe fe-award"></i> Membership</a>
+			<a class="qs-ov-btn" href="<?php echo $qs_go('make-withdrawal'); ?>"><i class="fe fe-arrow-down-circle"></i> Make Withdrawal</a>
+			<a class="qs-ov-btn" href="<?php echo $qs_go('active-purchase'); ?>"><i class="fe fe-briefcase"></i> Active Portfolios</a>
+			<a class="qs-ov-btn" href="<?php echo $qs_go('referral-bonus'); ?>"><i class="fe fe-users"></i> Referral Bonus</a>
+		</div>
+	</div>
+
 	<div class="qs-ov-wallets">
-		<div class="qs-ov-card">
+		<div class="qs-ov-stat qs-ov-stat--orange">
 			<div class="qs-ov-card__label"><i class="fe fe-credit-card"></i> Main Wallet</div>
 			<div class="qs-ov-card__value"><?php echo $qs_money($wallet); ?></div>
 			<div class="qs-ov-card__hint">Available balance</div>
@@ -92,7 +106,7 @@ $allocTotal = $wallet + $staking + $referral;
 				<div class="qs-ov-mini"><span>Total withdrawn</span><strong><?php echo $qs_money($withdrawnTotal); ?></strong></div>
 			</div>
 		</div>
-		<div class="qs-ov-card">
+		<div class="qs-ov-stat qs-ov-stat--blue">
 			<div class="qs-ov-card__label"><i class="fe fe-layers"></i> Staking Wallet</div>
 			<div class="qs-ov-card__value"><?php echo $qs_money($staking); ?></div>
 			<div class="qs-ov-card__hint">Available balance</div>
@@ -101,7 +115,7 @@ $allocTotal = $wallet + $staking + $referral;
 				<div class="qs-ov-mini"><span>Total credited</span><strong><?php echo $qs_money($staking); ?></strong></div>
 			</div>
 		</div>
-		<div class="qs-ov-card">
+		<div class="qs-ov-stat qs-ov-stat--teal">
 			<div class="qs-ov-card__label"><i class="fe fe-users"></i> Referral Wallet</div>
 			<div class="qs-ov-card__value"><?php echo $qs_money($referral); ?></div>
 			<div class="qs-ov-card__hint">Available balance</div>
@@ -110,24 +124,10 @@ $allocTotal = $wallet + $staking + $referral;
 				<div class="qs-ov-mini"><span>Total credited</span><strong><?php echo $qs_money($referral); ?></strong></div>
 			</div>
 		</div>
-		<div class="qs-ov-card">
-			<div class="qs-ov-card__label"><i class="fe fe-briefcase"></i> Active Portfolios</div>
-			<div class="qs-ov-card__value"><?php echo (int) $activeCount; ?></div>
-			<div class="qs-ov-card__hint">Currently accruing</div>
-			<a class="qs-ov-link" href="<?php echo $qs_go('marketplace'); ?>">Manage in Quantum Verse ↗</a>
-		</div>
-	</div>
-
-	<div class="qs-ov-actions">
-		<a class="qs-ov-action" href="<?php echo $qs_go('marketplace'); ?>"><i class="fe fe-grid"></i> Choose Portfolio</a>
-		<a class="qs-ov-action" href="<?php echo $qs_go('make-withdrawal'); ?>"><i class="fe fe-arrow-down-circle"></i> Make Withdrawal</a>
-		<a class="qs-ov-action" href="<?php echo $qs_go('active-purchase'); ?>"><i class="fe fe-briefcase"></i> Active Portfolios</a>
-		<a class="qs-ov-action" href="<?php echo $qs_go('membership'); ?>"><i class="fe fe-award"></i> Membership</a>
-		<a class="qs-ov-action" href="<?php echo $qs_go('referral-bonus'); ?>"><i class="fe fe-users"></i> Referral Bonus</a>
 	</div>
 
 	<div class="qs-ov-charts">
-		<div class="qs-ov-card">
+		<div class="qs-ov-card qs-ov-chart-main">
 			<div class="qs-ov-card__head">
 				<h3>Portfolio Performance</h3>
 				<div class="qs-ov-ranges" role="tablist">
@@ -144,17 +144,30 @@ $allocTotal = $wallet + $staking + $referral;
 				<canvas id="qsPerfChart" height="120"></canvas>
 			<?php } ?>
 		</div>
-		<div class="qs-ov-card">
-			<div class="qs-ov-card__head">
-				<h3>Wallet Allocation</h3>
+		<div class="qs-ov-side">
+			<div class="qs-ov-paystack">
+				<div class="qs-ov-paycard">
+					<div class="qs-ov-paycard__top">
+						<span>Active Portfolios</span>
+						<i class="fe fe-briefcase"></i>
+					</div>
+					<div class="qs-ov-paycard__value"><?php echo (int) $activeCount; ?></div>
+					<div class="qs-ov-paycard__hint">Currently accruing</div>
+					<a class="qs-ov-paycard__link" href="<?php echo $qs_go('marketplace'); ?>">Manage in Quantum Verse ↗</a>
+				</div>
 			</div>
-			<div class="qs-ov-alloc">
-				<canvas id="qsAllocChart" width="180" height="180"></canvas>
-			</div>
-			<div class="qs-ov-legend">
-				<span><i style="background:#2DD4BF"></i>Main</span>
-				<span><i style="background:#0E9E90"></i>Staking</span>
-				<span><i style="background:#00E676"></i>Referral</span>
+			<div class="qs-ov-card qs-ov-alloc-card">
+				<div class="qs-ov-card__head">
+					<h3>Wallet Allocation</h3>
+				</div>
+				<div class="qs-ov-alloc">
+					<canvas id="qsAllocChart" width="180" height="180"></canvas>
+				</div>
+				<div class="qs-ov-legend">
+					<span><i style="background:#F5A623"></i>Main</span>
+					<span><i style="background:#4C8DFF"></i>Staking</span>
+					<span><i style="background:#2DD4BF"></i>Referral</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -182,8 +195,8 @@ $allocTotal = $wallet + $staking + $referral;
 			<div>
 				<h4>Widest Spreads</h4>
 				<div class="item"><span>LINK/USDT · OKX → Kraken</span><span class="teal">0.031%</span></div>
-				<div class="item"><span>ETH/USDT · Gate → OKX</span><span class="teal">0.019%</span></div>
-				<div class="item"><span>BTC/USDT · Kraken → Gate</span><span class="teal">0.028%</span></div>
+				<div class="item"><span>ETH/USDT · Gate → OKX</span><span class="blue">0.019%</span></div>
+				<div class="item"><span>BTC/USDT · Kraken → Gate</span><span class="orange">0.028%</span></div>
 			</div>
 			<div>
 				<h4>Movers 24H</h4>
@@ -318,10 +331,15 @@ $allocTotal = $wallet + $staking + $referral;
 							?>
 							<tr>
 								<td class="text-center">#<?php echo $i; ?></td>
-								<td><?php echo htmlspecialchars($rr['action']); ?></td>
+								<td>
+									<span class="qs-ov-tx">
+										<span class="qs-ov-tx__av qs-ov-tx__av--<?php echo ($i % 3); ?>"><?php echo strtoupper(substr($rr['action'], 0, 1)); ?></span>
+										<?php echo htmlspecialchars($rr['action']); ?>
+									</span>
+								</td>
 								<td><?php echo htmlspecialchars($rr['date']); ?></td>
 								<td>$<?php echo $rr['amount']; ?></td>
-								<td><span class="badge b<?php echo $type; ?>"><?php echo htmlspecialchars($rr['status']); ?></span></td>
+								<td><span class="badge qs-ov-pill b<?php echo $type; ?>"><?php echo htmlspecialchars($rr['status']); ?></span></td>
 							</tr>
 							<?php
 						}
