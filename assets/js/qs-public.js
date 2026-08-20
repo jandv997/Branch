@@ -149,6 +149,27 @@
     card.style.setProperty('--y', (event.clientY - box.top) + 'px');
   });
 
+  var mods = document.querySelector('[data-qs-mods]');
+  if (mods) {
+    var items = mods.querySelectorAll('[data-qs-mod]');
+    Array.prototype.forEach.call(items, function (item) {
+      var btn = item.querySelector('[data-qs-mod-toggle]');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var open = item.classList.contains('is-open');
+        Array.prototype.forEach.call(items, function (el) {
+          el.classList.remove('is-open');
+          var other = el.querySelector('[data-qs-mod-toggle]');
+          if (other) other.setAttribute('aria-expanded', 'false');
+        });
+        if (!open) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  }
+
   var arch = document.querySelector('[data-qs-arch]');
   if (arch) {
     var stages = arch.querySelectorAll('[data-qs-arch-stage]');
