@@ -112,7 +112,7 @@ $qs_css_ver = function ($rel) {
 							<div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0">
 								<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 									<ul class="nav nav-item header-icons navbar-nav-right ms-auto">
-										<?php if ($qs_on_membership || $qs_on_resources) { ?>
+										<?php if ($qs_on_membership) { ?>
 										<li class="nav-item d-none d-xl-flex align-items-center">
 											<span class="qs-demo-badge">DEMO DATA — NOT LIVE TRADING RESULTS</span>
 										</li>

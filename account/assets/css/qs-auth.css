@@ -99,19 +99,6 @@ body.qs-auth .square-box { display: none !important; }
   height: auto;
 }
 
-.qs-auth-brand {
-  display: inline-flex;
-  align-items: center;
-  color: #fff;
-  text-decoration: none;
-}
-.qs-auth-brand img {
-  display: block;
-  height: 44px;
-  width: auto;
-  max-width: 220px;
-  object-fit: contain;
-}
 .qs-auth-logo {
   display: inline-flex;
   align-items: center;
@@ -119,9 +106,9 @@ body.qs-auth .square-box { display: none !important; }
 }
 .qs-auth-logo img {
   display: block;
-  height: 42px;
   width: auto;
-  max-width: 200px;
+  height: auto;
+  max-width: 150px;
   object-fit: contain;
 }
 
@@ -487,5 +474,4 @@ body.qs-auth .square-box { display: none !important; }
 @media (min-width: 992px) {
   .qs-auth-split { grid-template-columns: 1fr 1fr; }
   .qs-auth-visual { display: block; }
-  .qs-auth-logo { display: none; }
 }
