@@ -44,8 +44,15 @@ function qs_nav_active($page) {
             </div>
         </nav>
         <div class="qs-header__actions">
+            <?php if (!empty($qsPublicUser)) { ?>
+            <a class="qs-nav-user" href="account/dashboard.php">
+                <img src="<?php echo htmlspecialchars($qsPublicUser['img']); ?>" alt="">
+                <span><?php echo htmlspecialchars($qsPublicUser['name']); ?></span>
+            </a>
+            <?php } else { ?>
             <a class="qs-signin" href="account/index.php">Sign In</a>
             <a class="qs-btn qs-btn--primary" href="account/index.php">Access Q-Core →</a>
+            <?php } ?>
             <button class="qs-menu-btn" type="button" data-qs-menu aria-label="Menu">☰</button>
         </div>
     </div>

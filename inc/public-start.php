@@ -1,4 +1,7 @@
 <?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 if (!isset($pageTitle)) {
     $pageTitle = 'Quantum Scalp AI | Q-Core Engine — AI-Powered Crypto Arbitrage Software';
 }
@@ -7,6 +10,35 @@ if (!isset($pageDescription)) {
 }
 if (!isset($currentPage)) {
     $currentPage = '';
+}
+
+$qsPublicUser = null;
+if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
+    require_once __DIR__ . '/../account/connection.php';
+    $qsUid = (int) $_SESSION['id'];
+    if ($qsUid > 0 && isset($mysqli) && $mysqli) {
+        $qsUserRes = mysqli_query($mysqli, "SELECT firstname, lastname, email, img FROM users WHERE id='" . $qsUid . "' LIMIT 1");
+        if ($qsUserRes) {
+            $qsUserRow = mysqli_fetch_assoc($qsUserRes);
+            if (is_array($qsUserRow)) {
+                $qsName = trim((isset($qsUserRow['firstname']) ? $qsUserRow['firstname'] : '') . ' ' . (isset($qsUserRow['lastname']) ? $qsUserRow['lastname'] : ''));
+                if ($qsName === '') {
+                    $qsName = isset($qsUserRow['email']) && $qsUserRow['email'] !== '' ? $qsUserRow['email'] : 'Account';
+                }
+                $qsImg = isset($qsUserRow['img']) ? trim($qsUserRow['img']) : '';
+                if ($qsImg === '') {
+                    $qsImg = 'img/profile.png';
+                }
+                if (!preg_match('#^(https?:)?//#i', $qsImg) && strpos($qsImg, '/') !== 0) {
+                    $qsImg = 'account/' . $qsImg;
+                }
+                $qsPublicUser = array(
+                    'name' => $qsName,
+                    'img' => $qsImg,
+                );
+            }
+        }
+    }
 }
 ?>
 <!doctype html>
