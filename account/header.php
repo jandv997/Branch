@@ -25,7 +25,10 @@ $qs_theme_js = 'assets/js/qs-theme.js';
 include_once __DIR__ . '/inc/qs-theme-boot.php';
 ?>
 <link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <?php
 $qs_css_ver = function ($rel) {
 	$file = __DIR__ . '/' . $rel;

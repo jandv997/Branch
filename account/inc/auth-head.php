@@ -12,7 +12,10 @@ if (!isset($authPageTitle)) {
     <title><?php echo htmlspecialchars($authPageTitle); ?></title>
     <link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon">
     <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/icons.css" rel="stylesheet">
     <link href="assets/css/qs-auth.css" rel="stylesheet">

@@ -8,7 +8,7 @@
   --qs-muted-2: #64748b;
   --qs-label: #cbd5e1;
   --qs-border: rgba(255, 255, 255, 0.1);
-  --qs-font: "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --qs-font: Satoshi, -apple-system, sans-serif;
 }
 
 html, body.qs-auth {
@@ -17,6 +17,8 @@ html, body.qs-auth {
   background: var(--qs-bg);
   color: var(--qs-text);
   font-family: var(--qs-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body.qs-auth {
