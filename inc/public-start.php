@@ -58,6 +58,16 @@ if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/qs-theme.css?v=<?php echo is_file(__DIR__ . '/../assets/css/qs-theme.css') ? filemtime(__DIR__ . '/../assets/css/qs-theme.css') : time(); ?>">
     <link rel="stylesheet" href="assets/css/qs-cookie.css?v=<?php echo is_file(__DIR__ . '/../assets/css/qs-cookie.css') ? filemtime(__DIR__ . '/../assets/css/qs-cookie.css') : time(); ?>">
+<?php
+if (!empty($pageStyles)) {
+    foreach ((array) $pageStyles as $qsPageStyle) {
+        $qsPageStyleRel = ltrim((string) $qsPageStyle, '/');
+        $qsPageStyleFile = __DIR__ . '/../' . $qsPageStyleRel;
+        $qsPageStyleVer = is_file($qsPageStyleFile) ? filemtime($qsPageStyleFile) : time();
+        echo '    <link rel="stylesheet" href="' . htmlspecialchars($qsPageStyleRel) . '?v=' . $qsPageStyleVer . '">' . "\n";
+    }
+}
+?>
 </head>
 <body class="qs-body">
 <div class="qs-stars" aria-hidden="true"></div>

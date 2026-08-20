@@ -12,6 +12,16 @@
     </div>
 </div>
 <script src="assets/js/qs-public.js?v=<?php echo is_file(__DIR__ . '/../assets/js/qs-public.js') ? filemtime(__DIR__ . '/../assets/js/qs-public.js') : time(); ?>"></script>
+<?php
+if (!empty($pageScripts)) {
+    foreach ((array) $pageScripts as $qsPageScript) {
+        $qsPageScriptRel = ltrim((string) $qsPageScript, '/');
+        $qsPageScriptFile = __DIR__ . '/../' . $qsPageScriptRel;
+        $qsPageScriptVer = is_file($qsPageScriptFile) ? filemtime($qsPageScriptFile) : time();
+        echo '<script src="' . htmlspecialchars($qsPageScriptRel) . '?v=' . $qsPageScriptVer . '"></script>' . "\n";
+    }
+}
+?>
 <?php include __DIR__ . '/cookie-banner.php'; ?>
 </body>
 </html>
