@@ -40,7 +40,6 @@ function qs_nav_active($page) {
                     <a class="<?php echo qs_nav_active('events'); ?>" href="events.php">Events</a>
                     <a class="<?php echo qs_nav_active('contact'); ?>" href="contact.php">Contact</a>
                     <a class="<?php echo qs_nav_active('compliance'); ?>" href="compliance.php">Compliance</a>
-                    <a class="<?php echo qs_nav_active('game'); ?>" href="game.php">Game</a>
                     </div>
                 </div>
             </div>
