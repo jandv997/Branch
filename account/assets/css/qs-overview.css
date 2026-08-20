@@ -520,9 +520,15 @@
   .qs-ov-hero__actions { justify-content: flex-start; }
 }
 @media (max-width: 640px) {
-  .qs-ov-hero__title { font-size: 26px; }
+  .qs-ov { padding-top: 4px; }
+  .qs-ov-hero { margin-bottom: 14px; }
+  .qs-ov-hero__title { font-size: 24px; }
+  .qs-ov-hero__actions { width: 100%; }
+  .qs-ov-btn { flex: 1 1 calc(50% - 8px); justify-content: center; white-space: normal; text-align: center; }
   .qs-ov-wallets, .qs-ov-summary, .qs-ov-arch-row { grid-template-columns: 1fr; }
   .qs-ov-card__value { font-size: 22px; }
+  .qs-ov-table .table-responsive,
+  .qs-ov-table { overflow-x: auto; }
 }
 
 body.light-theme .qs-ov-hero__title,

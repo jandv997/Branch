@@ -853,10 +853,20 @@ h1, h2, h3, h4 {
 @media (max-width: 980px) {
   .qs-nav { display: none; }
   .qs-nav.is-open {
-    display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0;
-    background: #08090f; padding: 16px; border-bottom: 1px solid var(--qs-border);
+    display: flex; flex-direction: column; align-items: stretch; gap: 2px;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: #08090f; padding: 12px 16px 20px;
+    border-bottom: 1px solid var(--qs-border);
+    max-height: min(78vh, calc(100dvh - 72px));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 80;
   }
-  .qs-more { padding-bottom: 0; margin-bottom: 0; }
+  .qs-nav.is-open a,
+  .qs-nav.is-open .qs-more__btn {
+    display: block; width: 100%; text-align: left; padding: 12px 10px;
+  }
+  .qs-more { padding-bottom: 0; margin-bottom: 0; width: 100%; }
   .qs-dropdown {
     position: static; display: block; padding-top: 0;
     box-shadow: none; border: 0; background: transparent;
@@ -888,6 +898,11 @@ h1, h2, h3, h4 {
   .qs-trust { padding: 32px 24px; }
   .qs-signals-offer { padding: 28px 20px; }
   .qs-vip-offer { padding: 28px 20px; }
+  .qs-section { padding: 56px 0; }
+  .qs-hero { padding: 36px 0 24px; }
+  .qs-wrap { width: min(var(--qs-max), calc(100% - 24px)); }
+  .qs-body { overflow-x: hidden; }
+  .qs-header__inner { width: min(1240px, calc(100% - 20px)); gap: 12px; }
 }
 
 .qs-sr {
@@ -1232,4 +1247,16 @@ h1, h2, h3, h4 {
   .qs-roadmap__card { min-height: 0; }
   .qs-event-card { grid-template-columns: auto 1fr; }
   .qs-event-loc { grid-column: 2; }
+  .qs-section { padding: 40px 0; }
+  .qs-section--tight { padding: 28px 0; }
+  .qs-h1 { font-size: 2rem; }
+  .qs-h2 { font-size: 1.5rem; }
+  .qs-logo img { height: 32px; }
+  .qs-header__inner { min-height: 60px; }
+  .qs-signin { padding: 6px 12px; font-size: 13px; }
+  .qs-banner { font-size: 12px; padding: 8px 12px; line-height: 1.4; }
+  .qs-cookie { left: 10px; right: 10px; bottom: 10px; }
+  .qs-terminal { overflow-x: auto; }
+  .qs-price, .qs-cta-bar { padding: 22px 16px; }
+  .qs-trust { padding: 24px 16px; }
 }

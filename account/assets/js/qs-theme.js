@@ -70,4 +70,14 @@
 	}, true);
 
 	window.qsApplyTheme = apply;
+
+	document.addEventListener('click', function (e) {
+		if (window.innerWidth > 991) return;
+		var app = document.querySelector('body.app');
+		if (!app || !app.classList.contains('sidenav-toggled')) return;
+		var t = e.target;
+		if (t && t.nodeType !== 1) t = t.parentElement;
+		if (t && t.closest && (t.closest('.app-sidebar') || t.closest('[data-bs-toggle="sidebar"]'))) return;
+		app.classList.remove('sidenav-toggled');
+	});
 })();

@@ -239,14 +239,7 @@ $qs_css_ver = function ($rel) {
 								<img src="assets/img/brand/favicon.png" class="main-logo  mobile-logo" alt="logo">
 								<img src="assets/img/brand/favicon-white.png"  class="main-logo  mobile-dark" alt="logo">
 							</a>
-						</div>
-						<div class="qs-qcore-status">
-							<div class="qs-qcore-status__row">
-								<span>Q-CORE STATUS</span>
-								<span class="qs-qcore-status__dot" aria-hidden="true"></span>
-							</div>
-							<p class="qs-qcore-status__state">OPERATIONAL</p>
-							<p class="qs-qcore-status__meta">Market • Execution • Chain</p>
+							<button type="button" class="qs-sidebar-close" data-bs-toggle="sidebar" aria-label="Close menu">&times;</button>
 						</div>
 						<div class="main-sidemenu">
 							<div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>

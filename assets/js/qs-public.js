@@ -15,7 +15,14 @@
   var nav = document.querySelector('[data-qs-nav]');
   if (toggle && nav) {
     toggle.addEventListener('click', function () {
-      nav.classList.toggle('is-open');
+      var open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', function (event) {
+      var link = event.target && event.target.closest ? event.target.closest('a') : null;
+      if (!link) return;
+      nav.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
     });
   }
 
