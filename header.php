@@ -7,6 +7,7 @@ function qs_nav_active($page) {
     return $currentPage === $page ? ' is-active' : '';
 }
 ?>
+<div class="qs-chrome">
 <div class="qs-banner" data-qs-banner>
     <span>Q-Core platform preview now live — Explore the technology, architecture, and strategies behind Quantum Scalp AI.</span>
     <button type="button" data-qs-banner-close aria-label="Dismiss">&times;</button>
@@ -57,3 +58,4 @@ function qs_nav_active($page) {
         </div>
     </div>
 </header>
+</div>
