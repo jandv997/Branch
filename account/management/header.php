@@ -29,14 +29,14 @@ include_once __DIR__ . '/../inc/qs-theme-boot.php';
             <div class="hor-logo">
                 <a class="main-logo" href="dashboard">
                     <img src="img/logo.png" class="header-brand-img desktop-logo" alt="logo">
-                    <img src="img/logo.png" class="header-brand-img desktop-logo-dark" alt="logo">
+                    <img src="img/logo-white.png" class="header-brand-img desktop-logo-dark" alt="logo">
                 </a>
             </div>
         </div>
         <div class="main-header-center">
             <div class="responsive-logo">
                 <a href="dashboard"><img src="img/logo.png" width="100" class="mobile-logo" alt="logo"></a>
-                <a href="dashboard"><img src="img/logo.png" width="100" class="mobile-logo-dark" alt="logo"></a>
+                <a href="dashboard"><img src="img/logo-white.png" width="100" class="mobile-logo-dark" alt="logo"></a>
             </div>
 
             <form action="users">
@@ -143,8 +143,8 @@ include_once __DIR__ . '/../inc/qs-theme-boot.php';
             <div class="sidemenu-logo">
                 <a class="main-logo" href="dashboard">
                     <img src="img/logo-white.png" class="header-brand-img desktop-logo-dark" style="width:90px" alt="logo">
-                    <img src="img/favicon.png" class="header-brand-img icon-logo-dark" alt="logo">
-                    <img src="img/favicon.png" class="header-brand-img desktop-logo" alt="logo">
+                    <img src="img/favicon-white.png" class="header-brand-img icon-logo-dark" alt="logo">
+                    <img src="img/logo.png" class="header-brand-img desktop-logo" style="width:90px" alt="logo">
                     <img src="img/favicon.png" class="header-brand-img icon-logo" alt="logo">
                 </a>
             </div>

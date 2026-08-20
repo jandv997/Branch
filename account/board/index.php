@@ -65,7 +65,7 @@ include('connection.php');
                                 <div class="row row-sm">
                                     <div class="card-body mt-2 mb-2">
                                         <div class="mobilelogo">
-                                            <img src="img/logo.png"
+                                            <img src="img/logo-white.png"
                                                 class=" d-lg-none header-brand-img text-start float-start mb-4 dark-logo"
                                                 alt="logo">
                                             <img src="img/logo.png"
@@ -124,7 +124,7 @@ include('connection.php');
                         </div>
                         <div class="col-lg-6 col-xl-6 d-none d-lg-block text-center bg-primary details rounded-end-11">
                             <div class="mt-4 pt-4 p-2 pos-relative">
-                                <img src="img/logo.png" class="header-brand-img mb-3 mt-3" alt="logo">
+                                <img src="img/logo-white.png" class="header-brand-img mb-3 mt-3" alt="logo">
                                 <div class="clearfix"></div>
 
 

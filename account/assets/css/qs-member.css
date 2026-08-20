@@ -105,6 +105,24 @@ body.main-body #global-loader { background: #030305; }
 .main-body .main-sidemenu {
   margin-top: 64px !important;
 }
+.main-body .main-logo,
+.main-body .header-logo img,
+.main-body .mobile-logo {
+  height: 36px !important;
+  width: auto !important;
+  max-width: 168px;
+  object-fit: contain;
+}
+.main-body .main-logo.mobile-logo,
+.main-body .main-logo.mobile-dark {
+  max-width: 36px;
+}
+body.main-body.dark-theme .mobile-logo.logo-1 {
+  display: none !important;
+}
+body.main-body.light-theme .mobile-logo.dark-logo-1 {
+  display: none !important;
+}
 .main-body .side-menu {
   margin-top: 0;
   padding-top: 4px;

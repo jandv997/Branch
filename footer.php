@@ -3,7 +3,7 @@
         <div class="qs-footer__grid">
             <div>
                 <a class="qs-logo" href="index">
-                    <img src="assets/img/logo/logo.png" alt="Quantum Scalp">
+                    <img src="assets/img/logo/logo-white.png" alt="Quantum Scalp">
                 </a>
                 <p class="qs-muted" style="margin-top:14px;max-width:280px;">AI-powered crypto arbitrage software. Understand the technology, verify the architecture, then decide.</p>
                 <div class="qs-social">

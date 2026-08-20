@@ -176,7 +176,7 @@ h1, h2, h3, h4 {
   overflow: visible;
 }
 .qs-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; }
-.qs-logo img { height: 40px; width: auto; }
+.qs-logo img { height: 40px; width: auto; max-width: 180px; object-fit: contain; }
 .qs-nav { display: flex; align-items: center; gap: 6px; overflow: visible; }
 .qs-nav a, .qs-more__btn {
   color: #94a3b8; font-size: 14px; font-weight: 400; padding: 8px 12px; border-radius: 6px;

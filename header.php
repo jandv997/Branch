@@ -14,7 +14,7 @@ function qs_nav_active($page) {
 <header class="qs-header">
     <div class="qs-header__inner">
         <a class="qs-logo" href="index.php">
-            <img src="assets/img/logo/logo.png" alt="Quantum Scalp">
+            <img src="assets/img/logo/logo-white.png" alt="Quantum Scalp">
         </a>
         <nav class="qs-nav" data-qs-nav>
             <a class="<?php echo qs_nav_active('technology'); ?>" href="technology.php">Technology</a>
