@@ -22,7 +22,7 @@ $members = array(
     array(
         'name' => 'Leland Melvin',
         'role' => 'Chief Marketing Officer',
-        'photo' => '',
+        'photo' => 'assets/img/team/leland-melvin.jpg',
         'focus' => 'Brand, marketing campaigns, and customer communications.',
         'bio' => array(
             'Leland has served as Chief Marketing Officer since 2025, leading the company’s brand, marketing campaigns, and customer communications.',
@@ -33,7 +33,7 @@ $members = array(
     array(
         'name' => 'Lana Choi',
         'role' => 'Chief Operating Officer',
-        'photo' => '',
+        'photo' => 'assets/img/team/lana-choi.jpg',
         'focus' => 'Day-to-day operations, internal processes, and coordination across teams.',
         'bio' => array(
             'Lana serves as Chief Operating Officer, overseeing the company’s day-to-day operations, internal processes, and coordination across teams.',
@@ -55,7 +55,7 @@ $members = array(
     array(
         'name' => 'Jan Devries',
         'role' => 'Chief Experience Officer',
-        'photo' => '',
+        'photo' => 'assets/img/team/jan-devries.jpg',
         'focus' => 'User and distributor experience across the platform.',
         'bio' => array(
             'Jan serves as Chief Experience Officer, bringing a unique combination of engineering experience and years of experience in network marketing.',
@@ -77,11 +77,15 @@ $members = array(
     <section class="qs-section qs-section--tight">
         <div class="qs-wrap">
             <div class="qs-team">
-                <?php foreach ($members as $member) { ?>
+                <?php foreach ($members as $member) {
+                    $photoPath = isset($member['photo']) ? $member['photo'] : '';
+                    $photoFile = ($photoPath !== '' && is_file(__DIR__ . '/' . $photoPath)) ? $photoPath : '';
+                    $photoSrc = $photoFile !== '' ? $photoFile . '?v=' . filemtime(__DIR__ . '/' . $photoFile) : '';
+                    ?>
                     <article class="qs-team-card">
-                        <div class="qs-team-photo<?php echo empty($member['photo']) ? ' qs-team-photo--empty' : ''; ?>">
-                            <?php if (!empty($member['photo'])) { ?>
-                                <img src="<?php echo htmlspecialchars($member['photo']); ?>" alt="<?php echo htmlspecialchars($member['name']); ?>">
+                        <div class="qs-team-photo<?php echo $photoSrc === '' ? ' qs-team-photo--empty' : ''; ?>">
+                            <?php if ($photoSrc !== '') { ?>
+                                <img src="<?php echo htmlspecialchars($photoSrc); ?>" alt="<?php echo htmlspecialchars($member['name']); ?>">
                             <?php } else { ?>
                                 <span aria-hidden="true"><?php echo $photoPlaceholder; ?></span>
                             <?php } ?>
