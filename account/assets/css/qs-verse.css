@@ -928,8 +928,8 @@ body.light-theme .qs-verse-tab {
   color: #000000 !important;
 }
 
-body.light-theme .qs-verse-tab:hover,
-body.light-theme .qs-verse-tab.is-active {
+body.main-body.light-theme .qs-verse-tab:hover,
+body.main-body.light-theme .qs-verse-tab.is-active {
   color: #000000 !important;
 }
 

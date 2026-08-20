@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420" fill="none" role="img" aria-hidden="true">
+  <defs>
+    <linearGradient id="qsAuthGlow" x1="80" y1="40" x2="500" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2DD4BF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="qsAuthLine" x1="40" y1="300" x2="520" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#5EEAD4"/>
+    </linearGradient>
+  </defs>
+  <rect x="36" y="28" width="488" height="364" rx="28" fill="#08090f" stroke="rgba(255,255,255,0.08)"/>
+  <circle cx="280" cy="210" r="150" fill="url(#qsAuthGlow)"/>
+  <g stroke="rgba(45,212,191,0.18)" stroke-width="1">
+    <circle cx="280" cy="210" r="86"/>
+    <circle cx="280" cy="210" r="124"/>
+  </g>
+  <path d="M214 154a92 92 0 0 1 92-24" stroke="#2DD4BF" stroke-width="14" stroke-linecap="round"/>
+  <path d="M346 266a92 92 0 0 1-92 24" stroke="#2DD4BF" stroke-width="14" stroke-linecap="round"/>
+  <rect x="248" y="186" width="16" height="48" rx="8" fill="#2DD4BF"/>
+  <rect x="272" y="166" width="16" height="68" rx="8" fill="#5EEAD4"/>
+  <rect x="296" y="178" width="16" height="56" rx="8" fill="#2DD4BF"/>
+  <path d="M72 286c38-8 62-54 102-46s48 62 92 54 58-70 104-58 48 48 90 40" stroke="url(#qsAuthLine)" stroke-width="3" stroke-linecap="round"/>
+  <g fill="#2DD4BF">
+    <circle cx="118" cy="268" r="5"/>
+    <circle cx="220" cy="248" r="5"/>
+    <circle cx="314" cy="292" r="5"/>
+    <circle cx="418" cy="236" r="5"/>
+    <circle cx="508" cy="268" r="5"/>
+  </g>
+  <g fill="#fff" font-family="Satoshi, Arial, sans-serif">
+    <text x="64" y="72" font-size="13" fill="#94A3B8">Q-Core</text>
+    <text x="64" y="96" font-size="22" font-weight="700">Live market graph</text>
+  </g>
+  <g transform="translate(368 56)">
+    <rect width="132" height="64" rx="14" fill="rgba(45,212,191,0.1)" stroke="rgba(45,212,191,0.35)"/>
+    <text x="16" y="28" fill="#94A3B8" font-size="11" font-family="Satoshi, Arial, sans-serif">Spread</text>
+    <text x="16" y="48" fill="#2DD4BF" font-size="18" font-weight="700" font-family="ui-monospace, Menlo, monospace">+0.041%</text>
+  </g>
+</svg>

@@ -89,7 +89,7 @@ $allocTotal = $wallet + $staking + $referral;
 		</div>
 		<div class="qs-ov-hero__actions">
 			<a class="qs-ov-btn qs-ov-btn--orange" href="<?php echo $qs_go('marketplace'); ?>"><i class="fe fe-grid"></i> Choose Portfolio</a>
-			<a class="qs-ov-btn qs-ov-btn--blue" href="<?php echo $qs_go('membership'); ?>"><i class="fe fe-award"></i> Membership</a>
+			<a class="qs-ov-btn qs-ov-btn--primary" href="<?php echo $qs_go('membership'); ?>"><i class="fe fe-award"></i> Membership</a>
 			<a class="qs-ov-btn" href="<?php echo $qs_go('make-withdrawal'); ?>"><i class="fe fe-arrow-down-circle"></i> Make Withdrawal</a>
 			<a class="qs-ov-btn" href="<?php echo $qs_go('active-purchase'); ?>"><i class="fe fe-briefcase"></i> Active Portfolios</a>
 			<a class="qs-ov-btn" href="<?php echo $qs_go('referral-bonus'); ?>"><i class="fe fe-users"></i> Referral Bonus</a>

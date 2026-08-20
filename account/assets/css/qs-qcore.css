@@ -702,8 +702,8 @@ body.light-theme .qs-qcore-tab {
   color: #000000 !important;
 }
 
-body.light-theme .qs-qcore-tab:hover,
-body.light-theme .qs-qcore-tab.is-active {
+body.main-body.light-theme .qs-qcore-tab:hover,
+body.main-body.light-theme .qs-qcore-tab.is-active {
   color: #000000 !important;
 }
 

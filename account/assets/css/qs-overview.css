@@ -79,12 +79,12 @@
   color: #16120a !important;
 }
 .qs-ov-btn--orange:hover { background: #ffb53a; color: #16120a !important; }
-.qs-ov-btn--blue {
-  background: #2f4ea8;
-  border-color: #2f4ea8;
-  color: #fff !important;
+.qs-ov-btn--primary {
+  background: #2dd4bf;
+  border-color: #2dd4bf;
+  color: #04110e !important;
 }
-.qs-ov-btn--blue:hover { background: #3b63c9; }
+.qs-ov-btn--primary:hover { background: #5eead4; color: #04110e !important; }
 
 .qs-ov-wallets {
   display: grid;
@@ -200,19 +200,6 @@
 }
 .qs-ov-paystack {
   position: relative;
-  padding: 0 10px 22px 0;
-}
-.qs-ov-paystack::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 92%;
-  height: 78%;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #1e3a8a, #3b6cff);
-  transform: rotate(-7deg);
-  z-index: 0;
 }
 .qs-ov-paycard {
   position: relative;
@@ -510,8 +497,15 @@
 }
 
 .qs-dash-page .side-menu__item.active {
-  background: rgba(76, 141, 255, 0.1) !important;
-  box-shadow: inset 3px 0 0 #4c8dff;
+  background: rgba(45, 212, 191, 0.1) !important;
+  box-shadow: inset 3px 0 0 #2dd4bf;
+}
+body.light-theme.qs-dash-page .side-menu__item.active,
+body.light-theme.qs-dash-page .side-menu__item.active .side-menu__label,
+body.light-theme.qs-dash-page .side-menu__item.active i,
+body.light-theme.qs-dash-page .side-menu__item.active .side-menu__icon {
+  color: #000000 !important;
+  fill: #000000 !important;
 }
 
 @media (max-width: 1199px) {
@@ -558,10 +552,10 @@ body.light-theme .qs-ov-btn--orange {
   border-color: #f5a623;
   color: #16120a !important;
 }
-body.light-theme .qs-ov-btn--blue {
-  background: #2f4ea8;
-  border-color: #2f4ea8;
-  color: #fff !important;
+body.light-theme .qs-ov-btn--primary {
+  background: #2dd4bf;
+  border-color: #2dd4bf;
+  color: #04110e !important;
 }
 
 body.light-theme .qs-ov-card__label,

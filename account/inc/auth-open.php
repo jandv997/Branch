@@ -21,6 +21,9 @@ $authFormClass = !empty($authWide) ? 'qs-auth-form qs-auth-form--wide' : 'qs-aut
                 <a class="qs-auth-brand" href="<?php echo htmlspecialchars($authHome); ?>">
                     <img src="img/logo-white.png" alt="Quantum Scalp">
                 </a>
+                <div class="qs-auth-art" aria-hidden="true">
+                    <img src="img/auth-hero.svg" alt="">
+                </div>
                 <div>
                     <h2>Understand. Verify. Then decide.</h2>
                     <p>Access the Q-Core platform. Trading involves risk — we prioritize transparency over hype.</p>

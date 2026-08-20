@@ -603,15 +603,26 @@ body.light-theme .side-menu__icon {
 body.light-theme .side-menu__item:hover,
 body.light-theme .side-menu__item.active,
 body.light-theme .slide-item:hover,
-body.light-theme .slide-menu a.active {
+body.light-theme .slide-menu a.active,
+body.light-theme a.side-menu__item.active {
   background: rgba(14, 158, 144, 0.08) !important;
-  color: #0f172a !important;
+  color: #000000 !important;
 }
 
 body.light-theme .side-menu__item:hover .side-menu__label,
 body.light-theme .side-menu__item:hover i,
-body.light-theme .side-menu__item.active .side-menu__label {
-  color: #0f172a !important;
+body.light-theme .side-menu__item:hover .side-menu__icon,
+body.light-theme .side-menu__item.active .side-menu__label,
+body.light-theme .side-menu__item.active i,
+body.light-theme .side-menu__item.active .side-menu__icon,
+body.light-theme .side-menu__item.active svg,
+body.light-theme .slide.is-expanded > .side-menu__item .side-menu__label {
+  color: #000000 !important;
+  fill: #000000 !important;
+}
+
+body.light-theme .nav-tabs .nav-link.active {
+  color: #000000 !important;
 }
 
 body.light-theme .qs-page-title,
