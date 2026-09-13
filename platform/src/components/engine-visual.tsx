@@ -61,7 +61,7 @@ export function EngineVisual() {
       <div className="flex items-center justify-between gap-3 border-b border-ink-900/15 pb-3">
         <div>
           <div className="font-display text-lg text-ink-900">Spot blotter</div>
-          <div className="font-mono text-[10px] uppercase tracking-ledger text-ink-400">CEX desk · DEX desk · not a live feed</div>
+          <div className="font-mono text-[10px] uppercase tracking-ledger text-ink-400">CEX · DEX · illustrative tape</div>
         </div>
         <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-ledger text-copper">
           <span className="h-1.5 w-1.5 bg-copper" />
