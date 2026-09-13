@@ -13,6 +13,7 @@ import { walkUpline } from "../../tree";
 import { verifyUserTotp } from "../../auth";
 import { postLedger } from "../../ledger";
 import { protectedProcedure, requireTotp, router } from "../init";
+import { ledgerKind, mergeActivity } from "@/lib/activity";
 
 const cents = z.string().regex(/^\d+$/).transform((s) => BigInt(s));
 
@@ -538,4 +539,92 @@ export const userRouter = router({
   upline: protectedProcedure.query(async ({ ctx }) => {
     return walkUpline(ctx.user.id, 7);
   }),
+
+  activity: protectedProcedure
+    .input(z.object({ take: z.number().min(1).max(200).default(60) }).optional())
+    .query(async ({ ctx, input }) => {
+      const take = input?.take ?? 60;
+      const userId = ctx.user.id;
+      const [ledger, ranks, announcements, notifications, deposits, withdrawals, fundings] = await Promise.all([
+        prisma.ledgerEntry.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take }),
+        prisma.rankEvent.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take: 40 }),
+        prisma.announcement.findMany({ where: { active: true }, orderBy: { createdAt: "desc" }, take: 20 }),
+        prisma.notification.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take: 20 }),
+        prisma.deposit.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take: 20 }),
+        prisma.withdrawal.findMany({ where: { userId }, orderBy: { createdAt: "desc" }, take: 20 }),
+        prisma.portfolioFunding.findMany({
+          where: { portfolio: { userId } },
+          orderBy: { createdAt: "desc" },
+          take: 30,
+          include: { portfolio: { select: { licenseTier: true } } },
+        }),
+      ]);
+
+      const items = mergeActivity(
+        [
+          ...ledger.map((r) => ({
+            id: `led-${r.id}`,
+            at: r.createdAt,
+            kind: ledgerKind(r.type),
+            title: `${r.direction} ${r.wallet} · ${r.type}`,
+            detail: r.refType ? `${r.refType} ${r.refId ?? ""}`.trim() : r.type,
+            amountCents: r.direction === "CREDIT" ? r.amountCents : -r.amountCents,
+            href: "/app/wallets",
+          })),
+          ...ranks.map((r) => ({
+            id: `rank-${r.id}`,
+            at: r.createdAt,
+            kind: "RANK" as const,
+            title: `${r.kind}: ${r.fromRank} → ${r.toRank}`,
+            detail: r.bonusPaid ? "One-time bonus posted to AVAILABLE" : "Rank meter / keep event",
+            amountCents: r.bonusCents > 0n ? r.bonusCents : undefined,
+            href: "/app/ranks",
+          })),
+          ...announcements.map((a) => ({
+            id: `ann-${a.id}`,
+            at: a.createdAt,
+            kind: "SYSTEM" as const,
+            title: a.title,
+            detail: a.body,
+            href: "/app/updates",
+          })),
+          ...notifications.map((n) => ({
+            id: `ntf-${n.id}`,
+            at: n.createdAt,
+            kind: "SYSTEM" as const,
+            title: n.title,
+            detail: n.body,
+          })),
+          ...deposits.map((d) => ({
+            id: `dep-${d.id}`,
+            at: d.createdAt,
+            kind: "DEPOSIT" as const,
+            title: `Deposit ${d.status} · ${d.memo}`,
+            detail: `${d.network} ${d.address ?? ""}`.trim(),
+            amountCents: d.amountCents,
+            href: "/app/deposit",
+          })),
+          ...withdrawals.map((w) => ({
+            id: `wd-${w.id}`,
+            at: w.createdAt,
+            kind: "WITHDRAW" as const,
+            title: `Withdraw ${w.status}`,
+            detail: `${w.network} ${w.address}`,
+            amountCents: w.amountCents,
+            href: "/app/withdraw",
+          })),
+          ...fundings.map((f) => ({
+            id: `fund-${f.id}`,
+            at: f.createdAt,
+            kind: "FUNDING" as const,
+            title: `${f.isNewPortfolio ? "New portfolio" : "Top-up"} · ${f.source}`,
+            detail: `${f.portfolio.licenseTier}${f.source === "DIRECT_DEPOSIT" ? " · creates volume as specified" : " · does not create PSV/TV/tree/FS"}`,
+            amountCents: f.amountCents,
+            href: "/app/portfolios",
+          })),
+        ],
+        take,
+      );
+      return items;
+    }),
 });

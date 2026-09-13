@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Card, Gauge, StatCard } from "@/components/ui";
+import { ActivityFeed } from "@/components/activity-feed";
 import { trpc } from "@/trpc/client";
 import { usd } from "@/lib/utils";
 import { QrImg } from "@/components/qr";
@@ -57,14 +58,29 @@ export default function OverviewPage() {
         </div>
         <QrImg value={d.referralUrl} />
       </Card>
+      <Card>
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm uppercase tracking-widest text-slate-400">Latest updates</h2>
+          <a href="/app/updates" className="text-[10px] uppercase tracking-widest text-cyan">
+            Full timeline →
+          </a>
+        </div>
+        <div className="mt-4">
+          <OverviewActivity />
+        </div>
+      </Card>
       {d.user.licenseStatus !== "ACTIVE" ? (
         <LicenseBuy />
       ) : null}
-      <a href="/app/updates" className="text-xs uppercase tracking-widest text-cyan">
-        Track updates →
-      </a>
     </div>
   );
+}
+
+function OverviewActivity() {
+  const q = trpc.user.activity.useQuery({ take: 8 });
+  if (q.isLoading) return <p className="text-xs text-slate-500">Loading activity…</p>;
+  if (q.isError) return <p className="text-xs text-red-300">{q.error.message}</p>;
+  return <ActivityFeed items={q.data ?? []} empty="No account activity yet." />;
 }
 
 function LicenseBuy() {

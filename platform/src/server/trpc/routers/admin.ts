@@ -17,6 +17,7 @@ import { hashPassword, issueSession, SESSION_COOKIE } from "../../auth";
 import { fundPortfolio } from "../../funding";
 import { cookies } from "next/headers";
 import { financeProcedure, staffProcedure, superProcedure, router } from "../init";
+import { mergeActivity } from "@/lib/activity";
 
 const cents = z.string().regex(/^\d+$/).transform((s) => BigInt(s));
 const walletKind = z.enum(["AVAILABLE", "EARNINGS", "REFERRAL", "STAKING", "PENDING"]);
@@ -708,4 +709,44 @@ export const adminRouter = router({
   announcement: superProcedure
     .input(z.object({ title: z.string(), body: z.string(), active: z.boolean().default(true) }))
     .mutation(async ({ input }) => prisma.announcement.create({ data: input })),
+
+  activity: staffProcedure
+    .input(z.object({ take: z.number().min(1).max(200).default(80) }).optional())
+    .query(async ({ input }) => {
+      const take = input?.take ?? 80;
+      const [jobs, audits, announcements] = await Promise.all([
+        prisma.jobRun.findMany({ orderBy: { startedAt: "desc" }, take: 30 }),
+        prisma.auditLog.findMany({ orderBy: { createdAt: "desc" }, take: 40 }),
+        prisma.announcement.findMany({ orderBy: { createdAt: "desc" }, take: 20 }),
+      ]);
+      return mergeActivity(
+        [
+          ...jobs.map((j) => ({
+            id: `job-${j.id}`,
+            at: j.startedAt,
+            kind: "JOB" as const,
+            title: `${j.name} · ${j.status}`,
+            detail: j.error ?? JSON.stringify(j.stats ?? {}),
+            href: "/admin/jobs",
+          })),
+          ...audits.map((a) => ({
+            id: `aud-${a.id}`,
+            at: a.createdAt,
+            kind: "AUDIT" as const,
+            title: a.action,
+            detail: [a.entity, a.entityId, a.reason, a.ip].filter(Boolean).join(" · "),
+            href: "/admin/audit",
+          })),
+          ...announcements.map((a) => ({
+            id: `ann-${a.id}`,
+            at: a.createdAt,
+            kind: "SYSTEM" as const,
+            title: a.title,
+            detail: a.body,
+            href: "/updates",
+          })),
+        ],
+        take,
+      );
+    }),
 });

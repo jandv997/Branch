@@ -8,6 +8,7 @@ import type { ReactNode } from "react";
 
 const USER_NAV = [
   ["Overview", "/app"],
+  ["Updates", "/app/updates"],
   ["Portfolios", "/app/portfolios"],
   ["Wallets", "/app/wallets"],
   ["Deposit", "/app/deposit"],
@@ -24,11 +25,11 @@ const USER_NAV = [
   ["Profile", "/app/profile"],
   ["Legal", "/app/legal"],
   ["Notifications", "/app/notifications"],
-  ["Updates", "/app/updates"],
 ] as const;
 
 const ADMIN_NAV = [
   ["Command", "/admin"],
+  ["Updates", "/admin/updates"],
   ["Users", "/admin/users"],
   ["Ledger", "/admin/ledger"],
   ["Withdrawals", "/admin/withdrawals"],
@@ -42,7 +43,6 @@ const ADMIN_NAV = [
   ["Audit", "/admin/audit"],
   ["Tickets", "/admin/tickets"],
   ["Roles", "/admin/roles"],
-  ["Updates", "/updates"],
 ] as const;
 
 export function AppShell({
