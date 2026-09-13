@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f3ede1;
-  --fg: #161310;
-  --muted: #5c534a;
-  --line: rgba(22, 19, 16, 0.12);
-  --copper: #c4622d;
+  --bg: #0a0b14;
+  --fg: #fcfcfd;
+  --muted: #9ca3b8;
+  --line: rgba(255, 255, 255, 0.1);
+  --cyan: #22d3ee;
+  --violet: #818cf8;
 }
 
 html,
@@ -26,95 +27,63 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Public: rag-paper sheets. Desk: warm ledger panels. Never glass / glow / teal. */
 .glass {
-  background: #fbf7ee;
-  border: 1px solid rgba(22, 19, 16, 0.12);
-  box-shadow: 3px 3px 0 rgba(22, 19, 16, 0.06);
+  background: rgba(18, 19, 31, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.theme-public,
 .theme-desk {
-  --bg: #14110e;
-  --fg: #f4efe4;
-  --muted: #a39a90;
-  --line: rgba(244, 239, 228, 0.1);
-  background: var(--bg);
-  color: var(--fg);
-}
-
-.theme-desk .glass {
-  background: #1c1713;
-  border: 1px solid rgba(244, 239, 228, 0.1);
-  box-shadow: none;
+  background-color: #0a0b14;
+  color: #fcfcfd;
 }
 
 .theme-public {
-  background-color: #f3ede1;
   background-image:
-    radial-gradient(ellipse at 12% -10%, rgba(196, 98, 45, 0.07), transparent 46%),
-    linear-gradient(180deg, #f6f0e4 0%, #efe6d6 100%);
-  color: #161310;
+    radial-gradient(ellipse 80% 50% at 85% -10%, rgba(34, 211, 238, 0.1), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 20%, rgba(139, 92, 246, 0.1), transparent 50%);
 }
 
-.theme-public .text-white,
-.theme-public .text-slate-100,
-.theme-public .text-slate-200 {
-  color: #161310;
+.grad-cyan {
+  background: linear-gradient(90deg, #22d3ee, #67e8f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.theme-public .text-slate-300,
-.theme-public .text-slate-400 {
-  color: #5c534a;
-}
-
-.theme-public .text-slate-500 {
-  color: #7a7168;
-}
-
-.theme-public .text-red-300 {
-  color: #9f2d20;
-}
-
-.theme-public .border-white\/10,
-.theme-public .border-white\/15 {
-  border-color: rgba(22, 19, 16, 0.12);
-}
-
-.ledger-rules {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 27px,
-    rgba(22, 19, 16, 0.05) 28px
-  );
-}
-
-.theme-desk .ledger-rules {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 27px,
-    rgba(244, 239, 228, 0.04) 28px
-  );
+.grad-violet {
+  background: linear-gradient(90deg, #818cf8, #c4b5fd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .patent-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   letter-spacing: 0.16em;
   font-size: 10px;
   text-transform: uppercase;
-  color: #c4622d;
-  border: 1px solid rgba(196, 98, 45, 0.55);
-  padding: 5px 9px;
-  border-radius: 0;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+
+.patent-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #22d3ee;
 }
 
 .kicker {
-  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 11px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #c4622d;
+  color: #6b728c;
 }
 
 .hairline {
@@ -127,8 +96,6 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c4b39a;
-}
-.theme-desk ::-webkit-scrollbar-thumb {
-  background: #3d342c;
+  background: #252638;
+  border-radius: 8px;
 }

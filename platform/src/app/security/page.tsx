@@ -1,19 +1,45 @@
-import { PublicChrome, PatentBadge } from "@/components/brand";
+import { PageIntro, PublicChrome } from "@/components/brand";
+import { Fingerprint, KeyRound, Shield, Timer } from "lucide-react";
+
+const FEATURES = [
+  [
+    Shield,
+    "2FA before the first withdrawal",
+    "Time-based one-time codes are mandatory before any withdrawal can be requested, with single-use backup codes issued at setup.",
+  ],
+  [
+    Timer,
+    "24-hour whitelist lock",
+    "A newly added withdrawal address cannot be paid for 24 hours. Existing addresses continue to work during the lock.",
+  ],
+  [
+    KeyRound,
+    "Session and device visibility",
+    "Active sessions, sign-in IP history and device fingerprints are visible in your account, and any session can be revoked.",
+  ],
+  [
+    Fingerprint,
+    "Identity verification gates",
+    "Identity documents are required before withdrawals above the configured threshold, and are stored in restricted object storage.",
+  ],
+] as const;
 
 export default function SecurityPage() {
   return (
     <PublicChrome>
-      <main className="mx-auto max-w-3xl px-5 py-16">
-        <PatentBadge />
-        <h1 className="mt-4 font-display text-4xl tracking-tight">Security</h1>
-        <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink-600">
-          <li>Email/password sessions in Redis + database, hashed tokens.</li>
-          <li>TOTP 2FA + hashed backup codes. 2FA is mandatory before the first withdrawal.</li>
-          <li>Whitelist addresses unlock after 24 hours.</li>
-          <li>KYC gate above a configurable withdrawal threshold.</li>
-          <li>Rate limits and login lockouts. Helmet-style headers. Admin IP allowlist.</li>
-          <li>Secrets are never logged. Ledger CSV export redacts 2FA material (it is not stored on ledger rows).</li>
-        </ul>
+      <PageIntro
+        kicker="Security"
+        title="Controls on the account, the money and the operators"
+        body="Every balance change writes an immutable ledger row and an audit row. Administrative actions record the operator, the before and after values, the reason and the IP address."
+      />
+      <main className="mx-auto grid max-w-6xl gap-4 px-5 pb-20 md:grid-cols-2">
+        {FEATURES.map(([Icon, title, body]) => (
+          <article key={title} className="glass rounded-2xl p-6">
+            <Icon className="h-5 w-5 text-cyan" />
+            <h2 className="mt-4 text-lg font-semibold text-white">{title}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">{body}</p>
+          </article>
+        ))}
       </main>
     </PublicChrome>
   );

@@ -15,6 +15,10 @@ export function usd(cents: bigint | number | string | undefined | null): string 
   return `${sign}$${w.toLocaleString("en-US")}.${f}`;
 }
 
+export function usdPlain(cents: bigint | number | string | undefined | null): string {
+  return usd(cents).replace(/\.00$/, "");
+}
+
 export function bpsLabel(bps: number): string {
   return `up to ${(bps / 100).toFixed(2)}%`;
 }

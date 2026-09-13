@@ -17,9 +17,11 @@ function RegisterForm() {
     onError: (e) => setErr(e.message),
   });
   return (
-    <Card className="mx-auto w-full max-w-md">
-      <h1 className="font-display text-3xl">Create account</h1>
-      <p className="mt-1 text-xs text-ink-400">Passive users can complete license → DD portfolio → credits → withdraw with zero team.</p>
+    <Card className="mx-auto w-full max-w-md p-8">
+      <h1 className="text-2xl font-semibold text-white">Create account</h1>
+      <p className="mt-1 text-sm text-slate-500">
+        A passive license holder can complete license → direct-deposit portfolio → credits → withdraw with zero team.
+      </p>
       <div className="mt-6 space-y-4">
         <div>
           <Label>Email</Label>
@@ -29,7 +31,7 @@ function RegisterForm() {
           <Label>Password (min 10)</Label>
           <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        {err ? <p className="text-sm text-red-800">{err}</p> : null}
+        {err ? <p className="text-sm text-red-300">{err}</p> : null}
         <Button
           className="w-full"
           disabled={mut.isPending}
@@ -37,7 +39,7 @@ function RegisterForm() {
             mut.mutate({ email, password, sponsorCode: params.get("ref") ?? undefined })
           }
         >
-          Register
+          Create account
         </Button>
       </div>
     </Card>

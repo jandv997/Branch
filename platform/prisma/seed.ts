@@ -126,10 +126,20 @@ async function main() {
       slug: "faq",
       title: "FAQ",
       body: [
-        { q: "Are daily credits guaranteed?", a: "No. They are capped (“up to”) and never a guaranteed ROI." },
+        { q: "What exactly am I buying?", a: "A monthly software license plus optional access to a 12-month funded portfolio. License fees buy software access. They are not an investment product." },
+        { q: "Is the daily percentage a guaranteed return?", a: "No. Credits are capped (“up to”) at the lesser of the engine rate and the license daily cap. They are not a guaranteed return. Actual credits depend on engine performance and may be zero." },
+        { q: "Do I need a team to use the platform?", a: "No. A passive license holder can complete license → direct-deposit portfolio → credits → withdraw with zero team." },
+        { q: "Which funding sources create referral volume?", a: "Only DIRECT_DEPOSIT funding creates PSV, TV, tree commission, or Fast Start." },
       ],
     },
-    update: {},
+    update: {
+      body: [
+        { q: "What exactly am I buying?", a: "A monthly software license plus optional access to a 12-month funded portfolio. License fees buy software access. They are not an investment product." },
+        { q: "Is the daily percentage a guaranteed return?", a: "No. Credits are capped (“up to”) at the lesser of the engine rate and the license daily cap. They are not a guaranteed return. Actual credits depend on engine performance and may be zero." },
+        { q: "Do I need a team to use the platform?", a: "No. A passive license holder can complete license → direct-deposit portfolio → credits → withdraw with zero team." },
+        { q: "Which funding sources create referral volume?", a: "Only DIRECT_DEPOSIT funding creates PSV, TV, tree commission, or Fast Start." },
+      ],
+    },
   });
 
   await prisma.announcement.upsert({

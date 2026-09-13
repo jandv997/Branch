@@ -21,9 +21,9 @@ function LoginForm() {
     onError: (e) => setErr(e.message),
   });
   return (
-    <Card className="mx-auto w-full max-w-md">
-      <h1 className="font-display text-3xl">Sign in</h1>
-      <p className="mt-1 text-xs text-ink-400">Patent Pending · software license access</p>
+    <Card className="mx-auto w-full max-w-md p-8">
+      <h1 className="text-2xl font-semibold text-white">Sign in</h1>
+      <p className="mt-1 text-sm text-slate-500">Patent Pending · software license access</p>
       <div className="mt-6 space-y-4">
         <div>
           <Label>Email</Label>
@@ -37,18 +37,18 @@ function LoginForm() {
           <Label>2FA (if enabled)</Label>
           <Input value={totp} onChange={(e) => setTotp(e.target.value)} placeholder="000000" />
         </div>
-        {err ? <p className="text-sm text-red-800">{err}</p> : null}
+        {err ? <p className="text-sm text-red-300">{err}</p> : null}
         <Button
           className="w-full"
           onClick={() => login.mutate({ email, password, totp: totp || undefined })}
           disabled={login.isPending}
         >
-          {login.isPending ? "Signing in…" : "Enter"}
+          {login.isPending ? "Signing in…" : "Sign in"}
         </Button>
-        <a href="/forgot" className="block text-center text-xs text-ink-400">
+        <a href="/forgot" className="block text-center text-xs text-slate-500">
           Forgot password
         </a>
-        {params.get("ref") ? <p className="text-xs text-ink-400">Sponsor ref captured at register.</p> : null}
+        {params.get("ref") ? <p className="text-xs text-slate-500">Sponsor ref captured at register.</p> : null}
       </div>
     </Card>
   );

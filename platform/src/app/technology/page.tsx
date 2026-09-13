@@ -1,49 +1,51 @@
-import { PublicChrome, PatentBadge } from "@/components/brand";
+import { PageIntro, PublicChrome } from "@/components/brand";
 
-const PIPELINE = [
-  ["01", "Detect", "Market data streams enter as a single tape across CEX and DEX spot venues."],
-  ["02", "Analyze", "Pricing, liquidity, fees, and inventory are compared on the same asset."],
-  ["03", "Evaluate", "Candidates are scored against risk parameters. Unqualified prints are skipped."],
-  ["04", "Execute", "Qualifying spot routes run to programmed logic."],
-  ["05", "Monitor", "Fills and posted credits are reconciled. Credits are always min(engine, license cap)."],
+const STEPS = [
+  [
+    "01",
+    "Venue ingest",
+    "Order books, pool reserves, fee schedules, withdrawal states and settlement latency are polled continuously from every connected decentralised and centralised spot venue.",
+  ],
+  [
+    "02",
+    "Dislocation scoring",
+    "Candidate pairs are scored on realisable spread after fees, slippage and transfer cost. Anything that cannot close inside the spread window is discarded before sizing.",
+  ],
+  [
+    "03",
+    "Neutral sizing",
+    "Each candidate is sized so the long and short legs offset. Net directional exposure is targeted at zero — the position seeks the spread, not the trend.",
+  ],
+  [
+    "04",
+    "Paired execution",
+    "Legs are submitted together with abort logic on partial fill, venue degradation or spread collapse. Failed legs are unwound rather than held.",
+  ],
+  [
+    "05",
+    "Daily settlement",
+    "The engine rate for the period is applied to each active portfolio at the lower of engine rate and license cap. An inactive license credits zero for that day.",
+  ],
 ] as const;
 
 export default function TechnologyPage() {
   return (
     <PublicChrome>
-      <main className="mx-auto max-w-6xl px-5 py-16">
-        <PatentBadge />
-        <h1 className="mt-4 font-display text-4xl tracking-tight md:text-5xl">The desk, written as software.</h1>
-        <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-500">
-          Qorvex routes a deterministic pipeline across CEX and DEX spot venues. The engine rate is an admin-set
-          default in v1. Credits posted to user portfolios are always min(engine rate, license daily cap) and are
-          expressed as “up to”. Not a guaranteed return.
-        </p>
-        <div className="mt-12 grid gap-px bg-ink-900/10 md:grid-cols-5">
-          {PIPELINE.map(([n, title, body]) => (
-            <article key={n} className="bg-paper-50 p-5">
-              <div className="kicker">{n}</div>
-              <h2 className="mt-3 font-display text-2xl">{title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-ink-500">{body}</p>
-            </article>
-          ))}
-        </div>
-        <section className="mt-16 grid gap-8 md:grid-cols-2">
-          <div className="border border-ink-900/12 bg-paper-50 p-6">
-            <p className="kicker">What this is</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-600">
-              A monthly software license plus a twelve-month portfolio. Payouts are computed in the backend policy
-              module. The UI never invents them.
-            </p>
-          </div>
-          <div className="border border-ink-900/12 bg-paper-50 p-6">
-            <p className="kicker">What this is not</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-600">
-              Not a guaranteed ROI, not risk-free, not riskless arb. Trading involves risk of loss. Daily percentages
-              shown are caps.
-            </p>
-          </div>
-        </section>
+      <PageIntro
+        kicker="Technology"
+        title="A single order graph over fragmented spot liquidity"
+        body="Qorvex AI is patent-pending infrastructure. It treats decentralised pools and centralised spot books as one venue set and only acts when the same asset is priced two ways by enough to clear all costs."
+      />
+      <main className="mx-auto max-w-6xl space-y-3 px-5 pb-20">
+        {STEPS.map(([n, title, body]) => (
+          <article key={n} className="glass flex gap-5 rounded-2xl p-6">
+            <div className="font-mono text-sm text-cyan">{n}</div>
+            <div>
+              <h2 className="text-lg font-semibold text-white">{title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-400">{body}</p>
+            </div>
+          </article>
+        ))}
       </main>
     </PublicChrome>
   );

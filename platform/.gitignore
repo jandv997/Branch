@@ -10,3 +10,4 @@ uploads
 playwright-report
 test-results
 tsconfig.tsbuildinfo
+dump.rdb

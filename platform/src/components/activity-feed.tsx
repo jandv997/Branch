@@ -25,25 +25,25 @@ export function ActivityFeed({
   empty?: string;
 }) {
   if (!items.length) {
-    return <p className="text-sm text-ink-400">{empty}</p>;
+    return <p className="text-sm text-slate-500">{empty}</p>;
   }
   return (
     <ol className="space-y-2">
       {items.map((i) => {
         const inner = (
-          <div className="glass flex items-start justify-between gap-4 rounded-none p-4">
+          <div className="glass flex items-start justify-between gap-4 rounded-2xl p-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <span className="border border-copper/40 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-ledger text-copper">
+                <span className="rounded-md border border-cyan/30 px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-ledger text-cyan">
                   {KIND_LABEL[i.kind]}
                 </span>
-                <span className="font-mono text-[10px] text-ink-400">{new Date(i.at).toISOString().replace("T", " ").slice(0, 19)}</span>
+                <span className="font-mono text-[10px] text-slate-500">{new Date(i.at).toISOString().replace("T", " ").slice(0, 19)}</span>
               </div>
-              <div className="mt-1 truncate text-sm">{i.title}</div>
-              <p className="mt-1 line-clamp-2 text-xs text-ink-400">{i.detail}</p>
+              <div className="mt-1 truncate text-sm text-white">{i.title}</div>
+              <p className="mt-1 line-clamp-2 text-xs text-slate-400">{i.detail}</p>
             </div>
             {i.amountCents !== undefined ? (
-              <div className="shrink-0 font-mono text-sm text-copper">{usd(i.amountCents)}</div>
+              <div className="shrink-0 font-mono text-sm text-cyan">{usd(i.amountCents)}</div>
             ) : null}
           </div>
         );
