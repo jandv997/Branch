@@ -24,6 +24,7 @@ const USER_NAV = [
   ["Profile", "/app/profile"],
   ["Legal", "/app/legal"],
   ["Notifications", "/app/notifications"],
+  ["Updates", "/app/updates"],
 ] as const;
 
 const ADMIN_NAV = [
@@ -41,6 +42,7 @@ const ADMIN_NAV = [
   ["Audit", "/admin/audit"],
   ["Tickets", "/admin/tickets"],
   ["Roles", "/admin/roles"],
+  ["Updates", "/updates"],
 ] as const;
 
 export function AppShell({

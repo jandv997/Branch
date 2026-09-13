@@ -60,6 +60,9 @@ export default function OverviewPage() {
       {d.user.licenseStatus !== "ACTIVE" ? (
         <LicenseBuy />
       ) : null}
+      <a href="/app/updates" className="text-xs uppercase tracking-widest text-cyan">
+        Track updates →
+      </a>
     </div>
   );
 }

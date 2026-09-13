@@ -132,6 +132,32 @@ async function main() {
     update: {},
   });
 
+  await prisma.announcement.upsert({
+    where: { id: "seed-launch" },
+    create: {
+      id: "seed-launch",
+      title: "Platform online — policy-backed ledger",
+      body: "Qorvex AI TypeScript stack is live in /platform. Daily credits are capped (“up to”). Tree + Fast Start never exceed 25% of a deposit. Wallet funding does not create PSV/TV.",
+      active: true,
+    },
+    update: {},
+  });
+  await prisma.cmsPage.upsert({
+    where: { slug: "updates" },
+    create: {
+      slug: "updates",
+      title: "Updates",
+      body: [
+        {
+          title: "v1 compensation engine",
+          at: "2026-09-13",
+          body: "Tree, Fast Start, ranks, and daily credits all post through src/domain/comp. Track job runs and announcements on /updates.",
+        },
+      ],
+    },
+    update: {},
+  });
+
   console.log("Seeded Qorvex AI");
   console.log("  superadmin@qorvex.local /", password);
   console.log("  finance@qorvex.local /", password);

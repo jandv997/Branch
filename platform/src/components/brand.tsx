@@ -15,6 +15,7 @@ export function SiteHeader() {
     ["Licenses", "/licenses"],
     ["Compensation", "/compensation"],
     ["Ranks", "/ranks"],
+    ["Updates", "/updates"],
     ["Security", "/security"],
     ["FAQ", "/faq"],
   ] as const;
