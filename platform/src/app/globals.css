@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #07080c;
+  --fg: #e8edf5;
+  --muted: #8b95a7;
+  --line: rgba(255, 255, 255, 0.08);
+  --cyan: #22d3ee;
+  --violet: #8b5cf6;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100%;
+}
+
+body {
+  font-feature-settings: "ss01" on, "tnum" on;
+}
+
+.font-mono,
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(22, 26, 34, 0.85), rgba(16, 19, 26, 0.72));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.04), 0 24px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.patent-badge {
+  letter-spacing: 0.18em;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #22d3ee;
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3344;
+  border-radius: 8px;
+}

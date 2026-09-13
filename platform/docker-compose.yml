@@ -1,0 +1,66 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: qorvex
+      POSTGRES_PASSWORD: qorvex
+      POSTGRES_DB: qorvex
+    ports:
+      - "5432:5432"
+    volumes:
+      - qorvex_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qorvex"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://qorvex:qorvex@postgres:5432/qorvex?schema=public
+      REDIS_URL: redis://redis:6379
+      AUTH_SECRET: ${AUTH_SECRET:-dev-auth-secret-change-me-please-32chars}
+      APP_URL: ${APP_URL:-http://localhost:3000}
+      PAYMENT_ADAPTER: dev
+      SEED_PASSWORD: ${SEED_PASSWORD:-Qorvex!demo2026}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts && node server.js"]
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://qorvex:qorvex@postgres:5432/qorvex?schema=public
+      REDIS_URL: redis://redis:6379
+      AUTH_SECRET: ${AUTH_SECRET:-dev-auth-secret-change-me-please-32chars}
+      APP_URL: ${APP_URL:-http://localhost:3000}
+      PAYMENT_ADAPTER: dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: ["npx", "tsx", "src/worker.ts"]
+
+volumes:
+  qorvex_pg:
