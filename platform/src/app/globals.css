@@ -3,22 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --bg: #07080c;
-  --fg: #e8edf5;
-  --muted: #8b95a7;
-  --line: rgba(255, 255, 255, 0.08);
-  --cyan: #22d3ee;
-  --violet: #8b5cf6;
+  --bg: #f3ede1;
+  --fg: #161310;
+  --muted: #5c534a;
+  --line: rgba(22, 19, 16, 0.12);
+  --copper: #c4622d;
 }
 
 html,
 body {
-  background: var(--bg);
-  color: var(--fg);
   min-height: 100%;
 }
 
 body {
+  background: var(--bg);
+  color: var(--fg);
   font-feature-settings: "ss01" on, "tnum" on;
 }
 
@@ -27,28 +26,100 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Public: rag-paper sheets. Desk: warm ledger panels. Never glass / glow / teal. */
 .glass {
-  background: linear-gradient(180deg, rgba(22, 26, 34, 0.85), rgba(16, 19, 26, 0.72));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.04), 0 24px 60px rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(16px);
+  background: #fbf7ee;
+  border: 1px solid rgba(22, 19, 16, 0.12);
+  box-shadow: 3px 3px 0 rgba(22, 19, 16, 0.06);
 }
 
-.grid-bg {
+.theme-desk {
+  --bg: #14110e;
+  --fg: #f4efe4;
+  --muted: #a39a90;
+  --line: rgba(244, 239, 228, 0.1);
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.theme-desk .glass {
+  background: #1c1713;
+  border: 1px solid rgba(244, 239, 228, 0.1);
+  box-shadow: none;
+}
+
+.theme-public {
+  background-color: #f3ede1;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 48px 48px;
+    radial-gradient(ellipse at 12% -10%, rgba(196, 98, 45, 0.07), transparent 46%),
+    linear-gradient(180deg, #f6f0e4 0%, #efe6d6 100%);
+  color: #161310;
+}
+
+.theme-public .text-white,
+.theme-public .text-slate-100,
+.theme-public .text-slate-200 {
+  color: #161310;
+}
+
+.theme-public .text-slate-300,
+.theme-public .text-slate-400 {
+  color: #5c534a;
+}
+
+.theme-public .text-slate-500 {
+  color: #7a7168;
+}
+
+.theme-public .text-red-300 {
+  color: #9f2d20;
+}
+
+.theme-public .border-white\/10,
+.theme-public .border-white\/15 {
+  border-color: rgba(22, 19, 16, 0.12);
+}
+
+.ledger-rules {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgba(22, 19, 16, 0.05) 28px
+  );
+}
+
+.theme-desk .ledger-rules {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgba(244, 239, 228, 0.04) 28px
+  );
 }
 
 .patent-badge {
-  letter-spacing: 0.18em;
+  display: inline-block;
+  letter-spacing: 0.16em;
   font-size: 10px;
   text-transform: uppercase;
-  color: #22d3ee;
-  border: 1px solid rgba(34, 211, 238, 0.35);
-  padding: 4px 10px;
-  border-radius: 999px;
+  color: #c4622d;
+  border: 1px solid rgba(196, 98, 45, 0.55);
+  padding: 5px 9px;
+  border-radius: 0;
+}
+
+.kicker {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c4622d;
+}
+
+.hairline {
+  height: 1px;
+  background: var(--line);
 }
 
 ::-webkit-scrollbar {
@@ -56,6 +127,8 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a3344;
-  border-radius: 8px;
+  background: #c4b39a;
+}
+.theme-desk ::-webkit-scrollbar-thumb {
+  background: #3d342c;
 }

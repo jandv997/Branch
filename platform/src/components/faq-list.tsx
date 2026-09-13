@@ -11,9 +11,9 @@ export function FaqList() {
   return (
     <div className="mt-8 space-y-4">
       {items.map((f) => (
-        <div key={f.q} className="glass rounded-xl p-5">
-          <h2 className="text-white">{f.q}</h2>
-          <p className="mt-2 text-sm text-slate-400">{f.a}</p>
+        <div key={f.q} className="border border-ink-900/12 bg-paper-50 p-5">
+          <h2 className="font-display text-xl text-ink-900">{f.q}</h2>
+          <p className="mt-2 text-sm text-ink-500">{f.a}</p>
         </div>
       ))}
     </div>

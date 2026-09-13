@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { TRPCProvider } from "@/trpc/client";
 import { Toaster } from "sonner";
+
+const display = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+});
 
 const sans = IBM_Plex_Sans({
   subsets: ["latin"],
@@ -24,11 +31,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${sans.variable} ${mono.variable}`}>
-      <body className="font-sans antialiased bg-graphite-950 text-slate-100">
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+      <body className="font-sans antialiased bg-paper-100 text-ink-900">
         <TRPCProvider>
           {children}
-          <Toaster theme="dark" />
+          <Toaster theme="light" />
         </TRPCProvider>
       </body>
     </html>

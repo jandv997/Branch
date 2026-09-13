@@ -6,42 +6,73 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        graphite: {
-          950: "#07080C",
-          900: "#0B0D12",
-          850: "#10131A",
-          800: "#161A22",
-          700: "#1E2430",
-          600: "#2A3344",
-          500: "#3D4A5C",
-          400: "#6B7789",
-          300: "#9AA6B8",
+        paper: {
+          50: "#FBF7EE",
+          100: "#F3EDE1",
+          200: "#E8DFD0",
+          300: "#D9CBB6",
+          400: "#C4B39A",
         },
+        ink: {
+          950: "#100E0C",
+          900: "#161310",
+          800: "#1F1A16",
+          700: "#2A241E",
+          600: "#3D342C",
+          500: "#5C534A",
+          400: "#7A7168",
+          300: "#A39A90",
+          200: "#C9C1B6",
+          100: "#E8E0D4",
+        },
+        copper: {
+          DEFAULT: "#C4622D",
+          dim: "#9A4A22",
+          bright: "#E07A3D",
+          ink: "#3D1F12",
+        },
+        // Alias so existing `text-cyan` / `bg-cyan` map to copper, not Quantum Scalp teal.
         cyan: {
-          DEFAULT: "#22D3EE",
-          dim: "#0891B2",
-          glow: "rgba(34, 211, 238, 0.18)",
+          DEFAULT: "#C4622D",
+          dim: "#9A4A22",
+          glow: "rgba(196, 98, 45, 0.16)",
         },
         violet: {
-          DEFAULT: "#8B5CF6",
-          dim: "#6D28D9",
-          glow: "rgba(139, 92, 246, 0.16)",
+          DEFAULT: "#8A5A3C",
+          dim: "#6B4030",
+          glow: "rgba(138, 90, 60, 0.14)",
+        },
+        graphite: {
+          950: "#14110E",
+          900: "#1C1713",
+          850: "#221C17",
+          800: "#2A241E",
+          700: "#3D342C",
+          600: "#5C534A",
+          500: "#7A7168",
+          400: "#A39A90",
+          300: "#C9C1B6",
         },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        glass: "0 0 0 1px rgba(255,255,255,0.06), 0 20px 50px rgba(0,0,0,0.45)",
-        glow: "0 0 40px rgba(34,211,238,0.12)",
+        stamp: "3px 3px 0 rgba(22,19,16,0.08)",
+        desk: "inset 0 1px 0 rgba(244,239,228,0.04)",
       },
-      backgroundImage: {
-        grid: "linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)",
+      letterSpacing: {
+        ledger: "0.22em",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function themeDeskVariant({ addVariant }: { addVariant: (name: string, value: string) => void }) {
+      addVariant("theme-desk", ".theme-desk &");
+    },
+  ],
 };
 
 export default config;

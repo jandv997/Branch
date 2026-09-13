@@ -1,72 +1,82 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
+const CEX = [
+  ["BTC-USDT", "BINANCE", "OKX", 12],
+  ["ETH-USDT", "COINBASE", "KRAKEN", 8],
+  ["SOL-USDT", "OKX", "BYBIT", 15],
+  ["XRP-USDT", "KRAKEN", "GATE", 6],
+  ["LINK-USDT", "BINANCE", "COINBASE", 9],
+  ["AVAX-USDT", "BYBIT", "OKX", 11],
+];
+
+const DEX = [
+  ["WETH/USDC", "UNISWAP", "SUSHISWAP", 14],
+  ["WBTC/USDT", "CURVE", "UNISWAP", 7],
+  ["SOL/USDC", "ORCA", "RAYDIUM", 18],
+  ["ARB/USDC", "CAMELOT", "UNISWAP", 10],
+  ["OP/USDT", "VELODROME", "UNISWAP", 5],
+  ["MATIC/USDC", "QUICKSWAP", "UNISWAP", 8],
+];
+
+function Tape({
+  title,
+  rows,
+}: {
+  title: string;
+  rows: typeof CEX;
+}) {
+  return (
+    <div className="min-w-0 flex-1">
+      <div className="flex items-center justify-between border-b border-ink-900/15 pb-2">
+        <span className="kicker">{title}</span>
+        <span className="font-mono text-[10px] text-ink-400">bps · illustrative</span>
+      </div>
+      <ol className="mt-3 space-y-2">
+        {rows.map(([pair, a, b, bps], i) => (
+          <li key={pair} className="grid grid-cols-[1fr_auto] items-baseline gap-3 font-mono text-[12px]">
+            <div>
+              <div className="text-ink-900">{pair}</div>
+              <div className="text-[10px] uppercase tracking-wide text-ink-400">
+                {a} → {b}
+              </div>
+            </div>
+            <div className="text-right">
+              <span className="text-copper">+{bps}</span>
+              <span className="ml-1 text-[10px] text-ink-400">bps</span>
+              <div
+                className="mt-1 h-px bg-copper"
+                style={{ width: `${28 + ((i * 13) % 40)}px`, marginLeft: "auto", animationDelay: `${i * 120}ms` }}
+              />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
 
 export function EngineVisual() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, el.clientWidth / el.clientHeight, 0.1, 100);
-    camera.position.set(0, 0, 6);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(el.clientWidth, el.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    el.appendChild(renderer.domElement);
-
-    const group = new THREE.Group();
-    scene.add(group);
-    const rings = [1.4, 2.1, 2.8];
-    rings.forEach((r, i) => {
-      const geo = new THREE.TorusGeometry(r, 0.012, 8, 128);
-      const mat = new THREE.MeshBasicMaterial({
-        color: i === 1 ? 0x8b5cf6 : 0x22d3ee,
-        transparent: true,
-        opacity: 0.7,
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      mesh.rotation.x = Math.PI / 2.6 + i * 0.2;
-      group.add(mesh);
-    });
-    const core = new THREE.Mesh(
-      new THREE.SphereGeometry(0.35, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0x22d3ee }),
-    );
-    group.add(core);
-    const dots = new THREE.Group();
-    for (let i = 0; i < 24; i++) {
-      const d = new THREE.Mesh(
-        new THREE.SphereGeometry(0.03, 8, 8),
-        new THREE.MeshBasicMaterial({ color: i % 2 ? 0x8b5cf6 : 0x22d3ee }),
-      );
-      const a = (i / 24) * Math.PI * 2;
-      d.position.set(Math.cos(a) * 2.1, Math.sin(a * 1.3) * 0.4, Math.sin(a) * 2.1);
-      dots.add(d);
-    }
-    group.add(dots);
-
-    let raf = 0;
-    const tick = () => {
-      group.rotation.y += 0.003;
-      dots.rotation.y -= 0.005;
-      renderer.render(scene, camera);
-      raf = requestAnimationFrame(tick);
-    };
-    tick();
-    const onResize = () => {
-      camera.aspect = el.clientWidth / el.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(el.clientWidth, el.clientHeight);
-    };
-    window.addEventListener("resize", onResize);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", onResize);
-      renderer.dispose();
-      el.removeChild(renderer.domElement);
-    };
-  }, []);
-  return <div ref={ref} className="h-[420px] w-full" aria-hidden />;
+  return (
+    <div className="ledger-rules border border-ink-900/15 bg-paper-50 p-5 shadow-stamp" aria-hidden>
+      <div className="flex items-center justify-between gap-3 border-b border-ink-900/15 pb-3">
+        <div>
+          <div className="font-display text-lg text-ink-900">Spot blotter</div>
+          <div className="font-mono text-[10px] uppercase tracking-ledger text-ink-400">CEX desk · DEX desk · not a live feed</div>
+        </div>
+        <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-ledger text-copper">
+          <span className="h-1.5 w-1.5 bg-copper" />
+          Engine operational
+        </span>
+      </div>
+      <div className="mt-5 flex flex-col gap-8 md:flex-row">
+        <Tape title="CEX" rows={CEX} />
+        <div className="hidden w-px bg-ink-900/10 md:block" />
+        <Tape title="DEX" rows={DEX} />
+      </div>
+      <p className="mt-5 font-mono text-[10px] leading-relaxed text-ink-400">
+        Figures are typeset samples of spread structure. Credits posted to a book are always min(engine, license cap)
+        and are expressed as “up to”.
+      </p>
+    </div>
+  );
 }

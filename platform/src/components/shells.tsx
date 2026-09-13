@@ -57,24 +57,25 @@ export function AppShell({
   const pathname = usePathname();
   const nav = kind === "admin" ? ADMIN_NAV : USER_NAV;
   return (
-    <div className="grid min-h-screen grid-cols-1 md:grid-cols-[240px_1fr] bg-graphite-950">
-      <aside className="border-r border-white/10 bg-graphite-900/70">
-        <div className="flex items-center justify-between px-4 py-4">
-          <Link href={kind === "admin" ? "/admin" : "/app"} className="text-xs uppercase tracking-[0.25em]">
-            Qorvex {kind === "admin" ? "Admin" : "BO"}
+    <div className="theme-desk grid min-h-screen grid-cols-1 bg-ink-950 text-paper-100 md:grid-cols-[232px_1fr]">
+      <aside className="border-r border-paper-100/10 bg-ink-900">
+        <div className="flex items-center justify-between border-b border-paper-100/10 px-4 py-4">
+          <Link href={kind === "admin" ? "/admin" : "/app"} className="font-display text-lg tracking-tight">
+            Qorvex <span className="font-sans text-[10px] uppercase tracking-ledger text-copper">{kind === "admin" ? "Admin" : "Desk"}</span>
           </Link>
           <PatentBadge />
         </div>
-        <nav className="flex flex-col px-2 pb-8">
-          {nav.map(([label, href]) => (
+        <nav className="flex flex-col px-2 py-3 pb-8">
+          {nav.map(([label, href], i) => (
             <Link
               key={href}
               href={href}
               className={cn(
-                "rounded-md px-3 py-2 text-xs uppercase tracking-widest text-slate-400 hover:bg-white/5 hover:text-cyan",
-                pathname === href && "bg-white/5 text-cyan",
+                "flex items-baseline gap-3 px-3 py-2 text-[13px] text-ink-300 hover:bg-ink-800 hover:text-paper-100",
+                pathname === href && "bg-ink-800 text-copper",
               )}
             >
+              <span className="w-5 font-mono text-[10px] text-ink-400">{String(i + 1).padStart(2, "0")}</span>
               {label}
             </Link>
           ))}
@@ -82,11 +83,11 @@ export function AppShell({
       </aside>
       <div className="flex min-h-screen flex-col">
         {impersonating ? (
-          <div className="bg-red-600 px-4 py-2 text-center text-xs font-medium uppercase tracking-widest text-white">
+          <div className="bg-red-800 px-4 py-2 text-center text-xs font-medium uppercase tracking-ledger text-paper-50">
             View-as impersonation active — all actions are audited
           </div>
         ) : null}
-        <main className="grid-bg flex-1 px-6 py-6">{children}</main>
+        <main className="ledger-rules flex-1 px-6 py-6">{children}</main>
         <BoFooter />
       </div>
     </div>

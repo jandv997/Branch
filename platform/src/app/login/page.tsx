@@ -1,6 +1,6 @@
 "use client";
 
-import { SiteFooter, SiteHeader } from "@/components/brand";
+import { PublicChrome } from "@/components/brand";
 import { Button, Card, Input, Label } from "@/components/ui";
 import { trpc } from "@/trpc/client";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -22,8 +22,8 @@ function LoginForm() {
   });
   return (
     <Card className="mx-auto w-full max-w-md">
-      <h1 className="text-xl">Sign in</h1>
-      <p className="mt-1 text-xs text-slate-500">Patent Pending · software license access</p>
+      <h1 className="font-display text-3xl">Sign in</h1>
+      <p className="mt-1 text-xs text-ink-400">Patent Pending · software license access</p>
       <div className="mt-6 space-y-4">
         <div>
           <Label>Email</Label>
@@ -37,7 +37,7 @@ function LoginForm() {
           <Label>2FA (if enabled)</Label>
           <Input value={totp} onChange={(e) => setTotp(e.target.value)} placeholder="000000" />
         </div>
-        {err ? <p className="text-sm text-red-300">{err}</p> : null}
+        {err ? <p className="text-sm text-red-800">{err}</p> : null}
         <Button
           className="w-full"
           onClick={() => login.mutate({ email, password, totp: totp || undefined })}
@@ -45,10 +45,10 @@ function LoginForm() {
         >
           {login.isPending ? "Signing in…" : "Enter"}
         </Button>
-        <a href="/forgot" className="block text-center text-xs text-slate-500">
+        <a href="/forgot" className="block text-center text-xs text-ink-400">
           Forgot password
         </a>
-        {params.get("ref") ? <p className="text-xs text-slate-500">Sponsor ref captured at register.</p> : null}
+        {params.get("ref") ? <p className="text-xs text-ink-400">Sponsor ref captured at register.</p> : null}
       </div>
     </Card>
   );
@@ -56,14 +56,12 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen">
-      <SiteHeader />
+    <PublicChrome>
       <main className="px-5 py-20">
         <Suspense>
           <LoginForm />
         </Suspense>
       </main>
-      <SiteFooter />
-    </div>
+    </PublicChrome>
   );
 }
