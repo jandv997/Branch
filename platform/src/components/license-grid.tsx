@@ -17,7 +17,7 @@ export function LicenseGrid({
   ctaHref?: string;
 }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {licenses.map((l) => (
         <article key={l.tier} className="glass rounded-2xl p-6">
           <div className="flex items-start justify-between gap-3">
