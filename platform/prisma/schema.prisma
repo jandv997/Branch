@@ -1,0 +1,575 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  ACTIVE
+  FROZEN
+  CLOSED
+}
+
+enum Role {
+  USER
+  SUPPORT
+  FINANCE
+  SUPERADMIN
+}
+
+enum LicenseStatus {
+  NONE
+  ACTIVE
+  EXPIRED
+  GRACE
+}
+
+enum RankCode {
+  NONE
+  ASSOCIATE
+  CONSULTANT
+  STRATEGIST
+  TEAM_LEAD
+  MANAGER
+  SENIOR_MANAGER
+  DIRECTOR
+  SENIOR_DIRECTOR
+  EXECUTIVE
+  AMBASSADOR
+  SOVEREIGN
+  LEGACY
+}
+
+enum KycStatus {
+  NONE
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum WalletKind {
+  AVAILABLE
+  EARNINGS
+  REFERRAL
+  STAKING
+  PENDING
+}
+
+enum LedgerDirection {
+  CREDIT
+  DEBIT
+}
+
+enum FundingSource {
+  DIRECT_DEPOSIT
+  REFERRAL_WALLET
+  EARNINGS_WALLET
+  STAKING_WALLET
+}
+
+enum PortfolioStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  CANCELLED
+}
+
+enum LicenseTier {
+  PULSE
+  CORE
+  APEX
+  PRIME
+}
+
+enum DepositStatus {
+  PENDING
+  MATCHED
+  CONFIRMED
+  REJECTED
+  EXPIRED
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PAID
+  CANCELLED
+  EXPIRED
+}
+
+enum TicketStatus {
+  OPEN
+  PENDING
+  CLOSED
+}
+
+enum JobRunStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+  PARTIAL
+}
+
+model User {
+  id               String        @id @default(cuid())
+  email            String        @unique
+  passwordHash     String
+  status           UserStatus    @default(ACTIVE)
+  role             Role          @default(USER)
+  sponsorId        String?
+  sponsor          User?         @relation("SponsorTree", fields: [sponsorId], references: [id])
+  downlines        User[]        @relation("SponsorTree")
+  licenseId        String?
+  license          License?      @relation(fields: [licenseId], references: [id])
+  licenseStatus    LicenseStatus @default(NONE)
+  licenseRenewsAt  DateTime?
+  licenseFirstPaid Boolean       @default(false)
+  rank             RankCode      @default(NONE)
+  rankHeldUntil    DateTime?
+  salaryActive     Boolean       @default(false)
+  keepMissStreak   Int           @default(0)
+  kycStatus        KycStatus     @default(NONE)
+  totpEnabled      Boolean       @default(false)
+  totpSecretEnc    String?
+  activatedAt      DateTime?
+  displayName      String?
+  notes            String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  psvMeterCents    BigInt        @default(0)
+  tvMeterCents     BigInt        @default(0)
+  keepTvMonthCents BigInt        @default(0)
+  keepTvMonthKey   String?
+
+  wallets          Wallet[]
+  ledger           LedgerEntry[]
+  portfolios       Portfolio[]
+  deposits         Deposit[]
+  withdrawals      Withdrawal[]
+  sessions         Session[]
+  whitelist        WhitelistAddress[]
+  kycDocs          KycDoc[]
+  tickets          Ticket[]          @relation("TicketOwner")
+  assignedTickets  Ticket[]          @relation("TicketAssignee")
+  notifications    Notification[]
+  auditLogs        AuditLog[]        @relation("AuditActor")
+  auditSubject     AuditLog[]        @relation("AuditSubject")
+  rankEvents       RankEvent[]
+  referralPays     ReferralPayout[]  @relation("ReferralEarner")
+  referralSources  ReferralPayout[]  @relation("ReferralSource")
+  fastStartPays    FastStartPayout[] @relation("FsEarner")
+  fastStartSources FastStartPayout[] @relation("FsSource")
+  legalAccepts     LegalAccept[]
+  backupCodes      BackupCode[]
+  ipLogs           IpLog[]
+  stakingLots      StakingLot[]
+
+  @@index([sponsorId])
+  @@index([role])
+  @@index([status])
+  @@index([email])
+}
+
+model License {
+  id           String      @id @default(cuid())
+  tier         LicenseTier @unique
+  name         String
+  priceCents   BigInt
+  capCents     BigInt
+  dailyCapBps  Int
+  minFundCents BigInt
+  users        User[]
+}
+
+model Wallet {
+  id           String     @id @default(cuid())
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  kind         WalletKind
+  balanceCents BigInt     @default(0)
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([userId, kind])
+  @@index([userId])
+}
+
+model LedgerEntry {
+  id          String          @id @default(cuid())
+  userId      String
+  user        User            @relation(fields: [userId], references: [id])
+  wallet      WalletKind
+  direction   LedgerDirection
+  amountCents BigInt
+  type        String
+  refType     String?
+  refId       String?
+  meta        Json?
+  createdAt   DateTime        @default(now())
+
+  @@index([userId, createdAt])
+  @@index([type])
+  @@index([refType, refId])
+  @@index([createdAt])
+}
+
+model Portfolio {
+  id             String             @id @default(cuid())
+  userId         String
+  user           User               @relation(fields: [userId], references: [id])
+  licenseTier    LicenseTier
+  principalCents BigInt
+  capCents       BigInt
+  cycleStart     DateTime
+  cycleEnd       DateTime
+  status         PortfolioStatus    @default(ACTIVE)
+  dailyCapBps    Int
+  paused         Boolean            @default(false)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  fundings       PortfolioFunding[]
+  dailyCredits   DailyCredit[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model PortfolioFunding {
+  id             String        @id @default(cuid())
+  portfolioId    String
+  portfolio      Portfolio     @relation(fields: [portfolioId], references: [id])
+  source         FundingSource
+  amountCents    BigInt
+  isNewPortfolio Boolean
+  createdAt      DateTime      @default(now())
+
+  @@index([portfolioId])
+  @@index([createdAt])
+}
+
+model DailyCredit {
+  id             String    @id @default(cuid())
+  portfolioId    String
+  portfolio      Portfolio @relation(fields: [portfolioId], references: [id])
+  userId         String
+  businessDate   String
+  engineBps      Int
+  licenseCapBps  Int
+  appliedBps     Int
+  principalCents BigInt
+  amountCents    BigInt
+  createdAt      DateTime  @default(now())
+
+  @@unique([portfolioId, businessDate])
+  @@index([userId, businessDate])
+}
+
+model Deposit {
+  id           String        @id @default(cuid())
+  userId       String
+  user         User          @relation(fields: [userId], references: [id])
+  amountCents  BigInt
+  asset        String        @default("USDT")
+  network      String        @default("TRC20")
+  address      String?
+  memo         String        @unique
+  txHash       String?
+  status       DepositStatus @default(PENDING)
+  portfolioId  String?
+  assignedById String?
+  createdAt    DateTime      @default(now())
+  confirmedAt  DateTime?
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Withdrawal {
+  id           String           @id @default(cuid())
+  userId       String
+  user         User             @relation(fields: [userId], references: [id])
+  amountCents  BigInt
+  network      String
+  address      String
+  status       WithdrawalStatus @default(PENDING)
+  totpVerified Boolean          @default(false)
+  rejectReason String?
+  decidedById  String?
+  createdAt    DateTime         @default(now())
+  decidedAt    DateTime?
+  paidAt       DateTime?
+  expiresAt    DateTime?
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Session {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id])
+  tokenHash      String    @unique
+  ip             String?
+  userAgent      String?
+  impersonatedBy String?
+  expiresAt      DateTime
+  createdAt      DateTime  @default(now())
+  revokedAt      DateTime?
+
+  @@index([userId])
+}
+
+model WhitelistAddress {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  network    String
+  address    String
+  label      String?
+  createdAt  DateTime @default(now())
+  unlockedAt DateTime
+
+  @@index([userId])
+}
+
+model KycDoc {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  kind        String
+  storageKey  String
+  status      KycStatus @default(PENDING)
+  note        String?
+  createdAt   DateTime  @default(now())
+  decidedAt   DateTime?
+  decidedById String?
+}
+
+model Ticket {
+  id         String          @id @default(cuid())
+  userId     String
+  user       User            @relation("TicketOwner", fields: [userId], references: [id])
+  assigneeId String?
+  assignee   User?           @relation("TicketAssignee", fields: [assigneeId], references: [id])
+  subject    String
+  status     TicketStatus    @default(OPEN)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  messages   TicketMessage[]
+}
+
+model TicketMessage {
+  id        String   @id @default(cuid())
+  ticketId  String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  authorId  String
+  body      String
+  createdAt DateTime @default(now())
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  title     String
+  body      String
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  actor     User?    @relation("AuditActor", fields: [actorId], references: [id])
+  subjectId String?
+  subject   User?    @relation("AuditSubject", fields: [subjectId], references: [id])
+  action    String
+  entity    String
+  entityId  String?
+  before    Json?
+  after     Json?
+  reason    String?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([actorId])
+  @@index([subjectId])
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+model JobRun {
+  id             String         @id @default(cuid())
+  name           String
+  idempotencyKey String         @unique
+  status         JobRunStatus   @default(RUNNING)
+  startedAt      DateTime       @default(now())
+  finishedAt     DateTime?
+  stats          Json?
+  error          String?
+  exceptions     JobException[]
+
+  @@index([name, startedAt])
+}
+
+model JobException {
+  id        String   @id @default(cuid())
+  jobRunId  String
+  jobRun    JobRun   @relation(fields: [jobRunId], references: [id])
+  refType   String?
+  refId     String?
+  message   String
+  payload   Json?
+  createdAt DateTime @default(now())
+}
+
+model CompConfigRow {
+  id        String   @id
+  json      Json
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model CmsPage {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  body      Json
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model RankEvent {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  fromRank   RankCode
+  toRank     RankCode
+  kind       String
+  bonusCents BigInt   @default(0)
+  bonusPaid  Boolean  @default(false)
+  meta       Json?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model RankBonusPaid {
+  id          String   @id @default(cuid())
+  userId      String
+  rank        RankCode
+  amountCents BigInt
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, rank])
+}
+
+model ReferralPayout {
+  id           String   @id @default(cuid())
+  earnerId     String
+  earner       User     @relation("ReferralEarner", fields: [earnerId], references: [id])
+  sourceUserId String
+  sourceUser   User     @relation("ReferralSource", fields: [sourceUserId], references: [id])
+  level        Int
+  compressed   Boolean  @default(false)
+  amountCents  BigInt
+  bps          Int
+  baseCents    BigInt
+  reasonCode   String?
+  refType      String
+  refId        String
+  createdAt    DateTime @default(now())
+
+  @@index([earnerId])
+  @@index([sourceUserId])
+  @@index([refType, refId])
+}
+
+model FastStartPayout {
+  id            String   @id @default(cuid())
+  earnerId      String
+  earner        User     @relation("FsEarner", fields: [earnerId], references: [id])
+  sourceUserId  String
+  sourceUser    User     @relation("FsSource", fields: [sourceUserId], references: [id])
+  depositRef    String   @unique
+  rawBps        Int
+  clippedBps    Int
+  amountCents   BigInt
+  volumePath    String?
+  headcountPath String?
+  clipReason    String?
+  createdAt     DateTime @default(now())
+
+  @@index([earnerId])
+}
+
+model IdempotencyKey {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  userId    String?
+  route     String
+  status    Int
+  response  Json
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}
+
+model LegalAccept {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  doc       String
+  version   String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, doc, version])
+}
+
+model BackupCode {
+  id       String    @id @default(cuid())
+  userId   String
+  user     User      @relation(fields: [userId], references: [id])
+  codeHash String
+  usedAt   DateTime?
+}
+
+model IpLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  ip        String
+  userAgent String?
+  action    String
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model StakingLot {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  amountCents BigInt
+  lockedUntil DateTime
+  releasedAt  DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model SystemHalt {
+  id            String   @id
+  haltCredits   Boolean  @default(false)
+  haltWithdraws Boolean  @default(false)
+  updatedAt     DateTime @updatedAt
+}

@@ -1,0 +1,103 @@
+import { PageIntro, PublicChrome } from "@/components/brand";
+import { prisma } from "@/server/db";
+import { loadConfig } from "@/server/load-config";
+
+export const dynamic = "force-dynamic";
+
+export default async function UpdatesPage() {
+  const cfg = await loadConfig();
+  let announcements: { id: string; title: string; body: string; createdAt: Date }[] = [];
+  let jobs: { id: string; name: string; status: string; startedAt: Date }[] = [];
+  let cms: { title: string; body: unknown; updatedAt: Date } | null = null;
+  let configUpdated: Date | null = null;
+  try {
+    announcements = await prisma.announcement.findMany({
+      where: { active: true },
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    });
+    jobs = await prisma.jobRun.findMany({
+      orderBy: { startedAt: "desc" },
+      take: 12,
+      select: { id: true, name: true, status: true, startedAt: true },
+    });
+    cms = await prisma.cmsPage.findUnique({ where: { slug: "updates" } });
+    const row = await prisma.compConfigRow.findUnique({ where: { id: "singleton" } });
+    configUpdated = row?.updatedAt ?? null;
+  } catch {
+    /* public page still renders from config when DB is down */
+  }
+  const extras = Array.isArray(cms?.body) ? (cms!.body as { title: string; body: string; at?: string }[]) : [];
+  return (
+    <PublicChrome>
+      <PageIntro
+        kicker="Updates"
+        title="Operational changelog"
+        body="Daily credits remain capped (“up to”). Compensation rules live in the backend policy module — this page does not invent payouts."
+      />
+      <main className="mx-auto max-w-4xl px-5 pb-20">
+        <section className="grid gap-4 md:grid-cols-3">
+          <div className="border border-white/[0.08] p-4">
+            <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">Engine default</div>
+            <div className="mt-1 font-medium text-ember">up to {(cfg.engineDefaultBps / 100).toFixed(2)}%</div>
+          </div>
+          <div className="border border-white/[0.08] p-4">
+            <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">Comp config</div>
+            <div className="mt-1 font-mono text-xs text-graphite-300">{configUpdated ? configUpdated.toISOString() : "defaults"}</div>
+          </div>
+          <div className="border border-white/[0.08] p-4">
+            <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">Deposit comp cap</div>
+            <div className="mt-1 font-medium text-ember">{cfg.depositCompCapBps / 100}%</div>
+          </div>
+        </section>
+        <section className="mt-10">
+          <h2 className="text-lg font-semibold text-white">Announcements</h2>
+          {!announcements.length && !extras.length ? (
+            <p className="mt-3 text-sm text-slate-500">No published announcements yet.</p>
+          ) : (
+            <div className="mt-4 space-y-3">
+              {announcements.map((a) => (
+                <article key={a.id} className="border border-white/[0.08] p-5">
+                  <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">{a.createdAt.toISOString()}</div>
+                  <h3 className="mt-1 font-medium text-[#F8FAFE]">{a.title}</h3>
+                  <p className="mt-2 text-sm text-graphite-400">{a.body}</p>
+                </article>
+              ))}
+              {extras.map((e) => (
+                <article key={e.title} className="border border-white/[0.08] p-5">
+                  <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">{e.at}</div>
+                  <h3 className="mt-1 font-medium text-[#F8FAFE]">{e.title}</h3>
+                  <p className="mt-2 text-sm text-graphite-400">{e.body}</p>
+                </article>
+              ))}
+            </div>
+          )}
+        </section>
+        <section className="mt-10">
+          <h2 className="text-lg font-semibold text-white">Job runs</h2>
+          <p className="text-xs text-slate-500">Idempotent worker / CLI. Replayable via job_runs.</p>
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead className="uppercase tracking-ledger text-slate-500">
+                <tr>
+                  <th className="p-2">When</th>
+                  <th className="p-2">Job</th>
+                  <th className="p-2">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {jobs.map((j) => (
+                  <tr key={j.id} className="border-t border-white/10 font-mono">
+                    <td className="p-2 text-slate-500">{j.startedAt.toISOString()}</td>
+                    <td className="p-2">{j.name}</td>
+                    <td className="p-2 text-ember">{j.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </PublicChrome>
+  );
+}
