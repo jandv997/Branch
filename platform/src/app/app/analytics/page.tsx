@@ -66,7 +66,7 @@ export default function AnalyticsPage() {
                   key={c.id}
                   title={`${c.businessDate} ${usd(c.amountCents)} @ ${c.appliedBps} bps`}
                   className="h-8"
-                  style={{ background: `rgba(255,90,54,${0.12 + pct * 0.78})` }}
+                  style={{ background: `rgba(52,123,236,${0.12 + pct * 0.78})` }}
                 />
               );
             })

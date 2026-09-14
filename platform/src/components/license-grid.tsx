@@ -21,10 +21,10 @@ export function LicenseGrid({
       {licenses.map((l) => (
         <article key={l.tier} className="bg-graphite-950 p-6">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-display text-xl font-semibold text-[#F3EFE6]">{l.name}</h3>
+            <h3 className="font-display text-xl font-semibold text-[#F8FAFE]">{l.name}</h3>
             <span className="font-mono text-[10px] uppercase tracking-ledger text-graphite-500">Patent Pending</span>
           </div>
-          <div className="mt-3 font-display text-3xl font-semibold text-[#F3EFE6]">
+          <div className="mt-3 font-display text-3xl font-semibold text-[#F8FAFE]">
             {usdPlain(l.priceCents)}
             <span className="ml-1 font-sans text-sm font-normal text-graphite-500">/mo license</span>
           </div>
@@ -35,21 +35,21 @@ export function LicenseGrid({
             </div>
             <div className="flex justify-between gap-4">
               <dt className="text-graphite-400">Portfolio cap</dt>
-              <dd className="text-[#F3EFE6]">{usdPlain(l.capCents)}</dd>
+              <dd className="text-[#F8FAFE]">{usdPlain(l.capCents)}</dd>
             </div>
             <div className="flex justify-between gap-4">
               <dt className="text-graphite-400">Minimum funded</dt>
-              <dd className="text-[#F3EFE6]">{usdPlain(l.minFundCents)}</dd>
+              <dd className="text-[#F8FAFE]">{usdPlain(l.minFundCents)}</dd>
             </div>
             <div className="flex justify-between gap-4">
               <dt className="text-graphite-400">Portfolio cycle</dt>
-              <dd className="text-[#F3EFE6]">{Math.round(l.cycleDays / 30.4)} months</dd>
+              <dd className="text-[#F8FAFE]">{Math.round(l.cycleDays / 30.4)} months</dd>
             </div>
           </dl>
           {BLURBS[l.tier] ? <p className="mt-4 text-sm text-graphite-400">{BLURBS[l.tier]}</p> : null}
           <Link
             href={ctaHref}
-            className="mt-5 block rounded-sm border border-white/10 py-2.5 text-center text-sm text-[#F3EFE6] hover:border-ember/40"
+            className="mt-5 block rounded-sm border border-white/10 py-2.5 text-center text-sm text-[#F8FAFE] hover:border-ember/40"
           >
             Select {l.name}
           </Link>

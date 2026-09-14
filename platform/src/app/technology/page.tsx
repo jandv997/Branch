@@ -49,7 +49,7 @@ export default function TechnologyPage() {
           {STEPS.map(([n, title, body]) => (
             <article key={n} className="bg-graphite-950 p-6">
               <div className="font-mono text-sm text-ember">{n}</div>
-              <h2 className="mt-2 font-display text-lg font-semibold text-[#F3EFE6]">{title}</h2>
+              <h2 className="mt-2 font-display text-lg font-semibold text-[#F8FAFE]">{title}</h2>
               <p className="mt-2 text-sm leading-relaxed text-graphite-400">{body}</p>
             </article>
           ))}

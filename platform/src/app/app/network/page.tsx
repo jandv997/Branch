@@ -62,8 +62,8 @@ export default function NetworkPage() {
         <h2 className="font-display text-lg">Network graph</h2>
         <p className="mt-1 text-xs text-graphite-500">Nodes = partners. Edges = sponsor relationship. Filter by level.</p>
         <svg viewBox="0 0 640 240" className="mt-4 h-56 w-full">
-          <circle cx="320" cy="120" r="14" fill="none" stroke="#FF5A36" />
-          <text x="308" y="124" fill="#FF5A36" fontSize="10">
+          <circle cx="320" cy="120" r="14" fill="none" stroke="#347BEC" />
+          <text x="308" y="124" fill="#347BEC" fontSize="10">
             YOU
           </text>
           {nodes.slice(0, 12).map((n, i) => {
@@ -73,8 +73,8 @@ export default function NetworkPage() {
             const y = 120 + Math.sin(a) * rad * 0.7;
             return (
               <g key={n.id}>
-                <line x1="320" y1="120" x2={x.toFixed(2)} y2={y.toFixed(2)} stroke="rgba(243,239,230,0.12)" />
-                <rect x={(x - 4).toFixed(2)} y={(y - 4).toFixed(2)} width="8" height="8" fill={n.level === 1 ? "#FF5A36" : "#F3EFE6"} />
+                <line x1="320" y1="120" x2={x.toFixed(2)} y2={y.toFixed(2)} stroke="rgba(248,250,254,0.12)" />
+                <rect x={(x - 4).toFixed(2)} y={(y - 4).toFixed(2)} width="8" height="8" fill={n.level === 1 ? "#347BEC" : "#F8FAFE"} />
               </g>
             );
           })}

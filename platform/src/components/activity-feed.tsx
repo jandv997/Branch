@@ -39,7 +39,7 @@ export function ActivityFeed({
                 </span>
                 <span className="font-mono text-[10px] text-graphite-500">{new Date(i.at).toISOString().replace("T", " ").slice(0, 19)}</span>
               </div>
-              <div className="mt-1 truncate text-sm text-[#F3EFE6]">{i.title}</div>
+              <div className="mt-1 truncate text-sm text-[#F8FAFE]">{i.title}</div>
               <p className="mt-1 line-clamp-2 text-xs text-graphite-400">{i.detail}</p>
             </div>
             {i.amountCents !== undefined ? (

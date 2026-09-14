@@ -59,18 +59,18 @@ export default function IntelligencePage() {
             const y = 40 + i * 42;
             return (
               <g key={r.pair}>
-                <rect x="24" y={y} width="120" height="28" fill="none" stroke="rgba(243,239,230,0.2)" />
-                <text x="36" y={y + 18} fill="#F3EFE6" fontSize="11" fontFamily="ui-monospace">
+                <rect x="24" y={y} width="120" height="28" fill="none" stroke="rgba(248,250,254,0.2)" />
+                <text x="36" y={y + 18} fill="#F8FAFE" fontSize="11" fontFamily="ui-monospace">
                   {r.src}
                 </text>
-                <line x1="144" y1={y + 14} x2="280" y2={y + 14} stroke="#FF5A36" />
-                <rect x="280" y={y} width="80" height="28" fill="none" stroke="#FF5A36" />
-                <text x="292" y={y + 18} fill="#FF5A36" fontSize="10" fontFamily="ui-monospace">
+                <line x1="144" y1={y + 14} x2="280" y2={y + 14} stroke="#347BEC" />
+                <rect x="280" y={y} width="80" height="28" fill="none" stroke="#347BEC" />
+                <text x="292" y={y + 18} fill="#347BEC" fontSize="10" fontFamily="ui-monospace">
                   ROUTER
                 </text>
-                <line x1="360" y1={y + 14} x2="496" y2={y + 14} stroke="#FF5A36" />
-                <rect x="496" y={y} width="120" height="28" fill="none" stroke="rgba(243,239,230,0.2)" />
-                <text x="508" y={y + 18} fill="#F3EFE6" fontSize="11" fontFamily="ui-monospace">
+                <line x1="360" y1={y + 14} x2="496" y2={y + 14} stroke="#347BEC" />
+                <rect x="496" y={y} width="120" height="28" fill="none" stroke="rgba(248,250,254,0.2)" />
+                <text x="508" y={y + 18} fill="#F8FAFE" fontSize="11" fontFamily="ui-monospace">
                   {r.dst}
                 </text>
               </g>

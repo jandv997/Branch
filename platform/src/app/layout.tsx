@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`dark ${display.variable} ${sans.variable} ${mono.variable}`}>
-      <body className="font-sans antialiased bg-graphite-950 text-[#F3EFE6]">
+      <body className="font-sans antialiased bg-graphite-950 text-[#F8FAFE]">
         <TRPCProvider>
           {children}
           <Toaster theme="dark" />

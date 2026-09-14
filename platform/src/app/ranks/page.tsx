@@ -13,7 +13,7 @@ export default async function RanksPage() {
       />
       <main className="mx-auto max-w-6xl px-5 pb-20">
         <div className="overflow-x-auto border border-white/[0.08] bg-graphite-950 p-6">
-          <h2 className="font-display text-lg font-semibold text-[#F3EFE6]">Rank table</h2>
+          <h2 className="font-display text-lg font-semibold text-[#F8FAFE]">Rank table</h2>
           <p className="mt-1 text-sm text-graphite-500">
             All amounts are direct-deposit volume in USD. Rank salary posts to {cfg.rankPayoutWallet}.
           </p>
@@ -33,7 +33,7 @@ export default async function RanksPage() {
                 .filter((r) => r.code !== "NONE")
                 .map((r) => (
                   <tr key={r.code} className="border-t border-white/[0.08]">
-                    <td className="py-3 pr-4 font-medium text-[#F3EFE6]">{r.name}</td>
+                    <td className="py-3 pr-4 font-medium text-[#F8FAFE]">{r.name}</td>
                     <td className="py-3 pr-4 text-graphite-300">{usdPlain(r.psvCents)}</td>
                     <td className="py-3 pr-4 text-graphite-300">{usdPlain(r.rankUpTvCents)}</td>
                     <td className="py-3 pr-4 text-graphite-300">{usdPlain(r.keepTvCents)}</td>

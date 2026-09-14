@@ -36,7 +36,7 @@ export function LiquidityHero() {
       if (packets.length < 10 && Math.random() < 0.08) {
         packets.push({ t: 0, from: Math.floor(Math.random() * venues.length), life: 1 });
       }
-      ctx.strokeStyle = "rgba(243,239,230,0.08)";
+      ctx.strokeStyle = "rgba(248,250,254,0.08)";
       ctx.lineWidth = 1;
       venues.forEach((v, i) => {
         const x = cx + Math.cos(v.a) * r;
@@ -45,15 +45,15 @@ export function LiquidityHero() {
         ctx.moveTo(x, y);
         ctx.lineTo(cx, cy);
         ctx.stroke();
-        ctx.fillStyle = i % 2 ? "#FF5A36" : "#F3EFE6";
+        ctx.fillStyle = i % 2 ? "#347BEC" : "#F8FAFE";
         ctx.fillRect(x - 3, y - 3, 6, 6);
-        ctx.fillStyle = "#8B909A";
+        ctx.fillStyle = "#9BB4CC";
         ctx.font = "10px ui-monospace, monospace";
         ctx.fillText(v.label, x + 8, y + 3);
       });
-      ctx.strokeStyle = "#FF5A36";
+      ctx.strokeStyle = "#347BEC";
       ctx.strokeRect(cx - 18, cy - 18, 36, 36);
-      ctx.fillStyle = "#F3EFE6";
+      ctx.fillStyle = "#F8FAFE";
       ctx.font = "11px ui-monospace, monospace";
       ctx.fillText("Q", cx - 4, cy + 4);
       for (let i = packets.length - 1; i >= 0; i--) {
@@ -68,7 +68,7 @@ export function LiquidityHero() {
         const y0 = cy + Math.sin(v.a) * r;
         const x = x0 + (cx - x0) * p.t;
         const y = y0 + (cy - y0) * p.t;
-        ctx.fillStyle = "#FF5A36";
+        ctx.fillStyle = "#347BEC";
         ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
       }
       raf = requestAnimationFrame(tick);
@@ -105,7 +105,7 @@ export function PipelineViz() {
       {steps.map((s, i) => (
         <li key={s} className="bg-graphite-950 px-4 py-6">
           <div className="font-mono text-[11px] text-ember">0{i + 1}</div>
-          <div className="mt-2 font-display text-xl text-[#F3EFE6]">{s}</div>
+          <div className="mt-2 font-display text-xl text-[#F8FAFE]">{s}</div>
         </li>
       ))}
     </ol>
@@ -117,17 +117,17 @@ export function RouterAB() {
     <div className="grid items-center gap-3 font-mono text-[12px] md:grid-cols-[1fr_auto_1fr]">
       <div className="border border-white/[0.08] p-6 text-center">
         <div className="kicker">Market A</div>
-        <div className="mt-2 text-lg text-[#F3EFE6]">CEX book</div>
+        <div className="mt-2 text-lg text-[#F8FAFE]">CEX book</div>
         <p className="mt-2 text-graphite-400">Observed print</p>
       </div>
       <div className="flex flex-col items-center gap-1 text-ember">
         <span>↓</span>
-        <div className="border border-ember/50 px-4 py-3 text-[#F3EFE6]">AI ROUTER</div>
+        <div className="border border-ember/50 px-4 py-3 text-[#F8FAFE]">AI ROUTER</div>
         <span>↓</span>
       </div>
       <div className="border border-white/[0.08] p-6 text-center">
         <div className="kicker">Market B</div>
-        <div className="mt-2 text-lg text-[#F3EFE6]">DEX pool</div>
+        <div className="mt-2 text-lg text-[#F8FAFE]">DEX pool</div>
         <p className="mt-2 text-graphite-400">Paired offset</p>
       </div>
     </div>
@@ -171,7 +171,7 @@ export function OpportunityTable({ rows = DEMO_OPPS }: { rows?: DemoOpportunity[
         <tbody>
           {rows.map((r) => (
             <tr key={r.pair + r.src} className="border-t border-white/[0.06] font-mono">
-              <td className="p-3 text-[#F3EFE6]">
+              <td className="p-3 text-[#F8FAFE]">
                 {r.pair}
                 <div className="text-[10px] text-graphite-500">
                   {r.src} → {r.dst}
@@ -207,12 +207,12 @@ export function VenueNetwork() {
           const y = 80 + Math.sin(a) * 48;
           return (
             <g key={i}>
-              <line x1="200" y1="80" x2={x.toFixed(2)} y2={y.toFixed(2)} stroke="rgba(243,239,230,0.12)" />
-              <rect x={(x - 4).toFixed(2)} y={(y - 4).toFixed(2)} width="8" height="8" fill={i % 2 ? "#FF5A36" : "#F3EFE6"} />
+              <line x1="200" y1="80" x2={x.toFixed(2)} y2={y.toFixed(2)} stroke="rgba(248,250,254,0.12)" />
+              <rect x={(x - 4).toFixed(2)} y={(y - 4).toFixed(2)} width="8" height="8" fill={i % 2 ? "#347BEC" : "#F8FAFE"} />
             </g>
           );
         })}
-        <rect x="188" y="68" width="24" height="24" fill="none" stroke="#FF5A36" />
+        <rect x="188" y="68" width="24" height="24" fill="none" stroke="#347BEC" />
       </svg>
     </div>
   );

@@ -14,7 +14,7 @@ export default async function CompensationPage() {
       />
       <main className="mx-auto max-w-6xl space-y-px bg-white/[0.08] px-5 pb-20 text-sm leading-relaxed text-graphite-300">
         <section className="bg-graphite-950 p-6">
-          <h2 className="font-display text-lg font-semibold text-[#F3EFE6]">A. Daily portfolio credits</h2>
+          <h2 className="font-display text-lg font-semibold text-[#F8FAFE]">A. Daily portfolio credits</h2>
           <p className="mt-2 text-graphite-400">Settles once per day per active portfolio.</p>
           <ul className="mt-4 space-y-2 text-graphite-400">
             <li>Each active portfolio is credited at the lower of the engine rate and the license daily cap, applied to principal.</li>
@@ -26,7 +26,7 @@ export default async function CompensationPage() {
         </section>
 
         <section className="bg-graphite-950 p-6">
-          <h2 className="font-display text-lg font-semibold text-[#F3EFE6]">B. Referral tree — three levels, paid once</h2>
+          <h2 className="font-display text-lg font-semibold text-[#F8FAFE]">B. Referral tree — three levels, paid once</h2>
           <p className="mt-2 text-graphite-400">Total {(treeBps / 100).toFixed(2)}% across L1-L3.</p>
           <div className="mt-5 grid gap-px bg-white/[0.08] md:grid-cols-3">
             {[
@@ -42,7 +42,7 @@ export default async function CompensationPage() {
           </div>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div>
-              <h3 className="font-medium text-[#F3EFE6]">Pays on</h3>
+              <h3 className="font-medium text-[#F8FAFE]">Pays on</h3>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-graphite-400">
                 <li>A new portfolio funded by direct deposit.</li>
                 <li>Another new portfolio by the same user funded by direct deposit — it pays again on that deposit amount.</li>
@@ -50,7 +50,7 @@ export default async function CompensationPage() {
               </ul>
             </div>
             <div>
-              <h3 className="font-medium text-[#F3EFE6]">Never pays on</h3>
+              <h3 className="font-medium text-[#F8FAFE]">Never pays on</h3>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-graphite-400">
                 <li>Any top-up, including a direct-deposit top-up.</li>
                 <li>A new portfolio funded from a wallet balance.</li>
@@ -66,7 +66,7 @@ export default async function CompensationPage() {
         </section>
 
         <section className="bg-graphite-950 p-6">
-          <h2 className="font-display text-lg font-semibold text-[#F3EFE6]">C. Volume — PSV and TV</h2>
+          <h2 className="font-display text-lg font-semibold text-[#F8FAFE]">C. Volume — PSV and TV</h2>
           <p className="mt-2 text-graphite-400">Only direct deposits create volume.</p>
           <p className="mt-3 text-graphite-400">{cfg.copy.volumeDisclaimer}</p>
           <p className="mt-3 text-graphite-400">
@@ -80,7 +80,7 @@ export default async function CompensationPage() {
         </section>
 
         <section className="bg-graphite-950 p-6">
-          <h2 className="font-display text-lg font-semibold text-[#F3EFE6]">D. Fast Start</h2>
+          <h2 className="font-display text-lg font-semibold text-[#F8FAFE]">D. Fast Start</h2>
           <p className="mt-2 text-graphite-400">{cfg.copy.fastStartOneEarner}</p>
           <p className="mt-2 text-graphite-400">
             Volume A {cfg.fastStart.volumePathA.thresholdCents / 100} USD L1 DD → +{cfg.fastStart.volumePathA.bps / 100}%.
@@ -90,7 +90,7 @@ export default async function CompensationPage() {
         </section>
 
         <section className="bg-graphite-950 p-6">
-          <h2 className="font-display text-lg font-semibold text-[#F3EFE6]">Why tree might not pay</h2>
+          <h2 className="font-display text-lg font-semibold text-[#F8FAFE]">Why tree might not pay</h2>
           <ul className="mt-3 list-disc space-y-1 pl-5 text-graphite-400">
             {Object.entries(WHY_NOT_PAID_COPY).map(([k, v]) => (
               <li key={k}>

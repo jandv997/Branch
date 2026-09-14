@@ -14,7 +14,7 @@ export function PatentBadge({ className }: { className?: string }) {
 
 export function Wordmark({ compact = false }: { compact?: boolean }) {
   return (
-    <Link href="/" className="flex items-center gap-2.5 text-[#F3EFE6]">
+    <Link href="/" className="flex items-center gap-2.5 text-[#F8FAFE]">
       <QMark size={compact ? 28 : 32} />
       <span className="font-display text-[15px] font-semibold tracking-tight">
         QORVEX{compact ? "" : <span className="ml-1.5 font-sans text-[11px] font-medium tracking-ledger text-ember">AI</span>}
@@ -35,7 +35,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/register"
-            className="rounded-sm bg-ember px-3.5 py-1.5 text-[13px] font-medium text-graphite-950 hover:bg-ember-dim"
+            className="rounded-sm bg-ember px-3.5 py-1.5 text-[13px] font-medium text-white hover:bg-ember-dim"
           >
             Explore Qorvex
           </Link>
@@ -62,19 +62,19 @@ export function SiteFooter() {
         <div>
           <div className="kicker mb-3">Product</div>
           <div className="flex flex-col gap-2 text-[13px]">
-            <Link href="/technology" className="hover:text-[#F3EFE6]">
+            <Link href="/technology" className="hover:text-[#F8FAFE]">
               Technology
             </Link>
-            <Link href="/licenses" className="hover:text-[#F3EFE6]">
+            <Link href="/licenses" className="hover:text-[#F8FAFE]">
               Licenses
             </Link>
-            <Link href="/compensation" className="hover:text-[#F3EFE6]">
+            <Link href="/compensation" className="hover:text-[#F8FAFE]">
               Partner network
             </Link>
-            <Link href="/security" className="hover:text-[#F3EFE6]">
+            <Link href="/security" className="hover:text-[#F8FAFE]">
               Security
             </Link>
-            <Link href="/faq" className="hover:text-[#F3EFE6]">
+            <Link href="/faq" className="hover:text-[#F8FAFE]">
               FAQ
             </Link>
           </div>
@@ -82,16 +82,16 @@ export function SiteFooter() {
         <div>
           <div className="kicker mb-3">Legal</div>
           <div className="flex flex-col gap-2 text-[13px]">
-            <Link href="/legal/terms" className="hover:text-[#F3EFE6]">
+            <Link href="/legal/terms" className="hover:text-[#F8FAFE]">
               Terms
             </Link>
-            <Link href="/legal/risk" className="hover:text-[#F3EFE6]">
+            <Link href="/legal/risk" className="hover:text-[#F8FAFE]">
               Risk disclosure
             </Link>
-            <Link href="/legal/privacy" className="hover:text-[#F3EFE6]">
+            <Link href="/legal/privacy" className="hover:text-[#F8FAFE]">
               Privacy
             </Link>
-            <Link href="/legal/aml" className="hover:text-[#F3EFE6]">
+            <Link href="/legal/aml" className="hover:text-[#F8FAFE]">
               AML / KYC
             </Link>
           </div>
@@ -139,7 +139,7 @@ export function PageIntro({
   return (
     <div className="mx-auto max-w-6xl px-5 pb-10 pt-16">
       <p className="kicker">{kicker}</p>
-      <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-[#F3EFE6] md:text-5xl">
+      <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-[#F8FAFE] md:text-5xl">
         {title}
       </h1>
       <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-graphite-400">{body}</p>

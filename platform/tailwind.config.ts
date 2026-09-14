@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+/** Colors sampled from citiequity.com: navy #061D40 / #051B4D, CTA #347BEC, paper #F8FAFE. */
 const config: Config = {
   darkMode: ["class"],
   content: ["./src/**/*.{ts,tsx}"],
@@ -7,38 +8,37 @@ const config: Config = {
     extend: {
       colors: {
         graphite: {
-          950: "#0B0C0F",
-          900: "#111218",
-          850: "#16171E",
-          800: "#1C1D26",
-          700: "#2A2C36",
-          600: "#3E414D",
-          500: "#6B6F7A",
-          400: "#8B909A",
-          300: "#C4C7CE",
+          950: "#051B4D",
+          900: "#061D40",
+          850: "#0A2858",
+          800: "#0E3270",
+          700: "#163E86",
+          600: "#2A5EA0",
+          500: "#6D8AB0",
+          400: "#9BB4CC",
+          300: "#E3F8FF",
         },
         ember: {
-          DEFAULT: "#FF5A36",
-          dim: "#D64522",
-          glow: "rgba(255, 90, 54, 0.18)",
+          DEFAULT: "#347BEC",
+          dim: "#1F62D0",
+          glow: "rgba(52, 123, 236, 0.18)",
         },
-        // Existing `text-cyan` / `bg-cyan` map to ember — not Quantum Scalp teal, not Lovable cyan.
         cyan: {
-          DEFAULT: "#FF5A36",
-          dim: "#D64522",
-          glow: "rgba(255, 90, 54, 0.18)",
+          DEFAULT: "#347BEC",
+          dim: "#1F62D0",
+          glow: "rgba(52, 123, 236, 0.18)",
         },
         navy: {
-          950: "#0B0C0F",
-          900: "#111218",
-          850: "#16171E",
-          800: "#1C1D26",
-          700: "#2A2C36",
+          950: "#051B4D",
+          900: "#061D40",
+          850: "#0A2858",
+          800: "#0E3270",
+          700: "#163E86",
         },
         violet: {
-          DEFAULT: "#FF5A36",
-          dim: "#D64522",
-          glow: "rgba(255, 90, 54, 0.12)",
+          DEFAULT: "#347BEC",
+          dim: "#1F62D0",
+          glow: "rgba(52, 123, 236, 0.12)",
         },
       },
       fontFamily: {

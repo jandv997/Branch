@@ -22,7 +22,7 @@ function LoginForm() {
   });
   return (
     <Card className="mx-auto w-full max-w-md p-8">
-      <h1 className="font-display text-2xl font-semibold text-[#F3EFE6]">Sign in</h1>
+      <h1 className="font-display text-2xl font-semibold text-[#F8FAFE]">Sign in</h1>
       <p className="mt-1 text-sm text-graphite-500">Patent Pending · software license access</p>
       <div className="mt-6 space-y-4">
         <div>

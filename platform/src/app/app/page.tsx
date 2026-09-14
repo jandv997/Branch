@@ -81,7 +81,7 @@ export default function OverviewPage() {
       </div>
 
       <div className="flex flex-wrap gap-3">
-        <Link href="/app/intelligence" className="rounded-sm bg-ember px-4 py-2 text-sm font-medium text-graphite-950">
+        <Link href="/app/intelligence" className="rounded-sm bg-ember px-4 py-2 text-sm font-medium text-white">
           Open market map
         </Link>
         <Link href="/app/portfolios" className="rounded-sm border border-white/10 px-4 py-2 text-sm">

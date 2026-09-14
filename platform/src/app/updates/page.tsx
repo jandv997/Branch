@@ -59,14 +59,14 @@ export default async function UpdatesPage() {
               {announcements.map((a) => (
                 <article key={a.id} className="border border-white/[0.08] p-5">
                   <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">{a.createdAt.toISOString()}</div>
-                  <h3 className="mt-1 font-medium text-[#F3EFE6]">{a.title}</h3>
+                  <h3 className="mt-1 font-medium text-[#F8FAFE]">{a.title}</h3>
                   <p className="mt-2 text-sm text-graphite-400">{a.body}</p>
                 </article>
               ))}
               {extras.map((e) => (
                 <article key={e.title} className="border border-white/[0.08] p-5">
                   <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">{e.at}</div>
-                  <h3 className="mt-1 font-medium text-[#F3EFE6]">{e.title}</h3>
+                  <h3 className="mt-1 font-medium text-[#F8FAFE]">{e.title}</h3>
                   <p className="mt-2 text-sm text-graphite-400">{e.body}</p>
                 </article>
               ))}

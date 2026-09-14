@@ -24,8 +24,8 @@ export function SiteNav() {
             key={href}
             href={href}
             className={cn(
-              "rounded-sm px-3 py-1.5 hover:text-[#F3EFE6]",
-              pathname === href && "bg-white/[0.04] text-[#F3EFE6]",
+              "rounded-sm px-3 py-1.5 hover:text-[#F8FAFE]",
+              pathname === href && "bg-white/[0.04] text-[#F8FAFE]",
             )}
           >
             {label}
@@ -42,7 +42,7 @@ export function SiteNav() {
               <Link
                 key={href}
                 href={href}
-                className="block px-4 py-2 hover:bg-white/5 hover:text-[#F3EFE6]"
+                className="block px-4 py-2 hover:bg-white/5 hover:text-[#F8FAFE]"
                 onClick={() => setOpen(false)}
               >
                 {label}

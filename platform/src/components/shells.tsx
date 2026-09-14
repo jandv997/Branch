@@ -51,7 +51,7 @@ export function AppShell({
   const [open, setOpen] = useState(false);
   const active = (href: string) => pathname === href || (href !== "/app" && href !== "/admin" && pathname.startsWith(href));
   return (
-    <div className="theme-desk min-h-screen bg-graphite-950 text-[#F3EFE6]">
+    <div className="theme-desk min-h-screen bg-graphite-950 text-[#F8FAFE]">
       <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-graphite-950/95 backdrop-blur">
         <div className="flex items-center justify-between gap-4 px-4 py-3 lg:px-6">
           <div className="flex items-center gap-4">
@@ -66,8 +66,8 @@ export function AppShell({
                 key={href}
                 href={href}
                 className={cn(
-                  "rounded-sm px-2.5 py-1.5 text-[13px] text-graphite-400 hover:text-[#F3EFE6]",
-                  active(href) && "bg-white/[0.05] text-[#F3EFE6]",
+                  "rounded-sm px-2.5 py-1.5 text-[13px] text-graphite-400 hover:text-[#F8FAFE]",
+                  active(href) && "bg-white/[0.05] text-[#F8FAFE]",
                 )}
               >
                 {label}

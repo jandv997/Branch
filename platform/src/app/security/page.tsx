@@ -37,7 +37,7 @@ export default function SecurityPage() {
         {FEATURES.map(([Icon, title, body]) => (
           <article key={title} className="bg-graphite-950 p-6">
             <Icon className="h-5 w-5 text-ember" />
-            <h2 className="mt-4 font-display text-lg font-semibold text-[#F3EFE6]">{title}</h2>
+            <h2 className="mt-4 font-display text-lg font-semibold text-[#F8FAFE]">{title}</h2>
             <p className="mt-2 text-sm leading-relaxed text-graphite-400">{body}</p>
           </article>
         ))}

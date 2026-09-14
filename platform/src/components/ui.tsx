@@ -9,10 +9,10 @@ export function Button({
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "danger" | "outline" }) {
   const styles = {
-    primary: "bg-ember text-graphite-950 hover:bg-ember-dim",
-    ghost: "bg-transparent text-[#F3EFE6] hover:bg-white/5",
+    primary: "bg-ember text-white hover:bg-ember-dim",
+    ghost: "bg-transparent text-[#F8FAFE] hover:bg-white/5",
     danger: "bg-red-500/15 text-red-200 hover:bg-red-500/25",
-    outline: "border border-white/10 bg-white/[0.03] text-[#F3EFE6] hover:border-ember/40",
+    outline: "border border-white/10 bg-white/[0.03] text-[#F8FAFE] hover:border-ember/40",
   } as const;
   return (
     <button
@@ -35,7 +35,7 @@ export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={cn(
-        "w-full rounded-sm border border-white/10 bg-graphite-900 px-3 py-2 font-mono text-sm text-[#F3EFE6] outline-none focus:border-ember/50",
+        "w-full rounded-sm border border-white/10 bg-graphite-900 px-3 py-2 font-mono text-sm text-[#F8FAFE] outline-none focus:border-ember/50",
         props.className,
       )}
     />
