@@ -73,8 +73,8 @@ export default function NetworkPage() {
             const y = 120 + Math.sin(a) * rad * 0.7;
             return (
               <g key={n.id}>
-                <line x1="320" y1="120" x2={x} y2={y} stroke="rgba(243,239,230,0.12)" />
-                <rect x={x - 4} y={y - 4} width="8" height="8" fill={n.level === 1 ? "#FF5A36" : "#F3EFE6"} />
+                <line x1="320" y1="120" x2={x.toFixed(2)} y2={y.toFixed(2)} stroke="rgba(243,239,230,0.12)" />
+                <rect x={(x - 4).toFixed(2)} y={(y - 4).toFixed(2)} width="8" height="8" fill={n.level === 1 ? "#FF5A36" : "#F3EFE6"} />
               </g>
             );
           })}

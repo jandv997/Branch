@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /** Original hero: venues around a routing core. Not a chart, not an orbital hub. */
 export function LiquidityHero() {
@@ -195,6 +195,9 @@ export function OpportunityTable({ rows = DEMO_OPPS }: { rows?: DemoOpportunity[
 
 export function VenueNetwork() {
   const nodes = ["CEX", "DEX", "CHAIN", "POOL", "CEX", "DEX"];
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  if (!ready) return <div className="relative h-56 border border-white/[0.08] bg-graphite-900" />;
   return (
     <div className="relative h-56 border border-white/[0.08] bg-graphite-900">
       <svg viewBox="0 0 400 160" className="h-full w-full">
@@ -204,8 +207,8 @@ export function VenueNetwork() {
           const y = 80 + Math.sin(a) * 48;
           return (
             <g key={i}>
-              <line x1="200" y1="80" x2={x} y2={y} stroke="rgba(243,239,230,0.12)" />
-              <rect x={x - 4} y={y - 4} width="8" height="8" fill={i % 2 ? "#FF5A36" : "#F3EFE6"} />
+              <line x1="200" y1="80" x2={x.toFixed(2)} y2={y.toFixed(2)} stroke="rgba(243,239,230,0.12)" />
+              <rect x={(x - 4).toFixed(2)} y={(y - 4).toFixed(2)} width="8" height="8" fill={i % 2 ? "#FF5A36" : "#F3EFE6"} />
             </g>
           );
         })}
