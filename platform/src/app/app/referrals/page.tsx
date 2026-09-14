@@ -10,8 +10,11 @@ export default function ReferralsPage() {
   const rows = q.data ?? [];
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl">Referrals</h1>
-      <p className="text-xs text-slate-500">Tree payouts and why-not-paid reason codes from the policy module.</p>
+      <div>
+        <p className="kicker">Network</p>
+        <h1 className="mt-2 font-display text-3xl font-semibold">Commission ledger</h1>
+      </div>
+      <p className="text-xs text-graphite-500">Tree payouts and why-not-paid reason codes from the policy module.</p>
       {!rows.length ? (
         <EmptyState title="No referral events" body="Tree pays only on NEW PORTFOLIO + DIRECT_DEPOSIT and the first license fee." />
       ) : (
@@ -30,7 +33,7 @@ export default function ReferralsPage() {
                 <tr key={r.id} className="border-t border-white/10">
                   <td className="p-2 font-mono text-slate-500">{new Date(r.createdAt).toISOString()}</td>
                   <td className="p-2">{r.level}</td>
-                  <td className="p-2 font-mono text-cyan">{usd(r.amountCents)}</td>
+                  <td className="p-2 font-mono text-ember">{usd(r.amountCents)}</td>
                   <td className="p-2 text-slate-400">
                     {r.reasonCode} — {WHY_NOT_PAID_COPY[(r.reasonCode as WhyNotPaidCode) ?? "PAID"] ?? r.reasonCode}
                   </td>

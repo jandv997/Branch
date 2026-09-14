@@ -32,14 +32,16 @@ export default function SecurityPage() {
         title="Controls on the account, the money and the operators"
         body="Every balance change writes an immutable ledger row and an audit row. Administrative actions record the operator, the before and after values, the reason and the IP address."
       />
-      <main className="mx-auto grid max-w-6xl gap-4 px-5 pb-20 md:grid-cols-2">
+      <main className="mx-auto max-w-6xl px-5 pb-20">
+        <div className="grid gap-px bg-white/[0.08] md:grid-cols-2">
         {FEATURES.map(([Icon, title, body]) => (
-          <article key={title} className="glass rounded-2xl p-6">
-            <Icon className="h-5 w-5 text-cyan" />
-            <h2 className="mt-4 text-lg font-semibold text-white">{title}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">{body}</p>
+          <article key={title} className="bg-graphite-950 p-6">
+            <Icon className="h-5 w-5 text-ember" />
+            <h2 className="mt-4 font-display text-lg font-semibold text-[#F3EFE6]">{title}</h2>
+            <p className="mt-2 text-sm leading-relaxed text-graphite-400">{body}</p>
           </article>
         ))}
+        </div>
       </main>
     </PublicChrome>
   );

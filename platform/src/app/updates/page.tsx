@@ -37,17 +37,17 @@ export default async function UpdatesPage() {
       />
       <main className="mx-auto max-w-4xl px-5 pb-20">
         <section className="grid gap-4 md:grid-cols-3">
-          <div className="glass rounded-2xl p-4">
-            <div className="text-[11px] uppercase tracking-ledger text-slate-500">Engine default</div>
-            <div className="mt-1 font-medium text-cyan">up to {(cfg.engineDefaultBps / 100).toFixed(2)}%</div>
+          <div className="border border-white/[0.08] p-4">
+            <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">Engine default</div>
+            <div className="mt-1 font-medium text-ember">up to {(cfg.engineDefaultBps / 100).toFixed(2)}%</div>
           </div>
-          <div className="glass rounded-2xl p-4">
-            <div className="text-[11px] uppercase tracking-ledger text-slate-500">Comp config</div>
-            <div className="mt-1 font-mono text-xs text-slate-300">{configUpdated ? configUpdated.toISOString() : "defaults"}</div>
+          <div className="border border-white/[0.08] p-4">
+            <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">Comp config</div>
+            <div className="mt-1 font-mono text-xs text-graphite-300">{configUpdated ? configUpdated.toISOString() : "defaults"}</div>
           </div>
-          <div className="glass rounded-2xl p-4">
-            <div className="text-[11px] uppercase tracking-ledger text-slate-500">Deposit comp cap</div>
-            <div className="mt-1 font-medium text-cyan">{cfg.depositCompCapBps / 100}%</div>
+          <div className="border border-white/[0.08] p-4">
+            <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">Deposit comp cap</div>
+            <div className="mt-1 font-medium text-ember">{cfg.depositCompCapBps / 100}%</div>
           </div>
         </section>
         <section className="mt-10">
@@ -57,17 +57,17 @@ export default async function UpdatesPage() {
           ) : (
             <div className="mt-4 space-y-3">
               {announcements.map((a) => (
-                <article key={a.id} className="glass rounded-2xl p-5">
-                  <div className="text-[11px] uppercase tracking-ledger text-slate-500">{a.createdAt.toISOString()}</div>
-                  <h3 className="mt-1 font-medium text-white">{a.title}</h3>
-                  <p className="mt-2 text-sm text-slate-400">{a.body}</p>
+                <article key={a.id} className="border border-white/[0.08] p-5">
+                  <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">{a.createdAt.toISOString()}</div>
+                  <h3 className="mt-1 font-medium text-[#F3EFE6]">{a.title}</h3>
+                  <p className="mt-2 text-sm text-graphite-400">{a.body}</p>
                 </article>
               ))}
               {extras.map((e) => (
-                <article key={e.title} className="glass rounded-2xl p-5">
-                  <div className="text-[11px] uppercase tracking-ledger text-slate-500">{e.at}</div>
-                  <h3 className="mt-1 font-medium text-white">{e.title}</h3>
-                  <p className="mt-2 text-sm text-slate-400">{e.body}</p>
+                <article key={e.title} className="border border-white/[0.08] p-5">
+                  <div className="font-mono text-[11px] uppercase tracking-ledger text-graphite-500">{e.at}</div>
+                  <h3 className="mt-1 font-medium text-[#F3EFE6]">{e.title}</h3>
+                  <p className="mt-2 text-sm text-graphite-400">{e.body}</p>
                 </article>
               ))}
             </div>
@@ -90,7 +90,7 @@ export default async function UpdatesPage() {
                   <tr key={j.id} className="border-t border-white/10 font-mono">
                     <td className="p-2 text-slate-500">{j.startedAt.toISOString()}</td>
                     <td className="p-2">{j.name}</td>
-                    <td className="p-2 text-cyan">{j.status}</td>
+                    <td className="p-2 text-ember">{j.status}</td>
                   </tr>
                 ))}
               </tbody>

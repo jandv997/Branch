@@ -18,9 +18,10 @@ function RegisterForm() {
   });
   return (
     <Card className="mx-auto w-full max-w-md p-8">
-      <h1 className="text-2xl font-semibold text-white">Create account</h1>
-      <p className="mt-1 text-sm text-slate-500">
-        A passive license holder can complete license → direct-deposit portfolio → credits → withdraw with zero team.
+      <h1 className="font-display text-2xl font-semibold text-[#F3EFE6]">Create account</h1>
+      <p className="mt-1 text-sm text-graphite-400">
+        A license holder can complete license → direct-deposit portfolio → credits → withdraw with zero team. This is a
+        software subscription, not a pooled fund.
       </p>
       <div className="mt-6 space-y-4">
         <div>

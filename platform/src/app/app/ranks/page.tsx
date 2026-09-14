@@ -10,7 +10,8 @@ export default function RanksBoPage() {
   const { current, next, psvMeterCents, tvMeterCents } = q.data;
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl">Ranks</h1>
+      <p className="kicker">Rewards</p>
+      <h1 className="mt-2 font-display text-3xl font-semibold">Ranks</h1>
       <Card>
         <div className="text-sm">Current {current.name} · salary {q.data.salaryActive ? "ON" : "OFF"}</div>
         {q.data.rankHeldUntil ? <p className="text-xs text-amber-300">Held until {new Date(q.data.rankHeldUntil).toDateString()}</p> : null}

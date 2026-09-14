@@ -6,49 +6,48 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: {
-          950: "#0A0B14",
-          900: "#10111C",
-          850: "#12131F",
-          800: "#181A28",
-          700: "#252638",
+        graphite: {
+          950: "#0B0C0F",
+          900: "#111218",
+          850: "#16171E",
+          800: "#1C1D26",
+          700: "#2A2C36",
+          600: "#3E414D",
+          500: "#6B6F7A",
+          400: "#8B909A",
+          300: "#C4C7CE",
         },
+        ember: {
+          DEFAULT: "#FF5A36",
+          dim: "#D64522",
+          glow: "rgba(255, 90, 54, 0.18)",
+        },
+        // Existing `text-cyan` / `bg-cyan` map to ember — not Quantum Scalp teal, not Lovable cyan.
         cyan: {
-          DEFAULT: "#22D3EE",
-          dim: "#06B6D4",
-          glow: "rgba(34, 211, 238, 0.16)",
+          DEFAULT: "#FF5A36",
+          dim: "#D64522",
+          glow: "rgba(255, 90, 54, 0.18)",
+        },
+        navy: {
+          950: "#0B0C0F",
+          900: "#111218",
+          850: "#16171E",
+          800: "#1C1D26",
+          700: "#2A2C36",
         },
         violet: {
-          DEFAULT: "#818CF8",
-          dim: "#8B5CF6",
-          glow: "rgba(139, 92, 246, 0.16)",
-        },
-        graphite: {
-          950: "#0A0B14",
-          900: "#10111C",
-          850: "#12131F",
-          800: "#181A28",
-          700: "#252638",
-          600: "#3D4158",
-          500: "#6B728C",
-          400: "#9CA3B8",
-          300: "#CBD5E1",
+          DEFAULT: "#FF5A36",
+          dim: "#D64522",
+          glow: "rgba(255, 90, 54, 0.12)",
         },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
-      boxShadow: {
-        glow: "0 0 40px rgba(34, 211, 238, 0.12)",
-      },
       letterSpacing: {
-        ledger: "0.16em",
-      },
-      borderRadius: {
-        xl: "0.9rem",
-        "2xl": "1rem",
+        ledger: "0.14em",
       },
     },
   },

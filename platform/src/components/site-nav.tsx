@@ -8,8 +8,7 @@ import { cn } from "@/lib/utils";
 export const PRIMARY_NAV = [
   ["Technology", "/technology"],
   ["Licenses", "/licenses"],
-  ["Compensation", "/compensation"],
-  ["Ranks", "/ranks"],
+  ["Network", "/compensation"],
   ["Security", "/security"],
   ["FAQ", "/faq"],
 ] as const;
@@ -18,15 +17,15 @@ export function SiteNav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   return (
-    <nav className="flex items-center text-[14px] text-slate-300">
+    <nav className="flex items-center text-[13px] text-graphite-300">
       <div className="hidden items-center md:flex">
         {PRIMARY_NAV.map(([label, href]) => (
           <Link
             key={href}
             href={href}
             className={cn(
-              "rounded-lg px-3 py-1.5 hover:text-white",
-              pathname === href && "bg-white/5 text-white",
+              "rounded-sm px-3 py-1.5 hover:text-[#F3EFE6]",
+              pathname === href && "bg-white/[0.04] text-[#F3EFE6]",
             )}
           >
             {label}
@@ -34,16 +33,16 @@ export function SiteNav() {
         ))}
       </div>
       <div className="relative md:hidden">
-        <button type="button" className="rounded-lg px-3 py-1.5" onClick={() => setOpen((v) => !v)}>
+        <button type="button" className="rounded-sm px-3 py-1.5" onClick={() => setOpen((v) => !v)}>
           Menu
         </button>
         {open ? (
-          <div className="absolute right-0 top-full z-50 mt-2 min-w-44 rounded-xl border border-white/10 bg-navy-900 py-2">
+          <div className="absolute right-0 top-full z-50 mt-2 min-w-44 border border-white/10 bg-graphite-900 py-2">
             {PRIMARY_NAV.map(([label, href]) => (
               <Link
                 key={href}
                 href={href}
-                className="block px-4 py-2 hover:bg-white/5 hover:text-white"
+                className="block px-4 py-2 hover:bg-white/5 hover:text-[#F3EFE6]"
                 onClick={() => setOpen(false)}
               >
                 {label}

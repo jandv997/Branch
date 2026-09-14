@@ -16,7 +16,8 @@ export default function BoUpdatesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl">Updates</h1>
+        <p className="kicker">Updates</p>
+        <h1 className="mt-2 font-display text-3xl font-semibold">Activity timeline</h1>
         <p className="text-xs text-slate-500">
           Live activity on this account: daily credits (up to cap), funding, tree/FS, ranks, deposits, withdrawals, and system notices.
         </p>
@@ -27,7 +28,7 @@ export default function BoUpdatesPage() {
             key={k}
             onClick={() => setFilter(k)}
             className={`rounded-md border px-2 py-1 text-[10px] uppercase tracking-widest ${
-              filter === k ? "border-cyan text-cyan" : "border-white/10 text-slate-400"
+              filter === k ? "border-ember text-ember" : "border-white/10 text-graphite-400"
             }`}
           >
             {k}

@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { TRPCProvider } from "@/trpc/client";
 import { Toaster } from "sonner";
 
-const sans = Inter({
+const display = Syne({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+});
+
+const sans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
   variable: "--font-sans",
 });
 
@@ -16,15 +23,15 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Qorvex AI — Patent Pending market-neutral infrastructure",
+  title: "Qorvex AI — Market-Neutral Intelligence",
   description:
-    "DEX + CEX spot arbitrage sold as a monthly software license plus a 12-month portfolio. Daily credits are capped (“up to”), never a guaranteed return.",
+    "AI-powered market-neutral trading infrastructure. Software license for DEX + CEX spot-arbitrage routing. Daily credits are caps (“up to”), never a guaranteed return.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`dark ${sans.variable} ${mono.variable}`}>
-      <body className="font-sans antialiased bg-navy-950 text-slate-100">
+    <html lang="en" className={`dark ${display.variable} ${sans.variable} ${mono.variable}`}>
+      <body className="font-sans antialiased bg-graphite-950 text-[#F3EFE6]">
         <TRPCProvider>
           {children}
           <Toaster theme="dark" />

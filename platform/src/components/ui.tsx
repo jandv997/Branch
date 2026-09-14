@@ -9,15 +9,15 @@ export function Button({
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: "primary" | "ghost" | "danger" | "outline" }) {
   const styles = {
-    primary: "bg-cyan text-navy-950 hover:bg-cyan-dim",
-    ghost: "bg-transparent text-slate-200 hover:bg-white/5",
+    primary: "bg-ember text-graphite-950 hover:bg-ember-dim",
+    ghost: "bg-transparent text-[#F3EFE6] hover:bg-white/5",
     danger: "bg-red-500/15 text-red-200 hover:bg-red-500/25",
-    outline: "border border-white/10 bg-white/5 text-white hover:border-white/20",
+    outline: "border border-white/10 bg-white/[0.03] text-[#F3EFE6] hover:border-ember/40",
   } as const;
   return (
     <button
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium disabled:opacity-40",
+        "inline-flex items-center justify-center gap-2 rounded-sm px-3.5 py-2 text-sm font-medium disabled:opacity-40",
         styles[variant],
         className,
       )}
@@ -27,7 +27,7 @@ export function Button({
 }
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cn("glass rounded-2xl p-5", className)}>{children}</div>;
+  return <div className={cn("glass rounded-sm p-5", className)}>{children}</div>;
 }
 
 export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
@@ -35,7 +35,7 @@ export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
     <input
       {...props}
       className={cn(
-        "w-full rounded-lg border border-white/10 bg-navy-900 px-3 py-2 font-mono text-sm text-slate-100 outline-none focus:border-cyan/50",
+        "w-full rounded-sm border border-white/10 bg-graphite-900 px-3 py-2 font-mono text-sm text-[#F3EFE6] outline-none focus:border-ember/50",
         props.className,
       )}
     />
@@ -47,7 +47,7 @@ export function Textarea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
     <textarea
       {...props}
       className={cn(
-        "w-full rounded-lg border border-white/10 bg-navy-900 px-3 py-2 text-sm outline-none focus:border-cyan/50",
+        "w-full rounded-sm border border-white/10 bg-graphite-900 px-3 py-2 text-sm outline-none focus:border-ember/50",
         props.className,
       )}
     />
@@ -59,7 +59,7 @@ export function Select(props: SelectHTMLAttributes<HTMLSelectElement>) {
     <select
       {...props}
       className={cn(
-        "w-full rounded-lg border border-white/10 bg-navy-900 px-3 py-2 font-mono text-sm outline-none focus:border-cyan/50",
+        "w-full rounded-sm border border-white/10 bg-graphite-900 px-3 py-2 font-mono text-sm outline-none focus:border-ember/50",
         props.className,
       )}
     />
@@ -94,10 +94,10 @@ export function Gauge({ label, value, max }: { label: string; value: number; max
     <div>
       <div className="mb-1 flex justify-between text-[11px] uppercase tracking-ledger text-slate-500">
         <span>{label}</span>
-        <span className="font-mono text-cyan">{pct}%</span>
+        <span className="font-mono text-ember">{pct}%</span>
       </div>
-      <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-        <div className="h-full rounded-full bg-cyan" style={{ width: `${pct}%` }} />
+      <div className="h-1.5 overflow-hidden rounded-sm bg-white/10">
+        <div className="h-full bg-ember" style={{ width: `${pct}%` }} />
       </div>
     </div>
   );
@@ -150,7 +150,7 @@ export function DepositSourcePicker({
       {FUND_SOURCES.map((s) => (
         <label
           key={s.id}
-          className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 p-3 hover:border-cyan/40"
+          className="flex cursor-pointer items-start gap-3 rounded-sm border border-white/10 p-3 hover:border-ember/40"
         >
           <input type="radio" name="source" checked={value === s.id} onChange={() => onChange(s.id)} />
           <span className="text-xs text-slate-300">{s.label}</span>

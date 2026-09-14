@@ -11,7 +11,7 @@ export function FaqList() {
   const items = (q.data ?? []) as { q: string; a: string }[];
   if (!items.length) return <EmptyState title="No FAQs" body="CMS slug `faq` is empty. Defaults still apply from policy copy." />;
   return (
-    <div className="glass divide-y divide-white/10 overflow-hidden rounded-2xl">
+    <div className="glass divide-y divide-white/[0.08] overflow-hidden rounded-sm">
       {items.map((f) => {
         const isOpen = open === f.q;
         return (

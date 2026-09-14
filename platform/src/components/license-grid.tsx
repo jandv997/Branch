@@ -17,39 +17,39 @@ export function LicenseGrid({
   ctaHref?: string;
 }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid gap-px bg-white/[0.08] md:grid-cols-2 xl:grid-cols-4">
       {licenses.map((l) => (
-        <article key={l.tier} className="glass rounded-2xl p-6">
+        <article key={l.tier} className="bg-graphite-950 p-6">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="text-xl font-semibold text-white">{l.name}</h3>
-            <span className="text-[10px] uppercase tracking-ledger text-slate-500">Patent Pending</span>
+            <h3 className="font-display text-xl font-semibold text-[#F3EFE6]">{l.name}</h3>
+            <span className="font-mono text-[10px] uppercase tracking-ledger text-graphite-500">Patent Pending</span>
           </div>
-          <div className="mt-3 text-3xl font-semibold text-white">
+          <div className="mt-3 font-display text-3xl font-semibold text-[#F3EFE6]">
             {usdPlain(l.priceCents)}
-            <span className="ml-1 text-sm font-normal text-slate-500">/mo license</span>
+            <span className="ml-1 font-sans text-sm font-normal text-graphite-500">/mo license</span>
           </div>
-          <dl className="mt-5 space-y-2.5 border-t border-white/10 pt-4 text-sm">
+          <dl className="mt-5 space-y-2.5 border-t border-white/[0.08] pt-4 text-sm">
             <div className="flex justify-between gap-4">
-              <dt className="text-slate-400">Daily credit cap</dt>
-              <dd className="text-cyan">{bpsLabel(l.dailyCapBps)}</dd>
+              <dt className="text-graphite-400">Daily credit cap</dt>
+              <dd className="text-ember">{bpsLabel(l.dailyCapBps)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-slate-400">Portfolio cap</dt>
-              <dd className="text-white">{usdPlain(l.capCents)}</dd>
+              <dt className="text-graphite-400">Portfolio cap</dt>
+              <dd className="text-[#F3EFE6]">{usdPlain(l.capCents)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-slate-400">Minimum funded</dt>
-              <dd className="text-white">{usdPlain(l.minFundCents)}</dd>
+              <dt className="text-graphite-400">Minimum funded</dt>
+              <dd className="text-[#F3EFE6]">{usdPlain(l.minFundCents)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-slate-400">Portfolio cycle</dt>
-              <dd className="text-white">{Math.round(l.cycleDays / 30.4)} months</dd>
+              <dt className="text-graphite-400">Portfolio cycle</dt>
+              <dd className="text-[#F3EFE6]">{Math.round(l.cycleDays / 30.4)} months</dd>
             </div>
           </dl>
-          {BLURBS[l.tier] ? <p className="mt-4 text-sm text-slate-400">{BLURBS[l.tier]}</p> : null}
+          {BLURBS[l.tier] ? <p className="mt-4 text-sm text-graphite-400">{BLURBS[l.tier]}</p> : null}
           <Link
             href={ctaHref}
-            className="mt-5 block rounded-lg border border-white/10 py-2.5 text-center text-sm text-white hover:border-cyan/40"
+            className="mt-5 block rounded-sm border border-white/10 py-2.5 text-center text-sm text-[#F3EFE6] hover:border-ember/40"
           >
             Select {l.name}
           </Link>

@@ -10,10 +10,11 @@ export default function ProfilePage() {
   const router = useRouter();
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl">Profile</h1>
+      <p className="kicker">Settings</p>
+      <h1 className="mt-2 font-display text-3xl font-semibold">Profile</h1>
       <Card className="font-mono text-sm">
         <div>{me.data?.email}</div>
-        <div className="text-slate-500">{me.data?.id}</div>
+        <div className="text-graphite-500">{me.data?.id}</div>
         <div>sponsor {me.data?.sponsorId ?? "none"}</div>
         <Button className="mt-4" variant="outline" onClick={() => logout.mutate()}>
           Logout

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { SiteNav } from "./site-nav";
+import { QMark } from "./mark";
 import type { ReactNode } from "react";
 
 export function PatentBadge({ className }: { className?: string }) {
@@ -13,12 +14,10 @@ export function PatentBadge({ className }: { className?: string }) {
 
 export function Wordmark({ compact = false }: { compact?: boolean }) {
   return (
-    <Link href="/" className="flex items-center gap-2.5 text-white">
-      <span className="grid h-8 w-8 place-items-center rounded-lg bg-cyan/15 ring-1 ring-cyan/30">
-        <span className="h-3 w-3 rounded-[3px] bg-cyan" aria-hidden />
-      </span>
-      <span className="text-[15px] font-semibold tracking-tight">
-        Qorvex{compact ? "" : <span className="text-cyan"> AI</span>}
+    <Link href="/" className="flex items-center gap-2.5 text-[#F3EFE6]">
+      <QMark size={compact ? 28 : 32} />
+      <span className="font-display text-[15px] font-semibold tracking-tight">
+        QORVEX{compact ? "" : <span className="ml-1.5 font-sans text-[11px] font-medium tracking-ledger text-ember">AI</span>}
       </span>
     </Link>
   );
@@ -26,19 +25,19 @@ export function Wordmark({ compact = false }: { compact?: boolean }) {
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-navy-950/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-graphite-950/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
         <Wordmark />
         <SiteNav />
         <div className="flex items-center gap-2">
-          <Link href="/login" className="hidden px-3 py-1.5 text-[14px] text-slate-300 hover:text-white sm:inline">
+          <Link href="/login" className="hidden px-3 py-1.5 text-[13px] text-graphite-300 hover:text-white sm:inline">
             Sign in
           </Link>
           <Link
             href="/register"
-            className="rounded-lg bg-cyan px-3.5 py-1.5 text-[13px] font-medium text-navy-950 hover:bg-cyan-dim"
+            className="rounded-sm bg-ember px-3.5 py-1.5 text-[13px] font-medium text-graphite-950 hover:bg-ember-dim"
           >
-            Create account
+            Explore Qorvex
           </Link>
         </div>
       </div>
@@ -48,13 +47,13 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 px-5 py-14 text-sm text-slate-400">
-      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="border-t border-white/[0.06] px-5 py-14 text-sm text-graphite-400">
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
         <div>
           <Wordmark />
           <p className="mt-4 max-w-sm text-[13px] leading-relaxed">
-            Market-neutral trading infrastructure across decentralised and centralised spot venues, licensed as
-            software. Patent Pending.
+            Market-neutral intelligence for digital markets. Software infrastructure for identifying and routing
+            spot-arbitrage opportunities across CEX and DEX venues. Patent Pending.
           </p>
           <div className="mt-4">
             <PatentBadge />
@@ -63,22 +62,19 @@ export function SiteFooter() {
         <div>
           <div className="kicker mb-3">Product</div>
           <div className="flex flex-col gap-2 text-[13px]">
-            <Link href="/technology" className="hover:text-white">
+            <Link href="/technology" className="hover:text-[#F3EFE6]">
               Technology
             </Link>
-            <Link href="/licenses" className="hover:text-white">
+            <Link href="/licenses" className="hover:text-[#F3EFE6]">
               Licenses
             </Link>
-            <Link href="/compensation" className="hover:text-white">
-              Compensation
+            <Link href="/compensation" className="hover:text-[#F3EFE6]">
+              Partner network
             </Link>
-            <Link href="/ranks" className="hover:text-white">
-              Ranks
-            </Link>
-            <Link href="/security" className="hover:text-white">
+            <Link href="/security" className="hover:text-[#F3EFE6]">
               Security
             </Link>
-            <Link href="/faq" className="hover:text-white">
+            <Link href="/faq" className="hover:text-[#F3EFE6]">
               FAQ
             </Link>
           </div>
@@ -86,29 +82,27 @@ export function SiteFooter() {
         <div>
           <div className="kicker mb-3">Legal</div>
           <div className="flex flex-col gap-2 text-[13px]">
-            <Link href="/legal/terms" className="hover:text-white">
+            <Link href="/legal/terms" className="hover:text-[#F3EFE6]">
               Terms
             </Link>
-            <Link href="/legal/risk" className="hover:text-white">
+            <Link href="/legal/risk" className="hover:text-[#F3EFE6]">
               Risk disclosure
             </Link>
-            <Link href="/legal/privacy" className="hover:text-white">
+            <Link href="/legal/privacy" className="hover:text-[#F3EFE6]">
               Privacy
             </Link>
-            <Link href="/legal/aml" className="hover:text-white">
+            <Link href="/legal/aml" className="hover:text-[#F3EFE6]">
               AML / KYC
-            </Link>
-            <Link href="/updates" className="hover:text-white">
-              Updates
             </Link>
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-10 max-w-6xl border-t border-white/10 pt-6 text-[12px] text-slate-500">
-        <p>© 2026 Qorvex AI. All rights reserved. Patent Pending.</p>
+      <div className="mx-auto mt-10 max-w-6xl border-t border-white/[0.06] pt-6 text-[12px] text-graphite-500">
+        <p>© 2026 Qorvex AI. Precision. Intelligence. Execution. Patent Pending.</p>
         <p className="mt-2">
-          Daily percentages are CAPS, expressed as “up to”. They are not guaranteed returns. Actual credits depend on
-          engine performance and may be zero.
+          A software license is not an investment product. Daily percentages shown in the application are CAPS,
+          expressed as “up to”. They are not guaranteed returns. Historical routing analytics do not guarantee future
+          results.
         </p>
       </div>
     </footer>
@@ -117,8 +111,8 @@ export function SiteFooter() {
 
 export function BoFooter() {
   return (
-    <div className="mt-auto border-t border-white/10 px-6 py-3 text-[11px] tracking-wide text-slate-500">
-      Qorvex AI · Patent Pending · Daily % are caps (“up to”), never guaranteed ROI
+    <div className="mt-auto border-t border-white/[0.06] px-6 py-3 font-mono text-[10px] uppercase tracking-ledger text-graphite-500">
+      Qorvex AI · Patent Pending · Daily % are caps (“up to”) · Software license, not a guaranteed return
     </div>
   );
 }
@@ -145,8 +139,10 @@ export function PageIntro({
   return (
     <div className="mx-auto max-w-6xl px-5 pb-10 pt-16">
       <p className="kicker">{kicker}</p>
-      <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-white md:text-5xl">{title}</h1>
-      <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-400">{body}</p>
+      <h1 className="mt-3 max-w-3xl font-display text-4xl font-semibold tracking-tight text-[#F3EFE6] md:text-5xl">
+        {title}
+      </h1>
+      <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-graphite-400">{body}</p>
     </div>
   );
 }

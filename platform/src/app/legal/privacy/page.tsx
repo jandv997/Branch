@@ -5,7 +5,7 @@ export default function PrivacyPage() {
     <PublicChrome>
       <main className="mx-auto max-w-3xl px-5 py-16 text-sm leading-relaxed text-slate-400">
         <PatentBadge />
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">Privacy</h1>
+        <h1 className="font-display text-4xl font-semibold tracking-tight text-[#F3EFE6]">Privacy</h1>
         <p className="mt-6">
           We process account, KYC, session, and ledger data to operate the license and portfolio software. KYC documents
           are stored in object storage or a local encrypted directory in development. We do not log secrets, TOTP seeds,

@@ -8,8 +8,9 @@ export default function TeamPage() {
   if (!q.data) return <p className="text-slate-500">Loading team…</p>;
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl">Team L1–L7</h1>
-      <p className="text-xs text-slate-500">
+      <p className="kicker">Network</p>
+      <h1 className="mt-2 font-display text-3xl font-semibold">Team L1–L7</h1>
+      <p className="text-xs text-graphite-500">
         PSV meter {q.data.psvMeterCents.toString()} cents · TV meter {q.data.tvMeterCents.toString()} cents · funded L1
         portfolios {q.data.fundedL1Count}
       </p>
@@ -17,7 +18,7 @@ export default function TeamPage() {
         {q.data.levels.map((lvl) => (
           <Card key={lvl.level} className="min-w-[160px] text-center">
             <div className="text-[10px] uppercase tracking-widest text-slate-500">L{lvl.level}</div>
-            <div className="font-mono text-2xl text-cyan">{lvl.users.length}</div>
+            <div className="font-mono text-2xl text-ember">{lvl.users.length}</div>
           </Card>
         ))}
       </div>
